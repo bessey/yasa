@@ -2,3 +2,6 @@
 /deps
 erl_crash.dump
 *.ez
+/bower_components
+/node_modules
+/tmp

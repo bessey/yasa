@@ -1,0 +1,23 @@
+{
+  "name": "yasa",
+  "version": "0.0.0",
+  "homepage": "https://github.com/bessey/yasa",
+  "authors": [
+    "Matt Bessey <mbessey@caring.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "react": "~0.12.2",
+    "bootstrap-sass-official": "~3.3.1"
+  },
+  "devDependencies": {
+    "bootstrap": "~3.3.1"
+  }
+}
