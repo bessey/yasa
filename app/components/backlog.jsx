@@ -1,3 +1,4 @@
+var React = require('react');
 var StoryList = require('./story_list');
 
 module.exports = React.createClass({

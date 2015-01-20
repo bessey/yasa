@@ -27,6 +27,7 @@
     "broccoli-static-compiler": "^0.2.1"
   },
   "dependencies": {
-    "broccoli-react": "^0.7.0"
+    "broccoli-react": "^0.7.0",
+    "react-sortable": "git+https://github.com/prometheusresearch/react-sortable.git#453c1a580b4c1706052bd1d6e1166027dcf54be0"
   }
 }

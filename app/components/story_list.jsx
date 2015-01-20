@@ -1,28 +1,29 @@
+var React = require('react');
+var Story = require('./story');
+
 module.exports = React.createClass({
-  render: function () {
-    var createStory = function (story) {
-      return <tr className="story" key={story.id}>
-        <td>
-          { story.tech } 
-        </td>
-        <td>
-          { story.manager } 
-        </td>
-        <td>
-          { story.id } 
-        </td>
-        <td>
-          { story.epic } 
-        </td>
-        <td>
-          { story.story } 
-        </td>
-        <td>
-          { story.points } 
-        </td>
-      </tr>
+  getInitialState: function() {
+    return {
+      data: {items: this.props.stories}
     };
-    return <table className="table table-striped">
+  },
+  sort: function(stories, dragging) {
+    var data = this.state.data;
+    data.items = stories;
+    data.dragging = dragging;
+    this.setState({data: data});
+  },
+  render: function () {
+    var stories = this.state.data.items.map(function (story, i) {
+      return (
+        <Story
+          sort={this.sort}
+          data={this.state.data}
+          key={i}
+          story={story} />
+      );
+    }, this);
+    return <div><table className="table table-striped">
       <thead>
         <tr>
           <th>
@@ -45,9 +46,9 @@ module.exports = React.createClass({
           </th>
         </tr>
       </thead>
-      <tbody>
-        {this.props.stories.map(createStory)}
-      </tbody>
-    </table>;
+    </table>
+    <div>
+      {stories}
+    </div></div>;
   }
 });

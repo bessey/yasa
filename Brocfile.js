@@ -34,7 +34,6 @@ var appJs = filterReact(appAndDependencies);
 appJs = browserify(appJs, {
   entries: [
     './js/application.js',
-    './vendor/react/react.js',
     './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
   ],
   browserify: {},

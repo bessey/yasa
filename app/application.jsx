@@ -1,3 +1,4 @@
+var React = require('react');
 var Backlog = require('./components/backlog');
 
 window.stories = [
