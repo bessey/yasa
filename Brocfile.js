@@ -3,12 +3,21 @@ var mergeTrees = require('broccoli-merge-trees');
 var browserify = require('broccoli-browserify');
 var compileSass = require('broccoli-sass');
 var filterReact = require('broccoli-react');
+var es6transpiler = require('broccoli-es6-transpiler');
 
 
 var app = pickFiles('app', {
   srcDir: '/',
   destDir: 'js'
 })
+app = filterReact(app);
+app = es6transpiler(app, {
+  disallowDuplicated: false,
+  globals: {
+    "jQuery": false,
+    "__REACT_DEVTOOLS_GLOBAL_HOOK__": false
+  }
+});
 
 var styles = pickFiles('styles', {
   srcDir: '/',
@@ -29,16 +38,14 @@ var sourceTrees = [
 
 var appAndDependencies = mergeTrees(sourceTrees, { overwrite: true })
 
-var appJs = filterReact(appAndDependencies);
-
-appJs = browserify(appJs, {
+appJs = browserify(appAndDependencies, {
   entries: [
     './js/application.js',
     './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
   ],
   browserify: {},
   outputFile: '/js/application.js'
-})
+});
 
 var appCss = compileSass(sourceTrees, 'css/application.scss', '/css/application.css', {});
 
