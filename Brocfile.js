@@ -13,6 +13,7 @@ var app = pickFiles('app', {
 app = filterReact(app);
 app = es6transpiler(app, {
   disallowDuplicated: false,
+  includePolyfills: true,
   globals: {
     "jQuery": false,
     "__REACT_DEVTOOLS_GLOBAL_HOOK__": false

@@ -1,10 +1,11 @@
 var React = require('react');
 var StoryList = require('./story_list');
+var StoryStore = require('../stores/story_store');
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      stories: window.stories
+      stories: StoryStore.getAll()
     };
   },
   render: function () {
