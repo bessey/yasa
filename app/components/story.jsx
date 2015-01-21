@@ -1,7 +1,7 @@
 var React = require('react'),
   DragDropMixin = require('react-dnd').DragDropMixin,
   PropTypes = React.PropTypes,
-  ItemTypes = require('../components/item_types');
+  ItemTypes = require('../constants/item_types');
 
 module.exports = React.createClass({
   mixins: [DragDropMixin],

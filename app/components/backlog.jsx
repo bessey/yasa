@@ -2,11 +2,22 @@ var React = require('react');
 var StoryList = require('./story_list');
 var StoryStore = require('../stores/story_store');
 
+function getState() {
+  return {
+    stories: StoryStore.getAll()
+  };
+}
+
 module.exports = React.createClass({
   getInitialState: function() {
-    return {
-      stories: StoryStore.getAll()
-    };
+    return getState();
+  },
+  componentDidMount: function() {
+    StoryStore.addChangeListener(this._onChange);
+  },
+
+  componentWillUnmount: function() {
+    StoryStore.removeChangeListener(this._onChange);
   },
   render: function () {
     return (
@@ -15,5 +26,8 @@ module.exports = React.createClass({
         <StoryList stories={this.state.stories} />
       </div>
     )
+  },
+  _onChange: function () {
+    this.setState(getState());
   }
 });
