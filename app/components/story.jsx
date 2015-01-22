@@ -1,19 +1,17 @@
 var React = require('react'),
   DragDropMixin = require('react-dnd').DragDropMixin,
   PropTypes = React.PropTypes,
+  StoryActions = require('../actions/story_actions'),
   ItemTypes = require('../constants/item_types');
 
 module.exports = React.createClass({
   mixins: [DragDropMixin],
   propTypes: {
-    id: PropTypes.any.isRequired,
-    moveStory: PropTypes.func.isRequired
+    id: PropTypes.any.isRequired
   },
   configureDragDrop: function (registerType) {
     registerType(ItemTypes.STORY_ITEM, {
-      // dragSource, when specified, is { beginDrag(), canDrag()?, endDrag(dropEffect)? }
       dragSource: {
-        // beginDrag should return { item, dragAnchors?, dragPreview?, dragEffect? }
         beginDrag: function () {
           return {
             item: {
@@ -24,7 +22,7 @@ module.exports = React.createClass({
       },
       dropTarget: {
         over: function (item) {
-          this.props.moveStory(item.id, this.props.id);
+          StoryActions.swapStory(item.id, this.props.id);
         }
       }
     });
@@ -37,6 +35,9 @@ module.exports = React.createClass({
         {...this.dropTargetFor(ItemTypes.STORY_ITEM)}
         style={{ opacity: isDragging ? 0.6 : 1.0 }}
       >
+        <td>
+          { this.props.story.sort }
+        </td>
         <td>
           { this.props.story.tech } 
         </td>

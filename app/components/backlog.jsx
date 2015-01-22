@@ -4,7 +4,7 @@ var StoryStore = require('../stores/story_store');
 
 function getState() {
   return {
-    stories: StoryStore.getAll()
+    stories: StoryStore.getSorted()
   };
 }
 

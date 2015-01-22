@@ -41,7 +41,7 @@ function storySwap(id, afterId) {
   var story = _stories[id],
       afterStory = _stories[afterId],
       storyIndex = story.sort,
-      afterIndex = afterStory.sorted;
+      afterIndex = afterStory.sort;
 
   story.sort = afterIndex, afterStory.sort = storyIndex;
 }
@@ -49,6 +49,21 @@ function storySwap(id, afterId) {
 var StoryStore = Object.assign({}, EventEmitter.prototype, {
   getAll: function() {
     return _stories;
+  },
+  getSorted: function() {
+    var sortedStories = []
+    // Build Array of stories from hash
+    for(var key in _stories) {
+      var story = _stories[key];
+      sortedStories.push(story);
+    };
+    // Sort by the sort ID
+    sortedStories = sortedStories.sort(function(a, b) {
+      if(a.sort < b.sort) { return -1; }
+      if(a.sort > b.sort) { return  1; }
+      return 0;
+    });
+    return sortedStories;
   },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
