@@ -32,7 +32,6 @@
     "broccoli-react": "^0.7.0",
     "es6-shim": "^0.22.2",
     "flux": "^2.0.1",
-    "react-dnd": "^0.6.2",
-    "react-sortable": "git+https://github.com/prometheusresearch/react-sortable.git#453c1a580b4c1706052bd1d6e1166027dcf54be0"
+    "react-dnd": "^0.6.2"
   }
 }
