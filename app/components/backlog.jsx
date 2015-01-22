@@ -1,5 +1,6 @@
 var React = require('react');
 var StoryList = require('./story_list');
+var StoryEditor = require('./story_editor');
 var StoryStore = require('../stores/story_store');
 
 function getState() {
@@ -24,6 +25,7 @@ module.exports = React.createClass({
       <div className="backlog">
         <h1>Backlog</h1>
         <StoryList stories={this.state.stories} />
+        <StoryEditor />
       </div>
     )
   },
