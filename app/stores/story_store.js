@@ -46,6 +46,10 @@ function storySwap(id, afterId) {
   story.sort = afterIndex, afterStory.sort = storyIndex;
 }
 
+function storyCreate(params) {
+  _stories[99] = Object.assign(params, {id: 99});
+}
+
 var StoryStore = Object.assign({}, EventEmitter.prototype, {
   getAll: function() {
     return _stories;
@@ -82,6 +86,9 @@ Dispatcher.register(function (action) {
       storySwap(action.id, action.afterId);
       StoryStore.emitChange();
       break;
+    case StoryConstants.STORY_CREATE:
+      storyCreate(action.storyParams);
+      StoryStore.emitChange();
     default:
   }
 });

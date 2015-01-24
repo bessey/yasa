@@ -1,3 +1,4 @@
 module.exports = {
-  STORY_SWAP: "STORY_SWAP"
+  STORY_SWAP: "STORY_SWAP",
+  STORY_CREATE: "STORY_CREATE"
 }

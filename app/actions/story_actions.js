@@ -9,6 +9,12 @@ var StoryActions = {
       id: id,
       afterId: afterId
     });
+  },
+  createStory: function (storyParams) {
+    Dispatcher.dispatch({
+      actionType: StoryConstants.STORY_CREATE,
+      storyParams: storyParams      
+    });
   }
 };
 

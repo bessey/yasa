@@ -2,7 +2,7 @@ var React = require('react');
 var StoryList = require('./story_list');
 var StoryEditor = require('./story_editor');
 var StoryStore = require('../stores/story_store');
-
+var StoryActions = require('../actions/story_actions');
 
 module.exports = React.createClass({
   getInitialState: function() {
@@ -11,11 +11,12 @@ module.exports = React.createClass({
   handleChange: function(event) {
     var keyValue = {}
     keyValue[event.target.name] = event.target.value;
+
     this.setState(keyValue);
   },
   render: function () {
     var _this = this;
-    var commonInputProps = function (name) { 
+    var commonInputProps = function (name) {
       return {
         name: name,
         value: _this.state[name],
@@ -26,7 +27,7 @@ module.exports = React.createClass({
     };
     return (
       <div className="row">
-        <form className="col-md-6">
+        <form onSubmit={this._save} className="col-md-6">
           <h2>Add a Story</h2>
           <div className="form-group">
             <label htmlFor="story-story-input">Story Title</label>
@@ -71,10 +72,17 @@ module.exports = React.createClass({
               type="number" />
           </div>
           <div className="form-group">
-            <input type="submit" value="Add story to top" className="btn btn-primary" />
+            <input  type="submit"
+                    value="Add story to top"
+                    className="btn btn-primary"
+                    />
           </div>
         </form>
       </div>
     )
+  },
+  _save: function (event) {
+    event.preventDefault();
+    StoryActions.createStory(this.state);
   }
 });
