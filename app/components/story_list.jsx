@@ -5,14 +5,24 @@ var React = require('react'),
 module.exports = React.createClass({
   render: function () {
     var stories = [];
-    this.props.stories.forEach(story => {
+    var linePosition = 1, currentPosition = 0, pointsAbove = 0;
+    this.props.stories.forEach((story, i) => {
+      if(linePosition === currentPosition) {
+        stories.push(<tr key="theLine">
+            <td colSpan="6" className="the-line">
+              The Line ({pointsAbove} points)
+            </td>
+          </tr>)
+      }
+      currentPosition++;
       var storyWithPriority = Object.assign(story.val(), {priority: story.getPriority()});
+      pointsAbove += Number(storyWithPriority.points);
       stories.push(<Story
         key={story.key()}
         id={story.key()}
         story={storyWithPriority} />)
     });
-    return <table className="table table-striped">
+    return <table className="table">
       <thead>
         <tr>
           <th>

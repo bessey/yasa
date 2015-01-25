@@ -8,12 +8,11 @@ var React = require('react'),
 var StoryEditor = React.createClass({
   getInitialState: function () {
     return {
-      id: null,
       story: {}
     };
   },
   handleChange: function(event) {
-    var keyValue = {story: {}}
+    var keyValue = {story: this.state.story};
     keyValue.story[event.target.name] = event.target.value;
 
     this.setState(keyValue);
@@ -32,7 +31,7 @@ var StoryEditor = React.createClass({
     });
   },
   render: function () {
-    var _this = this;
+    var _this = this, title, submitText;
     var commonInputProps = function (name) {
       return {
         name: name,
@@ -42,12 +41,19 @@ var StoryEditor = React.createClass({
         id: ("story-" + name + "-input")
       }
     };
+    if(this._editingStory()){
+      title = "Edit a Story";
+      submitText = "Save";
+    } else {
+      title = "Add a Story";
+      submitText = "Add story";
+    }
     return (
       <div className="modal fade" id="add-story-dialogue">
         <div className="modal-dialog modal-content">
           <div className="modal-header">
             <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-            <h2 className="modal-title">Add a Story</h2>
+            <h2 className="modal-title">{title}</h2>
           </div>
           <form onSubmit={this._save} className="modal-body">
             <div className="form-group">
@@ -90,11 +96,11 @@ var StoryEditor = React.createClass({
             </div>
             <div className="form-group">
               <input  type="submit"
-                      value="Add story to top"
+                      value={submitText}
                       className="btn btn-primary"
                       />
               &nbsp;
-              <button className="btn btn-danger" data-dismiss="modal">Cancel</button>
+              <button className="btn btn-default" data-dismiss="modal">Cancel</button>
             </div>
           </form>
         </div>
@@ -103,8 +109,16 @@ var StoryEditor = React.createClass({
   },
   _save: function (event) {
     event.preventDefault();
-    StoryActions.createStory(this.state);
-    this.replaceState({});
+    if(this._editingStory()) {
+      StoryActions.updateStory(this.state.id, this.state.story);
+    } else {
+      StoryActions.createStory(this.state.story);
+    }
+    jQuery('#add-story-dialogue').modal('hide');
+    this.replaceState(this.getInitialState());
+  },
+  _editingStory: function () {
+    return !!this.state.id;
   }
 });
 

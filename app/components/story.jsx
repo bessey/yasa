@@ -34,6 +34,7 @@ module.exports = React.createClass({
         id={this.props.id}
         {...this.dragSourceFor(ItemTypes.STORY_ITEM)}
         {...this.dropTargetFor(ItemTypes.STORY_ITEM)}
+        data-priority={this.props.story.priority}
         style={{ opacity: isDragging ? 0.6 : 1.0 }}
       >
         <td>
