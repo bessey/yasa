@@ -54,7 +54,8 @@ module.exports = React.createClass({
         <td>
           <button
             className="btn btn-default btn-xs"
-            onClick={this._openEditor}>
+            onClick={this._openEditor}
+            data-toggle="modal" data-target="#add-story-dialogue">
             Edit
           </button>
         </td>
@@ -62,6 +63,6 @@ module.exports = React.createClass({
     );
   },
   _openEditor: function () {
-    StoryActions.openEditor(this.props.story);
+    StoryActions.openEditor(this.props.id, this.props.story);
   }
 });

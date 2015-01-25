@@ -1,32 +1,22 @@
 var React = require('react'),
   StoryList = require('./story_list'),
   StoryStore = require('../stores/story_store'),
-  StoryActions = require('../actions/story_actions'),
-  StoryConstants = require('../constants/story_constants'),
-  Dispatcher = require('../dispatcher');
-
-function openEditor() {
-  console.log("I OPENED");
-}
-function closeEditor() {
-}
+  StoryActions = require('../actions/story_actions');
 
 var StoryEditor = React.createClass({
-  getInitialState: function() {
-    return {};
-  },
   handleChange: function(event) {
-    var keyValue = {}
-    keyValue[event.target.name] = event.target.value;
+    var keyValue = {story: {}}
+    keyValue.story[event.target.name] = event.target.value;
 
     this.setState(keyValue);
   },
   render: function () {
     var _this = this;
     var commonInputProps = function (name) {
+      // debugger;
       return {
         name: name,
-        value: _this.state[name],
+        value: (_this.props.story[name] || ""),
         onChange: _this.handleChange,
         className: 'form-control',
         id: ("story-" + name + "-input")
@@ -95,18 +85,6 @@ var StoryEditor = React.createClass({
     event.preventDefault();
     StoryActions.createStory(this.state);
     this.replaceState({});
-  }
-});
-
-Dispatcher.register(function (action) {
-  switch(action.actionType) {
-    case StoryConstants.OPEN_EDITOR:
-      openEditor(action.editMode);
-      break;
-    case StoryConstants.CLOSE_EDITOR:
-      closeEditor();
-      break;
-    default:
   }
 });
 

@@ -18,10 +18,11 @@ var StoryActions = {
       storyParams: storyParams      
     });
   },
-  openEditor: function (editMode) {
+  openEditor: function (id, story) {
     Dispatcher.dispatch({
       actionType: StoryConstants.OPEN_EDITOR,
-      editMode: editMode
+      id: id,
+      story: story
     });
   },
   closeEditor: function () {

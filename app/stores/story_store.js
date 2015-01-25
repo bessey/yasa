@@ -20,8 +20,6 @@ function storyCreate(params) {
   return story;
 }
 
-var editingId = null;
-
 var StoryStore = Object.assign({}, EventEmitter.prototype, {
   getSorted: function(callback) {
     firebase.on('value', callback);
