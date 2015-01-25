@@ -4,11 +4,13 @@ var React = require('react'),
 
 module.exports = React.createClass({
   render: function () {
-    var stories = this.props.stories.map(story => {
-      return (<Story
-        key={story.id}
-        id={story.id}
-        story={story} />)
+    var stories = [];
+    this.props.stories.forEach(story => {
+      var storyWithPriority = Object.assign(story.val(), {priority: story.getPriority()});
+      stories.push(<Story
+        key={story.key()}
+        id={story.key()}
+        story={storyWithPriority} />)
     });
     return <table className="table table-striped">
       <thead>
@@ -18,9 +20,6 @@ module.exports = React.createClass({
           </th>
           <th>
             PM
-          </th>
-          <th>
-            ID
           </th>
           <th>
             Epic
