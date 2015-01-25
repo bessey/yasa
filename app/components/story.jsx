@@ -15,14 +15,15 @@ module.exports = React.createClass({
         beginDrag: function () {
           return {
             item: {
-              id: this.props.id
+              id: this.props.id,
+              priority: this.props.story.priority
             }
           };
         }
       },
       dropTarget: {
         over: function (item) {
-          StoryActions.swapStory(item.id, this.props.id);
+          StoryActions.swapStory(item.id, this.props.id, item.priority, this.props.story.priority);
         }
       }
     });
@@ -40,9 +41,6 @@ module.exports = React.createClass({
         </td>
         <td>
           { this.props.story.manager } 
-        </td>
-        <td>
-          { this.props.story.id } 
         </td>
         <td>
           { this.props.story.epic } 

@@ -3,11 +3,13 @@ var Dispatcher = require('../dispatcher'),
 
 
 var StoryActions = {
-  swapStory: function (id, afterId) {
+  swapStory: function (id, afterId, priority, afterPriority) {
     Dispatcher.dispatch({
       actionType: StoryConstants.STORY_SWAP,
       id: id,
-      afterId: afterId
+      afterId: afterId,
+      priority: priority,
+      afterPriority: afterPriority
     });
   },
   createStory: function (storyParams) {

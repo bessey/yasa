@@ -3,22 +3,17 @@ var StoryList = require('./story_list');
 var StoryEditor = require('./story_editor');
 var StoryStore = require('../stores/story_store');
 
-function getState() {
-  return {
-    stories: StoryStore.getSorted()
-  };
-}
-
 module.exports = React.createClass({
   getInitialState: function() {
-    return getState();
+    return {stories: []};
   },
   componentDidMount: function() {
-    StoryStore.addChangeListener(this._onChange);
-  },
-
-  componentWillUnmount: function() {
-    StoryStore.removeChangeListener(this._onChange);
+    var _this = this;
+    StoryStore.getSorted(function (value) {
+      _this.replaceState({
+        stories: value,
+      });
+    });
   },
   render: function () {
     return (
@@ -28,9 +23,6 @@ module.exports = React.createClass({
         <StoryList stories={this.state.stories} />
         <StoryEditor />
       </div>
-    )
-  },
-  _onChange: function () {
-    this.setState(getState());
+    );
   }
 });
