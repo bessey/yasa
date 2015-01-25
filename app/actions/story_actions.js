@@ -15,6 +15,17 @@ var StoryActions = {
       actionType: StoryConstants.STORY_CREATE,
       storyParams: storyParams      
     });
+  },
+  openEditor: function (editMode) {
+    Dispatcher.dispatch({
+      actionType: StoryConstants.OPEN_EDITOR,
+      editMode: editMode
+    });
+  },
+  closeEditor: function () {
+    Dispatcher.dispatch({
+      actionType: StoryConstants.CLOSE_EDITOR,
+    });
   }
 };
 

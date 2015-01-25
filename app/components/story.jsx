@@ -53,7 +53,17 @@ module.exports = React.createClass({
         <td>
           { this.props.story.points } 
         </td>
+        <td>
+          <button
+            className="btn btn-default btn-xs"
+            onClick={this._openEditor}>
+            Edit
+          </button>
+        </td>
       </tr>
     );
+  },
+  _openEditor: function () {
+    StoryActions.openEditor(this.props.story);
   }
 });

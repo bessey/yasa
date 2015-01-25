@@ -31,6 +31,8 @@ module.exports = React.createClass({
           <th>
             Points
           </th>
+          <th>
+          </th>
         </tr>
       </thead>
       <tbody>

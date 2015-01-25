@@ -1,7 +1,7 @@
-var React = require('react');
-var StoryList = require('./story_list');
-var StoryEditor = require('./story_editor');
-var StoryStore = require('../stores/story_store');
+var React = require('react'),
+  StoryList = require('./story_list'),
+  StoryEditor = require('./story_editor'),
+  StoryStore = require('../stores/story_store');
 
 function getState() {
   return {

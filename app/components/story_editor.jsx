@@ -1,10 +1,17 @@
-var React = require('react');
-var StoryList = require('./story_list');
-var StoryEditor = require('./story_editor');
-var StoryStore = require('../stores/story_store');
-var StoryActions = require('../actions/story_actions');
+var React = require('react'),
+  StoryList = require('./story_list'),
+  StoryStore = require('../stores/story_store'),
+  StoryActions = require('../actions/story_actions'),
+  StoryConstants = require('../constants/story_constants'),
+  Dispatcher = require('../dispatcher');
 
-module.exports = React.createClass({
+function openEditor() {
+  console.log("I OPENED");
+}
+function closeEditor() {
+}
+
+var StoryEditor = React.createClass({
   getInitialState: function() {
     return {};
   },
@@ -90,3 +97,17 @@ module.exports = React.createClass({
     this.replaceState({});
   }
 });
+
+Dispatcher.register(function (action) {
+  switch(action.actionType) {
+    case StoryConstants.OPEN_EDITOR:
+      openEditor(action.editMode);
+      break;
+    case StoryConstants.CLOSE_EDITOR:
+      closeEditor();
+      break;
+    default:
+  }
+});
+
+module.exports = StoryEditor;

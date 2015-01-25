@@ -36,7 +36,8 @@ var _stories = {
     spec: 'Here is a load more info on the bugger.\n\nKnow what I mean?'
   }
 };
-var currentId = 4;
+var currentId = 4,
+  editingId = null;
 
 function storySwap(id, afterId) {
   var story = _stories[id],
