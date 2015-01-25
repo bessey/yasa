@@ -2,17 +2,14 @@ var React = require('react'),
   StoryList = require('./story_list'),
   StoryEditor = require('./story_editor'),
   StoryStore = require('../stores/story_store'),
-  StoryConstants = require('../constants/story_constants'),
-  Dispatcher = require('../dispatcher');
+  StoryActions = require('../actions/story_actions');
 
 var editingId, editingStory;
 
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      stories: [],
-      editingId: null,
-      editingStory: {}
+      stories: []
     };
   },
   componentDidMount: function() {
@@ -23,22 +20,9 @@ module.exports = React.createClass({
       });
     });
     var updateEditing = this.updateEditing;
-    Dispatcher.register(function (action) {
-      switch(action.actionType) {
-        case StoryConstants.OPEN_EDITOR:
-          updateEditing(action.id, action.story);
-          break;
-        case StoryConstants.CLOSE_EDITOR:
-          break;
-        default:
-      }
-    });
-  },
-  updateEditing: function (editingId, editingStory) {
-    this.setState({editingId: editingId, editingStory: editingStory});
   },
   addNewStory: function () {
-    this.updateEditing(null, {});
+    StoryActions.openEditor();
   },
   render: function () {
     return (
@@ -52,7 +36,7 @@ module.exports = React.createClass({
           Add a Story
         </button>
         <StoryList stories={this.state.stories} />
-        <StoryEditor id={this.state.editingId} story={this.state.editingStory} />
+        <StoryEditor />
       </div>
     );
   }

@@ -22,7 +22,7 @@ var StoryActions = {
     Dispatcher.dispatch({
       actionType: StoryConstants.OPEN_EDITOR,
       id: id,
-      story: story
+      story: (story || {})
     });
   },
   closeEditor: function () {
