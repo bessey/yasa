@@ -13,7 +13,6 @@ module.exports = React.createClass({
     return <table className="table table-striped">
       <thead>
         <tr>
-          <th>Sort</th>
           <th>
             Tech
           </th>

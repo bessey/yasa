@@ -26,63 +26,67 @@ module.exports = React.createClass({
       }
     };
     return (
-      <div className="row">
-        <form onSubmit={this._save} className="col-md-6">
-          <h2>Add a Story</h2>
-          <div className="form-group">
-            <label htmlFor="story-story-input">Story Title</label>
-            <input 
-              {...commonInputProps('story')}
-              type="text"
-              placeholder="As a user, I..." />
+      <div className="modal fade" id="add-story-dialogue">
+        <div className="modal-dialog modal-content">
+          <div className="modal-header">
+            <button type="button" className="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            <h2 className="modal-title">Add a Story</h2>
           </div>
-          <div className="form-group">
-            <label htmlFor="story-spec-input">Spec</label>
-            <textarea 
-              {...commonInputProps('spec')}></textarea>
-          </div>
-          <div className="form-group">
-            <label htmlFor="story-sort-input">Sort</label>
-            <input 
-              {...commonInputProps('sort')}
-              type="text" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="story-tech-input">Tech</label>
-            <input 
-              {...commonInputProps('tech')}
-              type="text" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="story-manager-input">Manager</label>
-            <input 
-              {...commonInputProps('manager')}
-              type="text" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="story-epic-input">Epic</label>
-            <input 
-              {...commonInputProps('epic')}
-              type="text" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="story-points-input">Points</label>
-            <input 
-              {...commonInputProps('points')}
-              type="number" />
-          </div>
-          <div className="form-group">
-            <input  type="submit"
-                    value="Add story to top"
-                    className="btn btn-primary"
-                    />
-          </div>
-        </form>
+          <form onSubmit={this._save} className="modal-body">
+            <div className="form-group">
+              <label htmlFor="story-story-input">Story Title</label>
+              <input 
+                {...commonInputProps('story')}
+                type="text"
+                required="true"
+                placeholder="As a user, I..." />
+            </div>
+            <div className="form-group">
+              <label htmlFor="story-spec-input">Spec</label>
+              <textarea 
+                {...commonInputProps('spec')}></textarea>
+            </div>
+            <div className="form-group">
+              <label htmlFor="story-tech-input">Tech</label>
+              <input 
+                {...commonInputProps('tech')}
+                type="text" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="story-manager-input">Manager</label>
+              <input 
+                {...commonInputProps('manager')}
+                type="text" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="story-epic-input">Epic</label>
+              <input 
+                {...commonInputProps('epic')}
+                type="text" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="story-points-input">Points</label>
+              <input 
+                required="true"
+                {...commonInputProps('points')}
+                type="number" />
+            </div>
+            <div className="form-group">
+              <input  type="submit"
+                      value="Add story to top"
+                      className="btn btn-primary"
+                      />
+              &nbsp;
+              <button className="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </form>
+        </div>
       </div>
     )
   },
   _save: function (event) {
     event.preventDefault();
     StoryActions.createStory(this.state);
+    this.replaceState({});
   }
 });

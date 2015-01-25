@@ -24,6 +24,7 @@ module.exports = React.createClass({
     return (
       <div className="backlog">
         <h1>Backlog</h1>
+        <button className="btn btn-primary btn-large"  data-toggle="modal" data-target="#add-story-dialogue">Add a Story</button>
         <StoryList stories={this.state.stories} />
         <StoryEditor />
       </div>

@@ -5,8 +5,8 @@ var Dispatcher = require('../dispatcher'),
 var CHANGE_EVENT = 'change';
 
 var _stories = {
-  123: {
-    id: 123,
+  1: {
+    id: 1,
     sort: 100,
     tech: 'matt',
     manager: 'ben',
@@ -15,8 +15,8 @@ var _stories = {
     points: 3,
     spec: 'Here is a load more info on the bugger.\n\nKnow what I mean?'
   },
-  424: {
-    id: 424,
+  2: {
+    id: 2,
     sort: 200,
     tech: 'pat',
     manager: 'tim',
@@ -25,8 +25,8 @@ var _stories = {
     points: 5,
     spec: 'Here is a load more info on the bugger.\n\nKnow what I mean?'
   },
-  23: {
-    id: 23,
+  3: {
+    id: 3,
     sort: 300,
     tech: 'steve',
     manager: 'anand',
@@ -35,7 +35,8 @@ var _stories = {
     points: 3,
     spec: 'Here is a load more info on the bugger.\n\nKnow what I mean?'
   }
-}
+};
+var currentId = 4;
 
 function storySwap(id, afterId) {
   var story = _stories[id],
@@ -47,7 +48,10 @@ function storySwap(id, afterId) {
 }
 
 function storyCreate(params) {
-  _stories[99] = Object.assign(params, {id: 99});
+  var story = Object.assign({id: currentId, sort: 1}, params);
+  _stories[currentId] = story;
+  currentId++;
+  return story;
 }
 
 var StoryStore = Object.assign({}, EventEmitter.prototype, {

@@ -36,9 +36,6 @@ module.exports = React.createClass({
         style={{ opacity: isDragging ? 0.6 : 1.0 }}
       >
         <td>
-          { this.props.story.sort }
-        </td>
-        <td>
           { this.props.story.tech } 
         </td>
         <td>
