@@ -1,20 +1,31 @@
 var React = require('react'),
   Story = require('./story'),
-  update = require('react/lib/update');
+  BacklogLine = require('./backlog_line'),
+  Firebase = require('firebase');
+
+var lineRef = new Firebase("https://fiery-torch-5025.firebaseio.com/line/");
 
 module.exports = React.createClass({
-  render: function () {
-    var stories = [];
-    var linePosition = 1, currentPosition = 0, pointsAbove = 0;
-    this.props.stories.forEach((story, i) => {
-      if(linePosition === currentPosition) {
-        stories.push(<tr key="theLine">
-            <td colSpan="6" className="the-line">
-              The Line ({pointsAbove} points)
-            </td>
-          </tr>)
+  getInitialState: function () {
+    return {
+      line: {
+        pointsGoal: 0
       }
-      currentPosition++;
+    };
+  },
+  componentDidMount: function () {
+    var _this = this;
+    lineRef.on('value', function (data) {
+      _this.setState({line: data.val()});
+    });
+  },
+  render: function () {
+    var stories = [], pointsAbove = 0, linePushed = false;
+    this.props.stories.forEach((story, i) => {
+      if(!linePushed && pointsAbove >= this.state.line.pointsGoal) {
+        linePushed = true;
+        this._pushLine(stories, pointsAbove);
+      }
       var storyWithPriority = Object.assign(story.val(), {priority: story.getPriority()});
       pointsAbove += Number(storyWithPriority.points);
       stories.push(<Story
@@ -22,6 +33,9 @@ module.exports = React.createClass({
         id={story.key()}
         story={storyWithPriority} />)
     });
+    if(!linePushed) {
+      this._pushLine(stories, pointsAbove);
+    }
     return <table className="table">
       <thead>
         <tr>
@@ -48,5 +62,17 @@ module.exports = React.createClass({
         {stories}
       </tbody>
     </table>;
+  },
+  _pushLine: function (stories, pointsAbove) {
+    stories.push(<BacklogLine 
+      key="theLine"
+      pointsGoal={this.state.line.pointsGoal}
+      pointsAbove={pointsAbove}
+      updateGoal={this._updateGoal} />);
+  },
+  _updateGoal: function (newGoal) {
+    lineRef.update({
+      pointsGoal: newGoal
+    });
   }
 });
