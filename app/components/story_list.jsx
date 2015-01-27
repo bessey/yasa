@@ -20,22 +20,7 @@ module.exports = React.createClass({
     });
   },
   render: function () {
-    var stories = [], pointsAbove = 0, linePushed = false;
-    this.props.stories.forEach((story, i) => {
-      if(!linePushed && pointsAbove >= this.state.line.pointsGoal) {
-        linePushed = true;
-        this._pushLine(stories, pointsAbove);
-      }
-      var storyWithPriority = Object.assign(story.val(), {priority: story.getPriority()});
-      pointsAbove += Number(storyWithPriority.points);
-      stories.push(<Story
-        key={story.key()}
-        id={story.key()}
-        story={storyWithPriority} />)
-    });
-    if(!linePushed) {
-      this._pushLine(stories, pointsAbove);
-    }
+    var stories = this._buildStoryList();
     return <table className="table">
       <thead>
         <tr>
@@ -63,12 +48,40 @@ module.exports = React.createClass({
       </tbody>
     </table>;
   },
-  _pushLine: function (stories, pointsAbove) {
+  _buildStoryList: function () {
+    var stories = [], pointsAbove = 0, linePushed = false, pointsByTech = {};
+    this.props.stories.forEach((story, i) => {
+      var storyWithPriority = Object.assign(story.val(), {priority: story.getPriority()});
+      if(!linePushed && pointsAbove >= this.state.line.pointsGoal) {
+        linePushed = true;
+        this._pushLine(stories, pointsAbove, pointsByTech);
+      } else {
+        pointsAbove += Number(storyWithPriority.points);
+        this._incrementByTech(pointsByTech, storyWithPriority);
+      }
+      stories.push(<Story
+        key={story.key()}
+        id={story.key()}
+        story={storyWithPriority}
+        />)
+    });
+    if(!linePushed) {
+      this._pushLine(stories, pointsAbove, pointsByTech);
+    }
+    return stories;
+  },
+  _pushLine: function (stories, pointsAbove, pointsByTech) {
     stories.push(<BacklogLine 
       key="theLine"
       pointsGoal={this.state.line.pointsGoal}
       pointsAbove={pointsAbove}
+      pointsByTech={pointsByTech}
       updateGoal={this._updateGoal} />);
+  },
+  _incrementByTech: function (pointsByTech, story) {
+    var tech = story.tech;
+    var currentPoints = pointsByTech[tech] || 0;
+    pointsByTech[tech] = currentPoints + Number(story.points);
   },
   _updateGoal: function (newGoal) {
     lineRef.update({

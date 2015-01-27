@@ -11,18 +11,29 @@ var BacklogLine = React.createClass({
       }
     },
     render: function () {
-        return (
-          <tr>
-            <td colSpan="6" className="the-line">
-              <form className="form-inline" onChange={this._updateGoal}>
-                Planned for next sprint: {this.props.pointsAbove} points. Goal:
-                <div className="form-group">
-                  <input className="form-control" type="text" value={this.props.pointsGoal} />
-                </div>
-              </form>
-            </td>
-          </tr>
-        );
+      var pointsByTechList = this._pointsByTechList();
+      return (
+        <tr>
+          <td colSpan="6" className="the-line">
+            <form onChange={this._updateGoal}>
+              Planned for next sprint: {this.props.pointsAbove} points. Goal:
+              <input className="points-goal" type="text" defaultValue={this.props.pointsGoal} />
+              Points by Tech: {pointsByTechList}
+            </form>
+          </td>
+        </tr>
+      );
+    },
+    _pointsByTechList: function () {
+      var techsWithPoints = this.props.pointsByTech;
+      var list = [];
+      var techNames = Object.keys(techsWithPoints);
+      for(var i = 0; i < techNames.length; i++) {
+        list.push(<span className="tech-with-points">
+           {techNames[i]}: { techsWithPoints[techNames[i]] }
+        </span>);
+      }
+      return list;
     },
     _updateGoal: function (e) {
       e.preventDefault();

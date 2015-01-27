@@ -1,3 +1,14 @@
 .the-line {
   background-color: #F2D7AD;
 }
+
+.tech-with-points {
+  padding: 0px 20px;
+}
+
+.points-goal {
+  @extend .form-control;
+  display: inline-block;
+  width: 3em;
+  margin: 0 10px;
+}
