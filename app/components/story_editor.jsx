@@ -65,9 +65,10 @@ var StoryEditor = React.createClass({
                 placeholder="As a user, I..." />
             </div>
             <div className="form-group">
-              <label htmlFor="story-spec-input">Spec</label>
-              <textarea 
-                {...commonInputProps('spec')}></textarea>
+              <label htmlFor="story-spec-input">Spec URL</label>
+              <input
+                type="text"
+                {...commonInputProps('spec')} />
             </div>
             <div className="form-group">
               <label htmlFor="story-tech-input">Tech</label>

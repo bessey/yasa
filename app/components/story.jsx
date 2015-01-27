@@ -53,6 +53,9 @@ module.exports = React.createClass({
           { this.props.story.points } 
         </td>
         <td>
+          <a target="_blank" href={ this.props.story.spec } className="btn btn-primary btn-xs">
+            Spec
+          </a>&nbsp;
           <button
             className="btn btn-default btn-xs"
             onClick={this._openEditor}
