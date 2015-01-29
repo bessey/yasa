@@ -5,3 +5,4 @@ erl_crash.dump
 /bower_components
 /node_modules
 /tmp
+/dist

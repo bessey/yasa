@@ -1,10 +1,11 @@
 var pickFiles = require('broccoli-static-compiler');
 var mergeTrees = require('broccoli-merge-trees');
-var browserify = require('broccoli-browserify');
+var browserify = require('broccoli-browserify-cache');
 var compileSass = require('broccoli-sass');
 var filterReact = require('broccoli-react');
 var es6transpiler = require('broccoli-es6-transpiler');
 
+var env = 'test';
 
 var app = pickFiles('app', {
   srcDir: '/',
@@ -55,5 +56,23 @@ var publicFiles = pickFiles('public', {
   destDir: ''
 })
 
+// TESTS
+
+// var testAppFilesToAppend = appFilesToAppend.concat([
+//   ''
+// ]);
+
+var testsTree = pickFiles('spec', {
+  srcDir: '/',
+  files: ['*.js', '**/*.js'],
+  destDir: 'spec'
+});
+
+testsJs = mergeTrees([appJs, testsTree]);
+
+// If we are testing, return the compiled file with testing sources.
+if (env === 'test') {
+  appJs = testsJs;
+}
 
 module.exports = mergeTrees([appJs, appCss, publicFiles])
