@@ -23,13 +23,19 @@ app = es6transpiler(app, {
 
 var styles = pickFiles('styles', {
   srcDir: '/',
-  destDir: 'css' // move under appkit namespace
+  destDir: 'css'
 })
 
 var bower = pickFiles('bower_components', {
   srcDir: '/',
-  destDir: 'vendor' // move under appkit namespace
+  destDir: 'vendor'
 })
+
+var testsTree = pickFiles('spec', {
+  srcDir: '/',
+  files: ['*.js', '**/*.js'],
+  destDir: 'js/spec'
+});
 
 var sourceTrees = [
   app,
@@ -38,16 +44,32 @@ var sourceTrees = [
   'bower_components/bootstrap-sass-official/assets/stylesheets'
 ]
 
+if (env === 'test') {
+  sourceTrees.push(testsTree);
+}
+
 var appAndDependencies = mergeTrees(sourceTrees, { overwrite: true })
 
-appJs = browserify(appAndDependencies, {
-  entries: [
-    './js/application.js',
-    './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
-  ],
-  browserify: {},
-  outputFile: '/js/application.js'
-});
+var appJs;
+
+// If we are testing, return the compiled file with testing sources.
+if (env === 'test') {
+  appJs = browserify(appAndDependencies, {
+    entries: [
+      './js/test_application.js',
+      './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+    ],
+    outputFile: '/js/test_application.js'
+  });
+} else {
+  appJs = browserify(appAndDependencies, {
+    entries: [
+      './js/application.js',
+      './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+    ],
+    outputFile: '/js/application.js'
+  });
+}
 
 var appCss = compileSass(sourceTrees, 'css/application.scss', '/css/application.css', {});
 
@@ -57,22 +79,5 @@ var publicFiles = pickFiles('public', {
 })
 
 // TESTS
-
-// var testAppFilesToAppend = appFilesToAppend.concat([
-//   ''
-// ]);
-
-var testsTree = pickFiles('spec', {
-  srcDir: '/',
-  files: ['*.js', '**/*.js'],
-  destDir: 'spec'
-});
-
-testsJs = mergeTrees([appJs, testsTree]);
-
-// If we are testing, return the compiled file with testing sources.
-if (env === 'test') {
-  appJs = testsJs;
-}
 
 module.exports = mergeTrees([appJs, appCss, publicFiles])
