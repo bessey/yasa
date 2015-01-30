@@ -3,13 +3,8 @@ var React = require('react');
 
 var BacklogLine = React.createClass({
   displayName: 'BacklogLine',
-  getInitialState: function () {
-    return {
-      updateTimer: null,
-    }
-  },
   render: function () {
-    var pointsByTechList = this._pointsByTechList();
+    var pointsByTechList = this._pointsByTechList(this.props.pointsByTech);
     return (
       <tr>
         <td colSpan="6" className="the-line">
@@ -25,13 +20,11 @@ var BacklogLine = React.createClass({
       </tr>
     );
   },
-  _pointsByTechList: function () {
-    var techsWithPoints = this.props.pointsByTech;
+  _pointsByTechList: function (pointsByTech) {
     var list = [];
-    var techNames = Object.keys(techsWithPoints);
-    for(var i = 0; i < techNames.length; i++) {
-      list.push(<span className="tech-with-points" key={techNames[i]}>
-         {techNames[i]}: { techsWithPoints[techNames[i]] }
+    for(let name in pointsByTech) {
+      list.push(<span className="tech-with-points" key={name}>
+         {name}: { pointsByTech[name] }
       </span>);
     }
     return list;
