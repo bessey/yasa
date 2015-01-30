@@ -1,10 +1,10 @@
 /** @jsx React.DOM */
-var React = require('react');
+var React = require('react'),
+  LineActions = require('../actions/line_actions');
 
 var UPDATE_LINE_DELAY = 200;
 
 var BacklogLine = React.createClass({
-    displayName: 'BacklogLine',
     getInitialState: function () {
       return {
         updateTimer: null
@@ -29,7 +29,7 @@ var BacklogLine = React.createClass({
       var list = [];
       var techNames = Object.keys(techsWithPoints);
       for(var i = 0; i < techNames.length; i++) {
-        list.push(<span className="tech-with-points">
+        list.push(<span className="tech-with-points" key={techNames[i]}>
            {techNames[i]}: { techsWithPoints[techNames[i]] }
         </span>);
       }
@@ -38,10 +38,9 @@ var BacklogLine = React.createClass({
     _updateGoal: function (e) {
       e.preventDefault();
       if(this.state.updateTimer) { clearTimeout(this.state.updateTimer); }
-      var updateGoal = this.props.updateGoal,
-        newGoal = e.target.value,
+      var newGoal = e.target.value,
         updateTimer = setTimeout(function () {
-          updateGoal(newGoal);
+          LineActions.updateGoal(newGoal);
         }, UPDATE_LINE_DELAY);
       this.setState({updateTimer: updateTimer});
     }

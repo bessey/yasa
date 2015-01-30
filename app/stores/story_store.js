@@ -1,12 +1,25 @@
-var Dispatcher = require('../dispatcher'), 
-    { EventEmitter } = require('events'),
+var Dispatcher = require('../dispatcher'),
     StoryConstants = require('../constants/story_constants'),
     Firebase = require("firebase");
 
-var CHANGE_EVENT = 'change';
 var firebase = new Firebase("https://fiery-torch-5025.firebaseio.com/stories/");
 // Initialise our sorting number to something huge (we work our way towards zero over time)
 var highestPriority = 1e+15;
+
+var StoryStore = {
+  getSorted: function(callback) {
+    firebase.orderByPriority().on('value', function (data) {
+      callback(data.val());
+    });
+  },
+  recalculateHighestPriority: function() {
+    firebase.orderByPriority().limitToFirst(1).on("value", function (values) {
+      values.forEach(function (value) {
+        highestPriority = (value.getPriority() || highestPriority) - 1e+2;
+      });
+    })
+  }
+};
 
 function storySwap(id, afterId) {
   firebase.once("value", function (data) {
@@ -30,19 +43,6 @@ function storyUpdate(id, params) {
   firebase.child(id).update(params);
   return params;
 }
-
-var StoryStore = Object.assign({}, EventEmitter.prototype, {
-  getSorted: function(callback) {
-    firebase.orderByPriority().on('value', callback);
-  },
-  recalculateHighestPriority: function() {
-    firebase.orderByPriority().limitToFirst(1).on("value", function (values) {
-      values.forEach(function (value) {
-        highestPriority = (value.getPriority() || highestPriority) - 1e+2;
-      });
-    })
-  }
-});
 
 StoryStore.recalculateHighestPriority();
 

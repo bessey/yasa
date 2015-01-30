@@ -1,24 +1,8 @@
 var React = require('react'),
   Story = require('./story'),
-  BacklogLine = require('./backlog_line'),
-  Firebase = require('firebase');
-
-var lineRef = new Firebase("https://fiery-torch-5025.firebaseio.com/line/");
+  BacklogLine = require('./backlog_line');
 
 module.exports = React.createClass({
-  getInitialState: function () {
-    return {
-      line: {
-        pointsGoal: 0
-      }
-    };
-  },
-  componentDidMount: function () {
-    var _this = this;
-    lineRef.on('value', function (data) {
-      _this.setState({line: data.val()});
-    });
-  },
   render: function () {
     var stories = this._buildStoryList();
     return <table className="table">
@@ -50,42 +34,33 @@ module.exports = React.createClass({
   },
   _buildStoryList: function () {
     var stories = [], pointsAbove = 0, linePushed = false, pointsByTech = {};
-    this.props.stories.forEach((story, i) => {
-      var storyWithPriority = Object.assign(story.val(), {priority: story.getPriority()});
-      if(!linePushed && pointsAbove >= this.state.line.pointsGoal) {
-        linePushed = true;
-        this._pushLine(stories, pointsAbove, pointsByTech);
-      } else {
-        pointsAbove += Number(storyWithPriority.points);
-        this._incrementByTech(pointsByTech, storyWithPriority);
+    for(let key in this.props.stories) {
+      var story = this.props.stories[key], pointsToAdd = Number(story.points);
+      if(!linePushed) { 
+        if ((pointsAbove + pointsToAdd) > this.props.line.pointsGoal) {
+          linePushed = true;
+          stories.push(this._buildLine(pointsAbove, pointsByTech));
+        } else {
+          pointsAbove += pointsToAdd;
+          this._incrementByTech(pointsByTech, story.tech, pointsToAdd);
+        }
       }
-      stories.push(<Story
-        key={story.key()}
-        id={story.key()}
-        story={storyWithPriority}
-        />)
-    });
+      stories.push(<Story key={key} story={story} />)
+    }
     if(!linePushed) {
-      this._pushLine(stories, pointsAbove, pointsByTech);
+      stories.push(this._buildLine(pointsAbove, pointsByTech));
     }
     return stories;
   },
-  _pushLine: function (stories, pointsAbove, pointsByTech) {
-    stories.push(<BacklogLine 
+  _buildLine: function (pointsAbove, pointsByTech) {
+    return <BacklogLine 
       key="theLine"
-      pointsGoal={this.state.line.pointsGoal}
+      pointsGoal={this.props.line.pointsGoal}
       pointsAbove={pointsAbove}
-      pointsByTech={pointsByTech}
-      updateGoal={this._updateGoal} />);
+      pointsByTech={pointsByTech} />;
   },
-  _incrementByTech: function (pointsByTech, story) {
-    var tech = story.tech;
+  _incrementByTech: function (pointsByTech, tech, pointsToAdd) {
     var currentPoints = pointsByTech[tech] || 0;
-    pointsByTech[tech] = currentPoints + Number(story.points);
-  },
-  _updateGoal: function (newGoal) {
-    lineRef.update({
-      pointsGoal: newGoal
-    });
+    pointsByTech[tech] = currentPoints + pointsToAdd;
   }
 });
