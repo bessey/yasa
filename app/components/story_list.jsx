@@ -3,6 +3,7 @@ var React = require('react'),
   BacklogLine = require('./backlog_line');
 
 module.exports = React.createClass({
+  displayName: 'StoryList',
   render: function () {
     var stories = this._buildStoryList();
     return <table className="table">
@@ -45,7 +46,7 @@ module.exports = React.createClass({
           this._incrementByTech(pointsByTech, story.tech, pointsToAdd);
         }
       }
-      stories.push(<Story key={key} story={story} />)
+      stories.push(<Story id={key} key={key} story={story} />)
     }
     if(!linePushed) {
       stories.push(this._buildLine(pointsAbove, pointsByTech));
@@ -55,7 +56,6 @@ module.exports = React.createClass({
   _buildLine: function (pointsAbove, pointsByTech) {
     return <BacklogLine 
       key="theLine"
-      pointsGoal={this.props.line.pointsGoal}
       pointsAbove={pointsAbove}
       pointsByTech={pointsByTech} />;
   },

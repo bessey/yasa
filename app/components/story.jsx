@@ -5,6 +5,7 @@ var React = require('react'),
   ItemTypes = require('../constants/item_types');
 
 module.exports = React.createClass({
+  displayName: 'Story',
   mixins: [DragDropMixin],
   propTypes: {
     id: PropTypes.any.isRequired

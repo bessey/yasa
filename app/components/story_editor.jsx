@@ -6,6 +6,7 @@ var React = require('react'),
   Dispatcher = require('../dispatcher');
 
 var StoryEditor = React.createClass({
+  displayName: 'StoryEditor',
   getInitialState: function () {
     return {
       story: {}
