@@ -5,8 +5,6 @@ var compileSass = require('broccoli-sass');
 var filterReact = require('broccoli-react');
 var es6transpiler = require('broccoli-es6-transpiler');
 
-var env = 'test';
-
 var app = pickFiles('app', {
   srcDir: '/',
   destDir: 'js'
@@ -37,41 +35,41 @@ var testsTree = pickFiles('spec', {
   destDir: 'js/spec'
 });
 
-var sourceTrees = [
+var devSourceTrees = [
   app,
   styles,
   bower,
   'bower_components/bootstrap-sass-official/assets/stylesheets'
 ]
 
-if (env === 'test') {
-  sourceTrees.push(testsTree);
-}
+var testSourceTrees = [
+  app,
+  styles,
+  bower,
+  testsTree,
+  'bower_components/bootstrap-sass-official/assets/stylesheets'
+]
 
-var appAndDependencies = mergeTrees(sourceTrees, { overwrite: true })
+var appAndDependencies = mergeTrees(devSourceTrees, { overwrite: true })
+var testAppAndDependencies = mergeTrees(testSourceTrees, { overwrite: true })
 
-var appJs;
+var testJs = browserify(testAppAndDependencies, {
+  entries: [
+    './js/test_application.js',
+    './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+  ],
+  outputFile: '/js/test_application.js'
+});
 
-// If we are testing, return the compiled file with testing sources.
-if (env === 'test') {
-  appJs = browserify(appAndDependencies, {
-    entries: [
-      './js/test_application.js',
-      './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
-    ],
-    outputFile: '/js/test_application.js'
-  });
-} else {
-  appJs = browserify(appAndDependencies, {
-    entries: [
-      './js/application.js',
-      './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
-    ],
-    outputFile: '/js/application.js'
-  });
-}
+var appJs = browserify(appAndDependencies, {
+  entries: [
+    './js/application.js',
+    './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+  ],
+  outputFile: '/js/application.js'
+});
 
-var appCss = compileSass(sourceTrees, 'css/application.scss', '/css/application.css', {});
+var appCss = compileSass(devSourceTrees, 'css/application.scss', '/css/application.css', {});
 
 var publicFiles = pickFiles('public', {
   srcDir: '/',
@@ -80,4 +78,4 @@ var publicFiles = pickFiles('public', {
 
 // TESTS
 
-module.exports = mergeTrees([appJs, appCss, publicFiles])
+module.exports = mergeTrees([appJs, testJs, appCss, publicFiles])

@@ -8,12 +8,20 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      files: ['app/**/*.js', 'app/**/*.jsx', 'spec/**/*_spec.js'],
-      tasks: ['broccoli:dev:watch']
+      karma: {
+        files: ['dist/**/*'],
+        tasks: ['karma:unit:run']
+      },
+      broccoli: {
+        files: ['app/**/*.js', 'app/**/*.jsx', 'spec/**/*_spec.js'],
+        tasks: ['broccoli:dev:watch']
+      }
     },
     karma: {
       unit: {
-        configFile: 'karma.conf.js'
+        configFile: 'karma.conf.js',
+        background: true,
+        singleRun: false
       }
     },
     connect: {
@@ -30,5 +38,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-broccoli');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.registerTask('default', ['broccoli']);
+
+  grunt.registerTask('serve', ['connect', 'watch:broccoli']);
+  grunt.registerTask('test',  ['karma:unit:start', 'watch:karma']);
+
+  grunt.registerTask('default', ['serve']);
 };
