@@ -10,53 +10,34 @@ module.exports = React.createClass({
   propTypes: {
     id: PropTypes.any.isRequired
   },
-  configureDragDrop: function (registerType) {
-    registerType(ItemTypes.STORY_ITEM, {
-      dragSource: {
-        beginDrag: function () {
-          return {
-            item: {
-              id: this.props.id,
-              priority: this.props.story.priority
-            }
-          };
-        }
-      },
-      dropTarget: {
-        over: function (item) {
-          StoryActions.swapStory(item.id, this.props.id, item.priority, this.props.story.priority);
-        }
-      }
-    });
-  },
   render: function () {
+    var story = this.props.story;
     var { isDragging } = this.getDragState(ItemTypes.STORY_ITEM);
+    var specButton = this._buildSpecButton(story);
     return (<tr 
         id={this.props.id}
         {...this.dragSourceFor(ItemTypes.STORY_ITEM)}
         {...this.dropTargetFor(ItemTypes.STORY_ITEM)}
-        data-priority={this.props.story.priority}
         style={{ opacity: isDragging ? 0.6 : 1.0 }}
       >
         <td>
-          { this.props.story.tech } 
+          { story.tech } 
         </td>
         <td>
-          { this.props.story.manager } 
+          { story.manager } 
         </td>
         <td>
-          { this.props.story.epic } 
+          { story.epic } 
         </td>
         <td>
-          { this.props.story.story } 
+          { story.story } 
         </td>
         <td>
-          { this.props.story.points } 
+          { story.points } 
         </td>
         <td>
-          <a target="_blank" href={ this.props.story.spec } className="btn btn-primary btn-xs">
-            Spec
-          </a>&nbsp;
+          {specButton}
+          &nbsp;
           <button
             className="btn btn-default btn-xs"
             onClick={this._openEditor}
@@ -66,6 +47,31 @@ module.exports = React.createClass({
         </td>
       </tr>
     );
+  },
+  configureDragDrop: function (registerType) {
+    registerType(ItemTypes.STORY_ITEM, {
+      dragSource: {
+        beginDrag: function () {
+          return {item: {id: this.props.id}};
+        }
+      },
+      dropTarget: {
+        over: function (item) {
+          StoryActions.swapStory(item.id, this.props.id);
+        }
+      }
+    });
+  },
+  _buildSpecButton: function (story) {
+    if(story.spec) {
+      return <a target="_blank"
+        href={ story.spec }
+        className="btn btn-primary btn-xs">
+          Spec
+        </a>;
+    } else {
+      return <button disabled="disabled" className="btn btn-primary btn-xs">Spec</button>;
+    }
   },
   _openEditor: function () {
     StoryActions.openEditor(this.props.id, this.props.story);
