@@ -1,18 +1,55 @@
 require('es6-shim');
 var React = require('react'),
-  Backlog = require('./components/backlog'),
+  Router = require('react-router'),
   Firebase = require('firebase'),
+  Backlog = require('./components/backlog'),
+  Taskboard = require('./components/taskboard'),
   StoryStore = require('./stores/story_store'),
-  LineStore = require('./stores/line_store');
+  LineStore = require('./stores/line_store'),
+  Route = Router.Route, DefaultRoute = Router.DefaultRoute,
+  Link=Router.Link, RouteHandler = Router.RouteHandler;
 
-var line = {pointsGoal: 0};
-var stories = {};
-var backlog = React.render(<Backlog line={line} stories={stories} />, document.getElementById('yasa-root'));
+var App = React.createClass({
+  render: function () {
+    return <div>
+      <nav className="navbar navbar-inverse navbar-fixed-top">
+        <div className="container">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
+            <a className="navbar-brand" href="#">Yasa</a>
+          </div>
+          <div id="navbar" className="collapse navbar-collapse">
+            <ul className="nav navbar-nav">
+              <li><a href="#/taskboard">Taskboard</a></li>
+              <li><a href="#/backlog">Backlog</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
 
-LineStore.getLine(function (line) {
-  backlog.setProps({line: line});
-});
+      <RouteHandler {...this.props} />
+    </div>
+  }
+})
 
-StoryStore.getSorted(function (stories) {
-  backlog.setProps({stories: stories});
+var routes = (<Route handler={App}>
+    <Route name="backlog" handler={Backlog} />
+    <Route name="taskboard" handler={Taskboard} />
+    <DefaultRoute handler={Backlog} />
+  </Route>)
+
+Router.run(routes, function (Handler) {
+  var line = {pointsGoal: 0}, stories = {};
+  var handler = React.render(<Handler line={line} stories={stories} />, document.getElementById('yasa-root'));
+  LineStore.getLine(function (line) {
+    handler.setProps({line: line});
+  });
+  StoryStore.getSorted(function (stories) {
+    handler.setProps({stories: stories});
+  });
 });

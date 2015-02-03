@@ -4,9 +4,7 @@ var React = require('react'),
   StoryActions = require('../actions/story_actions'),
   LineActions = require('../actions/line_actions');
 
-var editingId, editingStory;
-
-module.exports = React.createClass({
+var Backlog = React.createClass({
   displayName: 'Backlog',
   getInitialState: function () {
     return {
@@ -56,3 +54,5 @@ module.exports = React.createClass({
     this.setState({pointsGoal: newGoal});
   }
 });
+
+module.exports = Backlog;
