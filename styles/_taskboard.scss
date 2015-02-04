@@ -1,21 +1,29 @@
 .task-list {
   @extend .row;
   margin-bottom: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid gray;
 }
-.taskboard-story {
-  @include make-xs-column(3);
+.taskboard-story, .taskboard-story-title {
+  @include make-xs-column(2);
 }
 
-.taskboard-section-title {
+.taskboard-section-title, .taskboard-story-title {
   font-weight: bold;
 }
 
+.taskboard-sections {
+  @include make-xs-column(10, 0);
+}
+
 .taskboard-section, .taskboard-section-title {
-  @include make-xs-column(3);
+  @include make-xs-column(4);
 }
 
 .task {
   @include make-xs-column(6);
   background-color: #CCC;
   border: 1px solid #666;
+  overflow: hidden;
+  height: 10em;
 }

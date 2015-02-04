@@ -10,14 +10,16 @@ var TaskList = React.createClass({
       <div className="taskboard-story">
         {story.story}
       </div>
-      <div className="taskboard-section pending">
-        {this._pendingTasks()}
-      </div>
-      <div className="taskboard-section in-progress">
-        {this._inProgressTasks()}
-      </div>
-      <div className="taskboard-section complete">
-        {this._completeTasks()}
+      <div className="taskboard-sections">
+        <div className="taskboard-section pending">
+          {this._pendingTasks()}
+        </div>
+        <div className="taskboard-section in-progress">
+          {this._inProgressTasks()}
+        </div>
+        <div className="taskboard-section complete">
+          {this._completeTasks()}
+        </div>
       </div>
     </div>)
   },
