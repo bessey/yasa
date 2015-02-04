@@ -1,0 +1,21 @@
+.task-list {
+  @extend .row;
+  margin-bottom: 1em;
+}
+.taskboard-story {
+  @include make-xs-column(3);
+}
+
+.taskboard-section-title {
+  font-weight: bold;
+}
+
+.taskboard-section, .taskboard-section-title {
+  @include make-xs-column(3);
+}
+
+.task {
+  @include make-xs-column(6);
+  background-color: #CCC;
+  border: 1px solid #666;
+}
