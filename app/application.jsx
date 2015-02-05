@@ -6,6 +6,7 @@ var React = require('react'),
   Taskboard = require('./components/taskboard'),
   StoryStore = require('./stores/story_store'),
   LineStore = require('./stores/line_store'),
+  UserStore = require('./stores/user_store'),
   TaskboardStore = require('./stores/taskboard_store'),
   Route = Router.Route, DefaultRoute = Router.DefaultRoute,
   Link=Router.Link, RouteHandler = Router.RouteHandler;
@@ -45,8 +46,8 @@ var routes = (<Route handler={App}>
   </Route>)
 
 Router.run(routes, function (Handler) {
-  var line = {pointsGoal: 0}, stories = {}, taskboard = {};
-  var handler = React.render(<Handler line={line} stories={stories} taskboard={taskboard} />, document.getElementById('yasa-root'));
+  var line = {pointsGoal: 0}, stories = {}, taskboard = {}, users = {};
+  var handler = React.render(<Handler line={line} stories={stories} taskboard={taskboard} users={users} />, document.getElementById('yasa-root'));
   LineStore.getLine(function (line) {
     handler.setProps({line: line});
   });
@@ -55,5 +56,6 @@ Router.run(routes, function (Handler) {
   });
   TaskboardStore.getCurrentTaskboard(function (taskboard) {
     handler.setProps({taskboard: taskboard});
-  })
+  });
+  UserStore.getAll(users => handler.setProps({users: users}));
 });

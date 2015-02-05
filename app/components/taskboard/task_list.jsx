@@ -4,39 +4,47 @@ var React = require('react'),
 var TaskList = React.createClass({
   displayName: 'TaskList',
   render() {
-    var story = this.props.story;
+    var story = this.props.story, users = this.props.users;
     var pendingTasks = [], inProgressTasks = [], completeTasks = [];
     return (<div className="task-list">
-      <div className="taskboard-story">
+      <div className={this._storyClasses(users, story)}>
         {story.story}
       </div>
       <div className="taskboard-sections">
         <div className="taskboard-section pending">
-          {this._pendingTasks()}
+          {this._tasksForState("pending")}
         </div>
         <div className="taskboard-section in-progress">
-          {this._inProgressTasks()}
+          {this._tasksForState("in-progress")}
         </div>
         <div className="taskboard-section complete">
-          {this._completeTasks()}
+          {this._tasksForState("complete")}
         </div>
       </div>
     </div>)
   },
-  _pendingTasks() {
-    return this.props.story.tasks
-      .filter(task => task.position === "pending")
-      .map(task => <Task task={task} />);
+  _tasksForState(state) {
+    var tasksList = [], tasks = this.props.story.tasks;
+    for(let key in tasks) {
+      if(tasks[key].position !== state) { continue; }
+      var task = tasks[key],
+        userClass = this._userClass(this.props.users, task.assignee);
+      tasksList.push(
+        <Task task={task} userClass={userClass} />
+      );
+    }
+    return tasksList;
   },
-  _inProgressTasks() {
-    return this.props.story.tasks
-      .filter(task => task.position === "in-progress")
-      .map(task => <Task task={task} />);
+  _storyClasses(users, story) {
+    return `taskboard-story ${this._userClass(users, story.tech)}`;
   },
-  _completeTasks() {
-    return this.props.story.tasks
-      .filter(task => task.position === "complete")
-      .map(task => <Task task={task} />);
+  _userClass(users, id) {
+    for(let key in users) {
+      if(key === id) {
+        return users[key].color;
+      }
+    }
+    return "unknown";
   }
 });
 

@@ -1,11 +1,17 @@
+$row-height: 10em;
+
 .task-list {
   @extend .row;
   margin-bottom: 1em;
   padding-bottom: 1em;
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid #ccc;
 }
 .taskboard-story, .taskboard-story-title {
   @include make-xs-column(2);
+}
+.taskboard-story {
+  height: $row-height;
+  border-radius: 0.5em;
 }
 
 .taskboard-section-title, .taskboard-story-title {
@@ -23,7 +29,40 @@
 .task {
   @include make-xs-column(6);
   background-color: #CCC;
-  border: 1px solid #666;
   overflow: hidden;
-  height: 10em;
+  height: $row-height;
+  border-radius: 0.5em;
+}
+
+
+// TASKBOARD COLOURS
+.taskboard {
+  .pink {
+    $color: #FF66B5;
+    background-color: $color;
+  }
+  .orange {
+    $color: #FFB066;
+    background-color: $color;
+  }
+  .yellow {
+    $color: #FFFC66;
+    background-color: $color;
+  }
+  .aqua {
+    $color: #66FFFC;
+    background-color: $color;
+  }
+  .purple {
+    $color: #B066FF;
+    background-color: $color;
+  }
+  .mint {
+    $color: #29FF90;
+    background-color: $color;
+  }
+  .blue {
+    $color: #66B5FF;
+    background-color: $color;
+  }
 }

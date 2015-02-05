@@ -4,14 +4,16 @@ var React = require('react'),
 var Taskboard = React.createClass({
   displayName: 'Taskboard',
   render: function () {
-    var tasklists = [], taskboard = this.props.taskboard;
+    var tasklists = [],
+      taskboard = this.props.taskboard,
+      users     = this.props.users;
     for(let key in taskboard) {
-      tasklists.push(<TaskList story={taskboard[key]} />);
+      tasklists.push(<TaskList key={key} story={taskboard[key]} users={users} />);
     }
-    return (<div>
+    return (<div className='taskboard'>
       <h1>Taskboard</h1>
       <div className="task-list">
-        <div className="taskboard-story-title story">
+        <div className="taskboard-story-title">
           Story
         </div>
         <div className="taskboard-sections">
