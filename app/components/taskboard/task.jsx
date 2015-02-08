@@ -1,5 +1,6 @@
 var React = require('react'),
-  TaskActions = require('../../actions/task_actions');
+  TaskActions = require('../../actions/task_actions'),
+  UserStore = require('../../stores/user_store');
 
 var ReactForms = require('react-forms'),
   Form = ReactForms.Form;
@@ -32,6 +33,13 @@ var Task = React.createClass({
     var Scalar = ReactForms.schema.Scalar,
       Mapping = ReactForms.schema.Mapping,
       List = ReactForms.schema.List;
+
+    var user = UserStore.find(this.props.task.assigneeId), name;
+    if(user) {
+      name = user.name
+    } else {
+      name = null;
+    }
     return Mapping({
       description: Scalar({
         name: 'description',
@@ -41,7 +49,7 @@ var Task = React.createClass({
       assignee:    Scalar({
         name: 'assignee',
         required: true,
-        defaultValue: this.props.task.assignee
+        defaultValue: name
       })
     });
   },
@@ -55,6 +63,9 @@ var Task = React.createClass({
       return; form.makeDirty();
     }
     var { taskboardId, storyId, id } = this.props, task = form.getValue().toJSON();
+    var assigneeName = task.assignee;
+    delete task.assignee;
+    task.assigneeId = UserStore.findByName(assigneeName).key;
     if(this._editing()) {
       TaskActions.updateTask(taskboardId, storyId, id, task);
     } else {

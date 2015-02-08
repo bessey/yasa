@@ -1,5 +1,7 @@
 var React = require('react'),
-  Task = require('./task');
+  Task = require('./task'),
+  UserStore = require('../../stores/user_store'),
+  SpecButton = require('../spec_button');
 
 var TaskList = React.createClass({
   displayName: 'TaskList',
@@ -13,6 +15,8 @@ var TaskList = React.createClass({
     return (<div className="task-list">
       <div className={this._storyClasses(users, story)}>
         {story.story}
+        <br/>
+        <SpecButton spec={story.spec} />
       </div>
       <div className="taskboard-sections">
         <div className="taskboard-section pending">
@@ -33,7 +37,7 @@ var TaskList = React.createClass({
     for(let key in tasks) {
       if(tasks[key].state !== state) { continue; }
       var task = tasks[key],
-        userClass = this._userClass(this.props.users, task.assignee);
+        userClass = this._userClass(task.assigneeId);
       tasksList.push(
         <Task taskboardId={this.props.taskboardId} storyId={this.props.storyId} key={key} id={key} task={task} userClass={userClass} />
       );
@@ -41,15 +45,15 @@ var TaskList = React.createClass({
     return tasksList;
   },
   _storyClasses(users, story) {
-    return `taskboard-story ${this._userClass(users, story.tech)}`;
+    return `taskboard-story ${this._userClass(story.tech)}`;
   },
-  _userClass(users, id) {
-    for(let key in users) {
-      if(key === id) {
-        return users[key].color;
-      }
+  _userClass(id) {
+    var user;
+    if(user = UserStore.find(id)) {
+      return user.color;
+    } else {
+      return "unknown";
     }
-    return "unknown";
   }
 });
 

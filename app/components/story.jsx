@@ -2,7 +2,8 @@ var React = require('react'),
   DragDropMixin = require('react-dnd').DragDropMixin,
   PropTypes = React.PropTypes,
   StoryActions = require('../actions/story_actions'),
-  ItemTypes = require('../constants/item_types');
+  ItemTypes = require('../constants/item_types'),
+  SpecButton = require('./spec_button');
 
 module.exports = React.createClass({
   displayName: 'Story',
@@ -13,30 +14,29 @@ module.exports = React.createClass({
   render: function () {
     var story = this.props.story;
     var { isDragging } = this.getDragState(ItemTypes.STORY_ITEM);
-    var specButton = this._buildSpecButton(story);
-    return (<tr 
+    return (<tr
         id={this.props.id}
         {...this.dragSourceFor(ItemTypes.STORY_ITEM)}
         {...this.dropTargetFor(ItemTypes.STORY_ITEM)}
         style={{ opacity: isDragging ? 0.6 : 1.0 }}
       >
         <td>
-          { story.tech } 
+          { story.tech }
         </td>
         <td>
-          { story.manager } 
+          { story.manager }
         </td>
         <td>
-          { story.epic } 
+          { story.epic }
         </td>
         <td>
-          { story.story } 
+          { story.story }
         </td>
         <td>
-          { story.points } 
+          { story.points }
         </td>
         <td>
-          {specButton}
+          <SpecButton spec={story.spec} />
           &nbsp;
           <button
             className="btn btn-default btn-xs"
