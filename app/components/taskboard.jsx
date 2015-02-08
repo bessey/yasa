@@ -1,5 +1,6 @@
 var React = require('react'),
-  TaskList = require('./taskboard/task_list');
+  TaskList = require('./taskboard/task_list'),
+  UserLegend = require('./taskboard/user_legend');
 
 var Taskboard = React.createClass({
   displayName: 'Taskboard',
@@ -12,6 +13,7 @@ var Taskboard = React.createClass({
     }
     return (<div className='taskboard'>
       <h1>Taskboard</h1>
+      <UserLegend users={users} />
       <div className="task-list">
         <div className="taskboard-story-title">
           Story
