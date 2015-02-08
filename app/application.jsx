@@ -54,8 +54,8 @@ Router.run(routes, function (Handler) {
   StoryStore.getSorted(function (stories) {
     handler.setProps({stories: stories});
   });
-  TaskboardStore.getCurrentTaskboard(function (taskboard) {
-    handler.setProps({taskboard: taskboard});
+  TaskboardStore.getCurrentTaskboard(function (taskboard, id) {
+    handler.setProps({taskboard: taskboard, taskboardId: id});
   });
   UserStore.getAll(users => handler.setProps({users: users}));
 });

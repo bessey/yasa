@@ -12,12 +12,3 @@
   width: 6em;
   margin: 0 10px;
 }
-
-#add-story-dialogue {
-  .rf-Field {
-    @extend .form-group;
-  }
-  input {
-    @extend .form-control;
-  }
-}

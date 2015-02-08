@@ -21,6 +21,14 @@ var StoryStore = {
   }
 };
 
+function removeEmpty(params) {
+  for(let key in params) {
+    if(typeof(params[key]) === 'undefined') {
+      params.delete(key);
+    }
+  };
+}
+
 function storySwap(id, afterId) {
   firebase.once("value", function (data) {
     var priority = data.child(id).getPriority();
@@ -34,12 +42,14 @@ function storySwap(id, afterId) {
 }
 
 function storyCreate(params) {
+  removeEmpty(params);
   var story = Object.assign({".priority": highestPriority}, params);
   firebase.push(story);
   return story;
 }
 
 function storyUpdate(id, params) {
+  removeEmpty(params);
   firebase.child(id).update(params);
   return params;
 }

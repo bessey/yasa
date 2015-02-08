@@ -10,12 +10,12 @@ var ReactForms = require('react-forms'),
 
 var StoryEditor = React.createClass({
   displayName: 'StoryEditor',
-  getInitialState: function () {
+  getInitialState() {
     return {
       story: {}
     };
   },
-  componentDidMount: function () {
+  componentDidMount() {
     var _this = this;
     Dispatcher.register(function (action) {
       switch(action.actionType) {
@@ -28,7 +28,7 @@ var StoryEditor = React.createClass({
       }
     });
   },
-  render: function () {
+  render() {
     var _this = this, title, submitText;
     var schema = this._formSchema();
     var commonInputProps = function (name) {
@@ -66,7 +66,7 @@ var StoryEditor = React.createClass({
       </div>
     )
   },
-  _formSchema: function () {
+  _formSchema() {
     var Scalar = ReactForms.schema.Scalar,
       Mapping = ReactForms.schema.Mapping,
       List = ReactForms.schema.List;
@@ -112,23 +112,27 @@ var StoryEditor = React.createClass({
       }),
     });
   },
-  _save: function (event) {
+  _save(event) {
     event.preventDefault();
-    var form = this.refs.form;
+    var form = this.refs.form,
+      values = form.getValue().toJSON();
     if (form.getValidation().isFailure)  {
       // force rendering all validation errors
       form.makeDirty();
     } else {
       if(this._editingStory()) {
-        StoryActions.updateStory(this.state.id, this.state.story);
+        StoryActions.updateStory(this.state.id, values);
       } else {
-        StoryActions.createStory(this.state.story);
+        StoryActions.createStory(values);
       }
       jQuery('#add-story-dialogue').modal('hide');
-      this.replaceState(this.getInitialState());
+      this._resetForm();
     }
   },
-  _editingStory: function () {
+  _resetForm() {
+    this.refs.form.setValue({});
+  },
+  _editingStory() {
     return !!this.state.id;
   }
 });

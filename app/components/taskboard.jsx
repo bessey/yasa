@@ -8,7 +8,7 @@ var Taskboard = React.createClass({
       taskboard = this.props.taskboard,
       users     = this.props.users;
     for(let key in taskboard) {
-      tasklists.push(<TaskList key={key} story={taskboard[key]} users={users} />);
+      tasklists.push(<TaskList taskboardId={this.props.taskboardId} key={key} storyId={key} story={taskboard[key]} users={users} />);
     }
     return (<div className='taskboard'>
       <h1>Taskboard</h1>

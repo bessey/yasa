@@ -1,0 +1,6 @@
+.rf-Field {
+  @extend .form-group;
+}
+input {
+  @extend .form-control;
+}
