@@ -42,7 +42,7 @@ var App = React.createClass({
 var routes = (<Route handler={App}>
     <Route name="backlog" handler={Backlog} />
     <Route name="taskboard" handler={Taskboard} />
-    <DefaultRoute handler={Backlog} />
+    <DefaultRoute handler={Taskboard} />
   </Route>)
 
 Router.run(routes, function (Handler) {
