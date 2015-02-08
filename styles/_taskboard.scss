@@ -32,7 +32,12 @@ $row-height: 10em;
   overflow: hidden;
   height: $row-height;
   border-radius: 0.5em;
+
+  .save-button {
+    display: none;
+  }
 }
+
 
 
 // TASKBOARD COLOURS
