@@ -1,6 +1,6 @@
 .rf-Field {
   @extend .form-group;
 }
-input {
+input, textarea {
   @extend .form-control;
 }

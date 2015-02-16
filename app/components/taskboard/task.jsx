@@ -20,16 +20,37 @@ var Task = React.createClass({
       userClass: 'new-task'
     };
   },
+  getInitialState() {
+    return {
+      editing: (this._newTask() ? true : false),
+    };
+  },
   render() {
     var task = this.props.task, userClass = this.props.userClass;
     return <div className={`task ${userClass}`}>
-      <form onSubmit={this._save}>
+      {this._renderViewOrEdit()}
+      {this._renderMoveButtons()}
+    </div>
+  },
+  _renderViewOrEdit() {
+    if(this.state.editing) {
+      return <form onSubmit={this._save}>
         <Form schema={this._schema()} ref="form" component="div"/>
         <button className="save-button" type="submit">Save</button>
+      </form>
+    } else {
+      return <div className="description" onClick={this._toggleEditing}>
+        { this.props.task.description }
+      </div>
+    }
+  },
+  _renderMoveButtons() {
+    if(!this._newTask()) {
+      return <span>
         <button onClick={this._moveBackward}>«</button>
         <button onClick={this._moveForward}>»</button>
-      </form>
-    </div>
+      </span>
+    }
   },
   _schema() {
     var Scalar = ReactForms.schema.Scalar,
@@ -46,7 +67,8 @@ var Task = React.createClass({
       description: Scalar({
         name: 'description',
         required: true,
-        defaultValue: this.props.task.description
+        defaultValue: this.props.task.description,
+        input: <textarea />
       }),
       assignee:    Scalar({
         name: 'assignee',
@@ -55,8 +77,8 @@ var Task = React.createClass({
       })
     });
   },
-  _editing() {
-    return this.props.userClass !== 'new-task';
+  _newTask() {
+    return this.props.userClass === 'new-task';
   },
   _save() {
     event.preventDefault();
@@ -68,14 +90,14 @@ var Task = React.createClass({
     var assigneeName = task.assignee;
     delete task.assignee;
     task.assigneeId = UserStore.findByName(assigneeName).key;
-    if(this._editing()) {
-      TaskActions.updateTask(taskboardId, storyId, id, task);
-    } else {
+    if(this._newTask()) {
       task.state = 'pending';
       TaskActions.createTask(taskboardId, storyId, task);
       this._resetForm();
+    } else {
+      TaskActions.updateTask(taskboardId, storyId, id, task);
+      this._toggleEditing();
     }
-    jQuery('#add-story-dialogue').modal('hide');
   },
   _resetForm() {
     this.refs.form.setValue({});
@@ -111,6 +133,9 @@ var Task = React.createClass({
         break;
     }
     TaskActions.updateTask(taskboardId, storyId, id, {state: newState});
+  },
+  _toggleEditing() {
+    this.setState({editing: !this.state.editing});
   }
 });
 

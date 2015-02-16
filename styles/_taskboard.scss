@@ -36,6 +36,20 @@ $row-height: 10em;
   .save-button {
     display: none;
   }
+
+  button {
+    @extend .btn;
+    @extend .btn-default;
+  }
+
+  .description{
+    min-height: 100px;
+    width: 100%;
+    cursor: pointer;
+  }
+  textarea {
+    height: 90px;
+  }
 }
 
 

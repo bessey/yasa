@@ -16,6 +16,8 @@ var TaskList = React.createClass({
       <div className={this._storyClasses(users, story)}>
         {story.story}
         <br/>
+        {story.points}
+        <br/>
         <SpecButton spec={story.spec} />
       </div>
       <div className="taskboard-sections">
