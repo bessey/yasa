@@ -65,7 +65,7 @@ var testJs = browserify(testAppAndDependencies, {
 
 var appJs = browserify(appAndDependencies, {
   entries: [
-    './js/application.js',
+    './js/client.js',
     './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
   ],
   outputFile: '/js/application.js'
