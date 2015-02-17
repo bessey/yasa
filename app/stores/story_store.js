@@ -29,7 +29,7 @@ function removeEmpty(params) {
   };
 }
 
-function storySwap(id, afterId) {
+function swapStory(id, afterId) {
   firebase.once("value", function (data) {
     var priority = data.child(id).getPriority();
     var afterPriority = data.child(afterId).getPriority();
@@ -41,17 +41,21 @@ function storySwap(id, afterId) {
   });
 }
 
-function storyCreate(params) {
+function createStory(params) {
   removeEmpty(params);
   var story = Object.assign({".priority": highestPriority}, params);
   firebase.push(story);
   return story;
 }
 
-function storyUpdate(id, params) {
+function updateStory(id, params) {
   removeEmpty(params);
   firebase.child(id).update(params);
   return params;
+}
+
+function deleteStory(id) {
+  firebase.child(id).remove();
 }
 
 StoryStore.recalculateHighestPriority();
@@ -59,13 +63,16 @@ StoryStore.recalculateHighestPriority();
 Dispatcher.register(function (action) {
   switch(action.actionType) {
     case StoryConstants.STORY_SWAP:
-      storySwap(action.id, action.afterId);
+      swapStory(action.id, action.afterId);
       break;
     case StoryConstants.STORY_CREATE:
-      storyCreate(action.storyParams);
+      createStory(action.storyParams);
       break;
     case StoryConstants.STORY_UPDATE:
-      storyUpdate(action.id, action.story);
+      updateStory(action.id, action.story);
+      break;
+    case StoryConstants.STORY_DELETE:
+      deleteStory(action.id);
       break;
     default:
   }

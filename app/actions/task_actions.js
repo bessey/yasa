@@ -3,7 +3,13 @@ var Dispatcher = require('../dispatcher'),
 
 
 var TaskActions = {
-  createTask: function (taskboardId, storyId, task) {
+  createTaskboard(tasks) {
+    Dispatcher.dispatch({
+      actionType: TaskConstants.TASKBOARD_CREATE,
+      tasks: tasks
+    });
+  },
+  createTask(taskboardId, storyId, task) {
     Dispatcher.dispatch({
       actionType: TaskConstants.TASK_CREATE,
       taskboardId: taskboardId,
@@ -11,7 +17,7 @@ var TaskActions = {
       task: task
     });
   },
-  updateTask: function (taskboardId, storyId, id, task) {
+  updateTask(taskboardId, storyId, id, task) {
     Dispatcher.dispatch({
       actionType: TaskConstants.TASK_UPDATE,
       taskboardId: taskboardId,

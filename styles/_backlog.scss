@@ -6,9 +6,20 @@
   padding: 0px 20px;
 }
 
+.add-story {
+  @include make-xs-column(4);
+}
+
 .points-goal {
-  @extend .form-control;
-  display: inline-block;
-  width: 6em;
-  margin: 0 10px;
+  @include make-xs-column(5);
+  input {
+    display: inline-block;
+    width: 6em;
+    margin: 0 10px;
+  }
+}
+
+
+.create-taskboard {
+  @include make-xs-column(3);
 }

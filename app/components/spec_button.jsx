@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = React.createClass({
   displayName: 'SpecButton',
   propTypes: {
-    spec: React.PropTypes.string.isRequired
+    spec: React.PropTypes.string
   },
   render: function () {
     var spec = this.props.spec

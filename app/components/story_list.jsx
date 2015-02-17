@@ -37,7 +37,7 @@ module.exports = React.createClass({
     var stories = [], pointsAbove = 0, linePushed = false, pointsByTech = {};
     for(let key in this.props.stories) {
       var story = this.props.stories[key], pointsToAdd = Number(story.points);
-      if(!linePushed) { 
+      if(!linePushed) {
         if ((pointsAbove + pointsToAdd) > this.props.line.pointsGoal) {
           linePushed = true;
           stories.push(this._buildLine(pointsAbove, pointsByTech));
@@ -46,7 +46,7 @@ module.exports = React.createClass({
           this._incrementByTech(pointsByTech, story.tech, pointsToAdd);
         }
       }
-      stories.push(<Story id={key} key={key} story={story} />)
+      stories.push(<Story id={key} key={key} story={story} />);
     }
     if(!linePushed) {
       stories.push(this._buildLine(pointsAbove, pointsByTech));
@@ -54,7 +54,7 @@ module.exports = React.createClass({
     return stories;
   },
   _buildLine: function (pointsAbove, pointsByTech) {
-    return <BacklogLine 
+    return <BacklogLine
       key="theLine"
       pointsAbove={pointsAbove}
       pointsByTech={pointsByTech} />;
