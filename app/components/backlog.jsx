@@ -61,12 +61,12 @@ let Backlog = React.createClass({
   _createTaskboard(e) {
     e.preventDefault();
     // Work out which stories are above the line
-    let storiesAboveLine = LineUtils.storiesAboveLine(this.props.stories, this.props.pointsGoal);
+    let storiesAboveLine = LineUtils.storiesAboveLine(this.props.stories, this.state.pointsGoal);
     // Add them all to a new taskboard
     TaskActions.createTaskboard(storiesAboveLine);
     // Remove them all from the backlog
     for(let key in storiesAboveLine) {
-
+      StoryActions.deleteStory(key);
     }
   }
 });

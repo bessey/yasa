@@ -43,7 +43,7 @@ module.exports = React.createClass({
           stories.push(this._buildLine(pointsAbove, pointsByTech));
         } else {
           pointsAbove += pointsToAdd;
-          this._incrementByTech(pointsByTech, story.tech, pointsToAdd);
+          this._incrementByTech(pointsByTech, story.techId, pointsToAdd);
         }
       }
       stories.push(<Story id={key} key={key} story={story} />);

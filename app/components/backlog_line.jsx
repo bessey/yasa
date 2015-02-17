@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
-var React = require('react');
+var React = require('react'),
+  UserStore = require('../stores/user_store');
 
 var BacklogLine = React.createClass({
   displayName: 'BacklogLine',
@@ -24,7 +25,7 @@ var BacklogLine = React.createClass({
     var list = [];
     for(let name in pointsByTech) {
       list.push(<span className="tech-with-points" key={name}>
-         {name}: { pointsByTech[name] }
+         {UserStore.find(name).name}: { pointsByTech[name] }
       </span>);
     }
     return list;

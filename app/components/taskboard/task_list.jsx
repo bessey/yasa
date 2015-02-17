@@ -47,7 +47,7 @@ var TaskList = React.createClass({
     return tasksList;
   },
   _storyClasses(users, story) {
-    return `taskboard-story ${this._userClass(story.tech)}`;
+    return `taskboard-story ${this._userClass(story.techId)}`;
   },
   _userClass(id) {
     var user;

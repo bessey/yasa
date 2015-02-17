@@ -34,7 +34,7 @@ var UserStore = {
     return null;
   },
   find(id) {
-    return usersCache[id];
+    return usersCache[id] || {name: 'Unknown'};
   }
 };
 

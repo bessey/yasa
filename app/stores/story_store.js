@@ -24,7 +24,7 @@ var StoryStore = {
 function removeEmpty(params) {
   for(let key in params) {
     if(typeof(params[key]) === 'undefined') {
-      params.delete(key);
+      delete params[key];
     }
   };
 }

@@ -63,7 +63,7 @@ var StoryEditor = React.createClass({
             <h2 className="modal-title">{title}</h2>
           </div>
           <form onSubmit={this._save} className="modal-body">
-            <Form key={this.state.id} schema={schema} ref="form" component="div"/>
+            <Form className="col-xs-12" key={this.state.id} schema={schema} ref="form" component="div"/>
             <div className="form-group">
               <button type="submit" className="btn btn-primary">{submitText}</button>
               &nbsp;
@@ -97,13 +97,15 @@ var StoryEditor = React.createClass({
         label: 'Tech',
         required: true,
         type: 'string',
-        input: <Select options={this.props.users} selected={this.state.story.techId} />
+        defaultValue: this.state.story.techId,
+        input: <Select options={this.props.users} />
       }),
       managerId:  Scalar({
         name: 'managerId',
         label: 'Manager',
         type: 'string',
-        input: <Select options={this.props.users} selected={this.state.story.managerId} />
+        defaultValue: this.state.story.managerId,
+        input: <Select options={this.props.users} />
       }),
       epic:     Scalar({
         name: 'epic',
@@ -115,7 +117,8 @@ var StoryEditor = React.createClass({
         name: 'points',
         label: 'Points',
         type: 'number',
-        defaultValue: this.state.story.points
+        required: true,
+        defaultValue: (this.state.story.points || 0)
       }),
     });
   },

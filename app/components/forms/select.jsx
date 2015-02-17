@@ -8,7 +8,7 @@ let Select = React.createClass({
   },
   render() {
     let options = this._renderOptions(this.props.options);
-    return <select onChange={this._onChange}>
+    return <select value={this.props.value} onChange={this._onChange}>
       {options}
     </select>
   },
@@ -16,6 +16,10 @@ let Select = React.createClass({
     let optionElements = [];
     optionElements.push(<option key="none-selected" value={null}>-- Please Select --</option>);
     for(let key in options) {
+      let selected = "false";
+      if(key === selected) {
+        selected = "selected";
+      }
       optionElements.push(<option key={key} value={key}>{options[key].name}</option>);
     }
     return optionElements

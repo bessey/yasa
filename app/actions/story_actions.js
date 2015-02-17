@@ -13,7 +13,7 @@ var StoryActions = {
   createStory: function (storyParams) {
     Dispatcher.dispatch({
       actionType: StoryConstants.STORY_CREATE,
-      storyParams: storyParams      
+      storyParams: storyParams
     });
   },
   updateStory: function (id, story) {
@@ -21,6 +21,12 @@ var StoryActions = {
       actionType: StoryConstants.STORY_UPDATE,
       id:     id,
       story:  story
+    });
+  },
+  deleteStory: function (id) {
+    Dispatcher.dispatch({
+      actionType: StoryConstants.STORY_DELETE,
+      id: id
     });
   },
   openEditor: function (id, story) {

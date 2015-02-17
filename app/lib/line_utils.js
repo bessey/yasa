@@ -1,19 +1,14 @@
 class LineUtils {
-  static storiesAboveLine(stories, pointsGoal) {
+  static storiesAboveLine(stories, pointsGoal = 0) {
     let storiesAbove = {},
-      pointsAbove = 0,
-      linePushed = false;
+      pointsAbove = 0;
     for(let key in stories) {
       let story = stories[key],
-        pointsToAdd = Number(story.points);
-      if(!linePushed) {
-        if ((pointsAbove += pointsToAdd) > pointsGoal) {
-          linePushed = true;
-        }
-        storiesAbove[key] = story;
-      } else {
+      pointsToAdd = Number(story.points);
+      if ((pointsAbove += pointsToAdd) > pointsGoal) {
         return storiesAbove;
       }
+      storiesAbove[key] = story;
     }
     return storiesAbove;
   }
