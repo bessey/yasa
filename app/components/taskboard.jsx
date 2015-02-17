@@ -1,6 +1,7 @@
 var React = require('react'),
   TaskList = require('./taskboard/task_list'),
-  UserLegend = require('./taskboard/user_legend');
+  UserLegend = require('./taskboard/user_legend'),
+  StoryEditor = require('./story_editor');
 
 var Taskboard = React.createClass({
   displayName: 'Taskboard',
@@ -35,6 +36,7 @@ var Taskboard = React.createClass({
         </div>
       </div>
       {tasklists}
+      <StoryEditor users={this.props.users} />
     </div>);
   }
 });

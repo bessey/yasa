@@ -4,7 +4,8 @@ var React = require('react'),
   StoryActions = require('../actions/story_actions'),
   ItemTypes = require('../constants/item_types'),
   SpecButton = require('./spec_button'),
-  UserStore = require('../stores/user_store');
+  UserStore = require('../stores/user_store'),
+  EditStoryButton = require('./edit_story_button');
 
 module.exports = React.createClass({
   displayName: 'Story',
@@ -39,12 +40,7 @@ module.exports = React.createClass({
         <td>
           <SpecButton spec={story.spec} />
           &nbsp;
-          <button
-            className="btn btn-default btn-xs"
-            onClick={this._openEditor}
-            data-toggle="modal" data-target="#add-story-dialogue">
-            Edit
-          </button>
+          <EditStoryButton id={this.props.id} story={this.props.story} />
         </td>
       </tr>
     );
@@ -73,9 +69,6 @@ module.exports = React.createClass({
     } else {
       return <button disabled="disabled" className="btn btn-primary btn-xs">Spec</button>;
     }
-  },
-  _openEditor() {
-    StoryActions.openEditor(this.props.id, this.props.story);
   },
   _getUserName(id) {
     let user = UserStore.find(id);

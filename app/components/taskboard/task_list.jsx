@@ -1,7 +1,8 @@
 var React = require('react'),
   Task = require('./task'),
   UserStore = require('../../stores/user_store'),
-  SpecButton = require('../spec_button');
+  SpecButton = require('../spec_button'),
+  EditStoryButton = require('../edit_story_button');
 
 var TaskList = React.createClass({
   displayName: 'TaskList',
@@ -18,7 +19,8 @@ var TaskList = React.createClass({
         <br/>
         {story.points}
         <br/>
-        <SpecButton spec={story.spec} />
+        <SpecButton spec={story.spec} /> &nbsp;
+        <EditStoryButton id={this.props.storyId} story={story} />
       </div>
       <div className="taskboard-sections">
         <div className="taskboard-section pending">
