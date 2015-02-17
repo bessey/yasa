@@ -1,6 +1,15 @@
 .rf-Field {
   @extend .form-group;
 }
+
+.rf-Form, form.form-inline {
+  display: inline-block;
+}
 input, textarea {
   @extend .form-control;
+}
+
+button {
+  @extend .btn;
+  @extend .btn-default;
 }

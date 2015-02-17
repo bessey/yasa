@@ -4,6 +4,7 @@ var React = require('react'),
   Firebase = require('firebase'),
   Backlog = require('./components/backlog'),
   Taskboard = require('./components/taskboard'),
+  UserManager = require('./components/user_manager'),
   StoryStore = require('./stores/story_store'),
   LineStore = require('./stores/line_store'),
   UserStore = require('./stores/user_store'),
@@ -29,6 +30,7 @@ var App = React.createClass({
             <ul className="nav navbar-nav">
               <li><a href="#/taskboard">Taskboard</a></li>
               <li><a href="#/backlog">Backlog</a></li>
+              <li><a href="#/users">Users</a></li>
             </ul>
           </div>
         </div>
@@ -42,6 +44,7 @@ var App = React.createClass({
 var routes = (<Route handler={App}>
     <Route name="backlog" handler={Backlog} />
     <Route name="taskboard" handler={Taskboard} />
+    <Route name="users" handler={UserManager} />
     <DefaultRoute handler={Taskboard} />
   </Route>)
 
