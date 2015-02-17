@@ -8,6 +8,8 @@ var React = require('react'),
 var ReactForms = require('react-forms'),
   Form = ReactForms.Form;
 
+var dispatcherId;
+
 var StoryEditor = React.createClass({
   displayName: 'StoryEditor',
   getInitialState() {
@@ -16,17 +18,19 @@ var StoryEditor = React.createClass({
     };
   },
   componentDidMount() {
-    var _this = this;
-    Dispatcher.register(function (action) {
+    dispatcherId = Dispatcher.register((action) => {
       switch(action.actionType) {
         case StoryConstants.OPEN_EDITOR:
-          _this.setState({id: action.id, story: action.story});
+          this.setState({id: action.id, story: action.story});
           break;
         case StoryConstants.CLOSE_EDITOR:
           break;
         default:
       }
     });
+  },
+  componentWillUnmount() {
+    Dispatcher.unregister(dispatcherId);
   },
   render() {
     var _this = this, title, submitText;
