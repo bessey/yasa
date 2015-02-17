@@ -23,7 +23,11 @@ var TaskList = React.createClass({
       <div className="taskboard-sections">
         <div className="taskboard-section pending">
           {this._tasksForState("pending")}
-          <Task taskboardId={this.props.taskboardId} storyId={this.props.storyId} key='new-task' />
+          <Task
+            users={this.props.users}
+            taskboardId={this.props.taskboardId}
+            storyId={this.props.storyId}
+            key='new-task' />
         </div>
         <div className="taskboard-section in-progress">
           {this._tasksForState("in-progress")}
@@ -41,7 +45,11 @@ var TaskList = React.createClass({
       var task = tasks[key],
         userClass = this._userClass(task.assigneeId);
       tasksList.push(
-        <Task taskboardId={this.props.taskboardId} storyId={this.props.storyId} key={key} id={key} task={task} userClass={userClass} />
+        <Task
+          users={this.props.users}
+          taskboardId={this.props.taskboardId}
+          storyId={this.props.storyId}
+          key={key} id={key} task={task} userClass={userClass} />
       );
     }
     return tasksList;

@@ -3,11 +3,13 @@ var React = require('react'),
   UserStore = require('../../stores/user_store');
 
 var ReactForms = require('react-forms'),
-  Form = ReactForms.Form;
+  Form = ReactForms.Form,
+  Select = require('../forms/select');
 
 var Task = React.createClass({
   displayName: 'Task',
   propTypes: {
+    users: React.PropTypes.object.isRequired,
     taskboardId: React.PropTypes.any.isRequired,
     storyId: React.PropTypes.any.isRequired
   },
@@ -57,12 +59,6 @@ var Task = React.createClass({
       Mapping = ReactForms.schema.Mapping,
       List = ReactForms.schema.List;
 
-    var user = UserStore.find(this.props.task.assigneeId), name;
-    if(user) {
-      name = user.name
-    } else {
-      name = null;
-    }
     return Mapping({
       description: Scalar({
         name: 'description',
@@ -70,10 +66,11 @@ var Task = React.createClass({
         defaultValue: this.props.task.description,
         input: <textarea />
       }),
-      assignee:    Scalar({
-        name: 'assignee',
+      assigneeId:    Scalar({
+        name: 'assigneeId',
         required: true,
-        defaultValue: name
+        defaultValue: this.props.task.assigneeId,
+        input: <Select required={true} options={this.props.users} />
       })
     });
   },
@@ -87,9 +84,6 @@ var Task = React.createClass({
       return; form.makeDirty();
     }
     var { taskboardId, storyId, id } = this.props, task = form.getValue().toJSON();
-    var assigneeName = task.assignee;
-    delete task.assignee;
-    task.assigneeId = UserStore.findByName(assigneeName).key;
     if(this._newTask()) {
       task.state = 'pending';
       TaskActions.createTask(taskboardId, storyId, task);
