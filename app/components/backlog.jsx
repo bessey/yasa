@@ -36,7 +36,7 @@ let Backlog = React.createClass({
           </div>
         </div>
         <StoryList line={this.props.line} stories={this.props.stories} />
-        <StoryEditor />
+        <StoryEditor users={this.props.users} />
       </div>
     );
   },

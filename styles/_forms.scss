@@ -5,7 +5,7 @@
 .rf-Form, form.form-inline {
   display: inline-block;
 }
-input, textarea {
+input, textarea, select {
   @extend .form-control;
 }
 

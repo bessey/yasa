@@ -4,7 +4,11 @@ var React = require('react'),
 
 var Taskboard = React.createClass({
   displayName: 'Taskboard',
-  render: function () {
+  propTypes: {
+    taskboard: React.PropTypes.object.isRequired,
+    users: React.PropTypes.object.isRequired
+  },
+  render() {
     var tasklists = [],
       taskboard = this.props.taskboard,
       users     = this.props.users;

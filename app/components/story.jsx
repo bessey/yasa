@@ -3,7 +3,8 @@ var React = require('react'),
   PropTypes = React.PropTypes,
   StoryActions = require('../actions/story_actions'),
   ItemTypes = require('../constants/item_types'),
-  SpecButton = require('./spec_button');
+  SpecButton = require('./spec_button'),
+  UserStore = require('../stores/user_store');
 
 module.exports = React.createClass({
   displayName: 'Story',
@@ -21,10 +22,10 @@ module.exports = React.createClass({
         style={{ opacity: isDragging ? 0.6 : 1.0 }}
       >
         <td>
-          { story.tech }
+          { this._getUserName(story.techId) }
         </td>
         <td>
-          { story.manager }
+          { this._getUserName(story.managerId) }
         </td>
         <td>
           { story.epic }
@@ -48,7 +49,7 @@ module.exports = React.createClass({
       </tr>
     );
   },
-  configureDragDrop: function (registerType) {
+  configureDragDrop(registerType) {
     registerType(ItemTypes.STORY_ITEM, {
       dragSource: {
         beginDrag: function () {
@@ -62,7 +63,7 @@ module.exports = React.createClass({
       }
     });
   },
-  _buildSpecButton: function (story) {
+  _buildSpecButton(story) {
     if(story.spec) {
       return <a target="_blank"
         href={ story.spec }
@@ -73,7 +74,13 @@ module.exports = React.createClass({
       return <button disabled="disabled" className="btn btn-primary btn-xs">Spec</button>;
     }
   },
-  _openEditor: function () {
+  _openEditor() {
     StoryActions.openEditor(this.props.id, this.props.story);
+  },
+  _getUserName(id) {
+    let user = UserStore.find(id);
+    if(user) {
+      return user.name;
+    }
   }
 });

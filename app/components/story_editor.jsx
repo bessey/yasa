@@ -6,12 +6,16 @@ var React = require('react'),
   Dispatcher = require('../dispatcher');
 
 var ReactForms = require('react-forms'),
-  Form = ReactForms.Form;
+  Form = ReactForms.Form,
+  Select = require('./forms/select');
 
 var dispatcherId;
 
 var StoryEditor = React.createClass({
   displayName: 'StoryEditor',
+  propTypes: {
+    users: React.PropTypes.object.isRequired
+  },
   getInitialState() {
     return {
       story: {}
@@ -85,22 +89,21 @@ var StoryEditor = React.createClass({
       spec:     Scalar({
         name: 'spec',
         label: 'Spec URL',
-        required: true,
         type: 'string',
         defaultValue: this.state.story.spec
       }),
-      tech:     Scalar({
-        name: 'tech',
+      techId:     Scalar({
+        name: 'techId',
         label: 'Tech',
         required: true,
         type: 'string',
-        defaultValue: this.state.story.tech
+        input: <Select options={this.props.users} selected={this.state.story.techId} />
       }),
-      manager:  Scalar({
-        name: 'manager',
+      managerId:  Scalar({
+        name: 'managerId',
         label: 'Manager',
         type: 'string',
-        defaultValue: this.state.story.manager
+        input: <Select options={this.props.users} selected={this.state.story.managerId} />
       }),
       epic:     Scalar({
         name: 'epic',
