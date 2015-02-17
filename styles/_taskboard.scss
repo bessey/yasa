@@ -11,7 +11,7 @@ $row-height: 10em;
 }
 .taskboard-story {
   height: $row-height;
-  border-radius: 0.5em;
+  border: 1px solid;
 }
 
 .taskboard-section-title, .taskboard-story-title {
@@ -28,10 +28,9 @@ $row-height: 10em;
 
 .task {
   @include make-xs-column(6);
-  background-color: #CCC;
   overflow: hidden;
   height: $row-height;
-  border-radius: 0.5em;
+  border: 2px solid;
 
   .save-button {
     display: none;
@@ -56,33 +55,45 @@ $row-height: 10em;
 
 // TASKBOARD COLOURS
 .taskboard, .taskboard-colors {
+  .new-task {
+    $color: #EEE;
+    border-color: darken($color, 30%);
+    background-color: $color;
+  }
   .pink {
     $color: #FF66B5;
+    border-color: darken($color, 30%);
     background-color: $color;
   }
   .orange {
     $color: #FFB066;
+    border-color: darken($color, 30%);
     background-color: $color;
   }
   .yellow {
     $color: #FFFC66;
+    border-color: darken($color, 30%);
     background-color: $color;
   }
   .aqua {
     $color: #66FFFC;
+    border-color: darken($color, 30%);
     background-color: $color;
   }
   .purple {
     $color: #B066FF;
     color: white;
+    border-color: darken($color, 30%);
     background-color: $color;
   }
   .mint {
     $color: #29FF90;
+    border-color: darken($color, 30%);
     background-color: $color;
   }
   .blue {
     $color: #66B5FF;
+    border-color: darken($color, 30%);
     background-color: $color;
   }
 }
