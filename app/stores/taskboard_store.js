@@ -1,9 +1,10 @@
 var Dispatcher = require('../dispatcher'),
-    Firebase = require("firebase"),
     TaskConstants = require('../constants/task_constants'),
-    TaskActions = require('../actions/task_actions');
+    TaskActions = require('../actions/task_actions'),
+    Firebase = require("firebase"),
+    Config = require("../config");
 
-var firebase = new Firebase("https://fiery-torch-5025.firebaseio.com/taskboards/");
+var firebase = new Firebase(`${Config.fbBaseRef}/taskboards/`);
 
 function createTaskboard(tasks) {
   firebase.push(tasks);

@@ -1,8 +1,9 @@
 var Dispatcher = require('../dispatcher'),
+    UserConstants = require('../constants/user_constants'),
     Firebase = require("firebase"),
-    UserConstants = require('../constants/user_constants');
+    Config = require("../config");
 
-var firebase = new Firebase("https://fiery-torch-5025.firebaseio.com/users/");
+var firebase = new Firebase(`${Config.fbBaseRef}/users`);
 
 var usersCache = {};
 

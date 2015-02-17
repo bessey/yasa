@@ -1,8 +1,9 @@
 var Dispatcher = require('../dispatcher'),
     StoryConstants = require('../constants/story_constants'),
-    Firebase = require("firebase");
+    Firebase = require("firebase"),
+    Config = require("../config");
 
-var firebase = new Firebase("https://fiery-torch-5025.firebaseio.com/stories/");
+var firebase = new Firebase(`${Config.fbBaseRef}/stories`);
 // Initialise our sorting number to something huge (we work our way towards zero over time)
 var highestPriority = 1e+15;
 

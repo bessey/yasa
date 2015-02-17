@@ -27,6 +27,7 @@
     "broccoli-es6-transpiler": "^1.0.1",
     "broccoli-merge-trees": "^0.2.1",
     "broccoli-react": "^0.7.0",
+    "broccoli-replace": "^0.2.0",
     "broccoli-sass": "^0.3.3",
     "broccoli-static-compiler": "^0.2.1",
     "es6-shim": "^0.22.2",

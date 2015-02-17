@@ -1,15 +1,16 @@
 var Dispatcher = require('../dispatcher'),
     LineConstants = require('../constants/line_constants'),
-    Firebase = require("firebase");
+    Firebase = require("firebase"),
+    Config = require("../config");
 
-var firebase = new Firebase("https://fiery-torch-5025.firebaseio.com/line/");
+var firebase = new Firebase(`${Config.fbBaseRef}/line`);
 
 var LineStore = {
   getLine: function (callback) {
     firebase.on('value', function (data) {
       callback(data.val());
     });
-  }  
+  }
 };
 
 function updateGoal(newGoal) {
