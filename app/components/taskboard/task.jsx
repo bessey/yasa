@@ -24,33 +24,39 @@ var Task = React.createClass({
   },
   getInitialState() {
     return {
-      editing: (this._newTask() ? true : false),
+      editing: false,
     };
   },
   render() {
     var task = this.props.task, userClass = this.props.userClass;
     return <div className={`task ${userClass}`}>
       {this._renderViewOrEdit()}
-      {this._renderMoveButtons()}
     </div>
   },
   _renderViewOrEdit() {
     if(this.state.editing) {
-      return <form onSubmit={this._save}>
+      return <form onSubmit={this._save} onBlur={this._blurSave}>
         <Form schema={this._schema()} ref="form" component="div"/>
         <button className="save-button" type="submit">Save</button>
       </form>
     } else {
-      return <div className="description" onClick={this._toggleEditing}>
-        { this.props.task.description }
-      </div>
+      if(this._newTask()) {
+        return <div className="create-placeholder" onClick={this._toggleEditing}>
+          &#43;
+        </div>
+      } else {
+        return <div className="description" onClick={this._toggleEditing}>
+          { this.props.task.description }
+          { this._renderMoveButtons() }
+        </div>
+      }
     }
   },
   _renderMoveButtons() {
     if(!this._newTask()) {
-      return <span>
-        <button onClick={this._moveBackward}>«</button>
-        <button onClick={this._moveForward}>»</button>
+      return <span className="move-buttons">
+        <button className="move-back" onClick={this._moveBackward}>«</button>
+        <button className="move-forward" onClick={this._moveForward}>»</button>
       </span>
     }
   },
@@ -91,6 +97,20 @@ var Task = React.createClass({
     } else {
       TaskActions.updateTask(taskboardId, storyId, id, task);
       this._toggleEditing();
+    }
+  },
+  _blurSave(e) {
+    if(e.relatedTarget === null) {
+      this._save();
+    } else {
+      // Confirm we blurred to outside of the form
+      var node = e.relatedTarget;
+      while (node != null) {
+        if (node == e.target) {
+          this._save();
+        }
+        node = node.parentNode;
+      }
     }
   },
   _resetForm() {

@@ -9,7 +9,7 @@ module.exports = React.createClass({
   },
   render() {
     return <button
-      className="btn btn-default btn-xs"
+      className="edit-story-button"
       onClick={this._openEditor}
       data-toggle="modal" data-target="#add-story-dialogue">
       Edit

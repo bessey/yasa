@@ -10,12 +10,14 @@ module.exports = React.createClass({
     for(let key in users) {
       usersLegend.push(this._buildUserLegend(users[key]));
     }
-    return <div className="row">
-      {usersLegend}
+    return <div className="user-legend">
+      <div className="row">
+        {usersLegend}
+      </div>
     </div>
   },
   _buildUserLegend(user) {
-    return <div key={user.name} className={`col-xs-2 col-sm-1 ${user.color}`}>
+    return <div key={user.name} className={`legend-member ${user.color}`}>
       {user.name}
     </div>
   }

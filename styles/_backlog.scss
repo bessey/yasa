@@ -1,25 +1,38 @@
-.the-line {
-  background-color: #F2D7AD;
-}
-
-.tech-with-points {
-  padding: 0px 20px;
-}
-
-.add-story {
-  @include make-xs-column(4);
-}
-
-.points-goal {
-  @include make-xs-column(5);
-  input {
-    display: inline-block;
-    width: 6em;
-    margin: 0 10px;
+.backlog {
+  .the-line {
+    background-color: #F2D7AD;
   }
-}
+
+  .tech-with-points {
+    padding: 0px 20px;
+  }
+
+  .add-story {
+    @include make-xs-column(4);
+  }
+
+  .points-goal {
+    @include make-xs-column(5);
+    input {
+      display: inline-block;
+      width: 6em;
+      margin: 0 10px;
+    }
+  }
 
 
-.create-taskboard {
-  @include make-xs-column(3);
+  .create-taskboard {
+    @include make-xs-column(3);
+  }
+
+  .open-spec-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-xs;
+  }
+  .edit-story-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-xs;
+  }
 }

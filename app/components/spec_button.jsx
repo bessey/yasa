@@ -10,11 +10,11 @@ module.exports = React.createClass({
     if(spec) {
       return <a target="_blank"
         href={ spec }
-        className="btn btn-primary btn-xs">
+        className="open-spec-button">
           Spec
         </a>;
     } else {
-      return <button disabled="disabled" className="btn btn-primary btn-xs">Spec</button>;
+      return <button className="open-spec-button" disabled="disabled">Spec</button>;
     }
   }
 });

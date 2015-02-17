@@ -1,5 +1,31 @@
 $row-height: 10em;
 
+.taskboard {
+  .header {
+    @extend .row;
+  }
+  .title {
+    @include make-xs-column(4);
+    @include make-md-column(3);
+  }
+  .open-spec-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-sm;
+  }
+  .edit-story-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-sm;
+  }
+  .story-buttons {
+    @extend .btn-group;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+}
+
 .task-list {
   @extend .row;
   margin-bottom: 1em;
@@ -28,9 +54,9 @@ $row-height: 10em;
 
 .task {
   @include make-xs-column(6);
-  overflow: hidden;
   height: $row-height;
   border: 2px solid;
+  position: relative;
 
   .save-button {
     display: none;
@@ -41,23 +67,66 @@ $row-height: 10em;
     @extend .btn-default;
   }
 
-  .description{
+  .description, .create-placeholder{
     min-height: 100px;
     width: 100%;
     cursor: pointer;
   }
+  .create-placeholder {
+    font-size: 5.8em;
+    text-align: center;
+  }
   textarea {
     height: 90px;
+    resize: none;
+  }
+
+  .form-group{
+    margin-bottom: 3px;
+  }
+
+  .move-buttons {
+    @extend .btn-group;
+    display: none;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  .move-back {
+    @extend .btn-danger;
+  }
+  .move-forward {
+    @extend .btn-success;
+  }
+
+  &:hover {
+    .move-buttons {
+      display: block;
+    }
   }
 }
 
+// USER LEGEND
+.user-legend {
+  @include make-xs-column(8);
+  @include make-md-column(9);
+  padding-top: 18px;
+}
+.legend-member {
+  @include make-xs-column(2);
+  @include make-md-column(1);
+  padding: 10px 5px;
+  text-align: center;
+  font-weight: bold;
+}
 
 
 // TASKBOARD COLOURS
 .taskboard, .taskboard-colors {
   .new-task {
-    $color: #EEE;
-    border-color: darken($color, 30%);
+    $color: #FFF;
+    color: darken($color, 10%);
+    border-color: darken($color, 10%);
     background-color: $color;
   }
   .pink {

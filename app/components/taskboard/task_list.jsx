@@ -19,8 +19,10 @@ var TaskList = React.createClass({
         <br/>
         {story.points}
         <br/>
-        <SpecButton spec={story.spec} /> &nbsp;
-        <EditStoryButton id={this.props.storyId} story={story} />
+        <div className="story-buttons">
+          <SpecButton spec={story.spec} /> &nbsp;
+          <EditStoryButton id={this.props.storyId} story={story} />
+        </div>
       </div>
       <div className="taskboard-sections">
         <div className="taskboard-section pending">
