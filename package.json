@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node --harmony ./node_modules/.bin/grunt serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/bessey/yasa",
   "devDependencies": {
+    "body-parser": "^1.12.0",
     "bower": "^1.3.12",
     "broccoli": "^0.13.3",
     "broccoli-bower": "^0.2.1",
@@ -28,15 +30,20 @@
     "broccoli-merge-trees": "^0.2.1",
     "broccoli-react": "^0.7.0",
     "broccoli-replace": "^0.2.0",
-    "broccoli-sass": "^0.3.3",
+    "broccoli-sass": "git://github.com/aexmachina/broccoli-sass#05afee03a173153dee35898903430b0de7b6c3ca",
     "broccoli-static-compiler": "^0.2.1",
+    "cookie-parser": "^1.3.4",
+    "debug": "^2.1.1",
     "es6-shim": "^0.22.2",
+    "express": "^4.11.2",
     "firebase": "^2.1.1",
     "flux": "^2.0.1",
     "grunt": "^0.4.5",
     "grunt-broccoli": "^0.3.7",
+    "grunt-cli": "^0.1.13",
     "grunt-contrib-connect": "^0.9.0",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-express": "^1.4.1",
     "grunt-karma": "^0.10.1",
     "immutable": "^3.6.2",
     "jquery": "^2.1.3",
@@ -44,9 +51,13 @@
     "karma-chrome-launcher": "^0.1.7",
     "karma-mocha": "^0.1.10",
     "mocha": "^2.1.0",
-    "react": "^0.12.2",
+    "morgan": "^1.5.1",
+    "node-jsx": "^0.12.4",
+    "node-sass": "2.0.1",
+    "react": "git://github.com/zpao/react#a692ee85cfe1a8de1199b9de4e3d66907f3905bc",
     "react-dnd": "^0.6.2",
-    "react-forms": "git://github.com/prometheusresearch/react-forms",
-    "react-router": "^0.11.6"
+    "react-forms": "file:../react-forms",
+    "react-router": "^0.11.6",
+    "react-tools": "^0.12.2"
   }
 }

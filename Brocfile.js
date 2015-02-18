@@ -6,12 +6,13 @@ var filterReact = require('broccoli-react');
 var es6transpiler = require('broccoli-es6-transpiler');
 var replace = require('broccoli-replace');
 
+// CLIENT SIDE
+
 var app = pickFiles('app', {
   srcDir: '/',
   destDir: 'js'
 })
 app = filterReact(app);
-
 app = es6transpiler(app, {
   disallowDuplicated: false,
   includePolyfills: true,
@@ -20,6 +21,7 @@ app = es6transpiler(app, {
     "__REACT_DEVTOOLS_GLOBAL_HOOK__": false
   }
 });
+
 
 var styles = pickFiles('styles', {
   srcDir: '/',
@@ -31,11 +33,11 @@ var bower = pickFiles('bower_components', {
   destDir: 'vendor'
 })
 
-var testsTree = pickFiles('spec', {
-  srcDir: '/',
-  files: ['*.js', '**/*.js'],
-  destDir: 'js/spec'
-});
+// var testsTree = pickFiles('spec', {
+//   srcDir: '/',
+//   files: ['*.js', '**/*.js'],
+//   destDir: 'js/spec'
+// });
 
 var devSourceTrees = [
   app,
@@ -44,24 +46,25 @@ var devSourceTrees = [
   'bower_components/bootstrap-sass-official/assets/stylesheets'
 ]
 
-var testSourceTrees = [
-  app,
-  styles,
-  bower,
-  testsTree,
-  'bower_components/bootstrap-sass-official/assets/stylesheets'
-]
+// var testSourceTrees = [
+//   app,
+//   styles,
+//   bower,
+//   testsTree,
+//   'bower_components/bootstrap-sass-official/assets/stylesheets'
+// ]
 
 var appAndDependencies = mergeTrees(devSourceTrees, { overwrite: true })
-var testAppAndDependencies = mergeTrees(testSourceTrees, { overwrite: true })
 
-var testJs = browserify(testAppAndDependencies, {
-  entries: [
-    './js/test_application.js',
-    './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
-  ],
-  outputFile: '/js/test_application.js'
-});
+// var testAppAndDependencies = mergeTrees(testSourceTrees, { overwrite: true })
+
+// var testJs = browserify(testAppAndDependencies, {
+//   entries: [
+//     './js/test_application.js',
+//     './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+//   ],
+//   outputFile: '/js/test_application.js'
+// });
 
 var appJs = browserify(appAndDependencies, {
   entries: [
@@ -90,6 +93,19 @@ var publicFiles = pickFiles('public', {
   destDir: ''
 })
 
-// TESTS
+// SERVER SIDE
 
-module.exports = mergeTrees([appJs, testJs, appCss, publicFiles])
+var serverJs = replace(appAndDependencies, {
+  files: [
+    '**/*.js'
+  ],
+  patterns: [
+    {
+      match: 'YASA_ENVIRONMENT',
+      replacement: 'development'
+    }
+  ]
+});
+
+
+module.exports = mergeTrees([appJs, serverJs, appCss, publicFiles])

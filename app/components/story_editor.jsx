@@ -5,8 +5,8 @@ var React = require('react'),
   StoryConstants = require('../constants/story_constants'),
   Dispatcher = require('../dispatcher');
 
-var ReactForms = require('react-forms'),
-  Form = ReactForms.Form,
+var ReactForms = require('react-forms');
+var Form = ReactForms.Form,
   Select = require('./forms/select');
 
 var dispatcherId;

@@ -2,8 +2,8 @@ var React = require('react'),
   TaskActions = require('../../actions/task_actions'),
   UserStore = require('../../stores/user_store');
 
-var ReactForms = require('react-forms'),
-  Form = ReactForms.Form,
+var ReactForms = require('react-forms');
+var Form = ReactForms.Form,
   Select = require('../forms/select');
 
 var Task = React.createClass({

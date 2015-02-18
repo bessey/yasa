@@ -1,3 +1,4 @@
+var path = require('path');
 module.exports = function(grunt) {
 
   grunt.initConfig({
@@ -24,11 +25,14 @@ module.exports = function(grunt) {
         singleRun: false
       }
     },
-    connect: {
-      server: {
+    express: {
+      dist: {
         options: {
           port: 4200,
-          base: 'dist'
+          hostname: '*',
+          bases: './dist',
+          server: './dist/js/app',
+          showStack: true
         }
       }
     }
@@ -38,8 +42,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-broccoli');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-express');
 
-  grunt.registerTask('serve', ['connect', 'watch:broccoli']);
+  grunt.registerTask('serve', ['broccoli:dev:build', 'express:dist', 'watch:broccoli']);
   grunt.registerTask('test',  ['karma:unit:start', 'watch:karma']);
 
   grunt.registerTask('default', ['serve']);
