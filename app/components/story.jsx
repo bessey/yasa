@@ -45,29 +45,20 @@ module.exports = React.createClass({
       </tr>
     );
   },
-  configureDragDrop(registerType) {
-    registerType(ItemTypes.STORY_ITEM, {
-      dragSource: {
-        beginDrag: function () {
-          return {item: {id: this.props.id}};
+  statics: {
+    configureDragDrop(registerType) {
+      registerType(ItemTypes.STORY_ITEM, {
+        dragSource: {
+          beginDrag: function (component) {
+            return {item: {id: component.props.id}};
+          }
+        },
+        dropTarget: {
+          over: function (component, item) {
+            StoryActions.swapStory(item.id, component.props.id);
+          }
         }
-      },
-      dropTarget: {
-        over: function (item) {
-          StoryActions.swapStory(item.id, this.props.id);
-        }
-      }
-    });
-  },
-  _buildSpecButton(story) {
-    if(story.spec) {
-      return <a target="_blank"
-        href={ story.spec }
-        className="btn btn-primary btn-xs">
-          Spec
-        </a>;
-    } else {
-      return <button disabled="disabled" className="btn btn-primary btn-xs">Spec</button>;
+      });
     }
   },
   _getUserName(id) {

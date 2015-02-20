@@ -2,10 +2,10 @@ var React = require('react'),
   StoryActions = require('../actions/story_actions');
 
 module.exports = React.createClass({
-  displayName: 'SpecButton',
+  displayName: 'EditStoryButton',
   propTypes: {
     id: React.PropTypes.string.isRequired,
-    story: React.PropTypes.string,
+    story: React.PropTypes.object,
   },
   render() {
     return <button

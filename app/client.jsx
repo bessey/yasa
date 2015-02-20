@@ -10,8 +10,12 @@ var React = require('react'),
 
 document.addEventListener("DOMContentLoaded", function(event) {
   Router.run(Routes, function (Handler) {
-    var line = {pointsGoal: 0}, stories = {}, taskboard = {}, users = {};
-    var handler = React.render(<Handler line={line} stories={stories} taskboard={taskboard} users={users} />, document.getElementById('yasa-root'));
+    let props = window.DATA;
+
+    UserStore.warmCache(props.users);
+
+    let handler = React.render(<Handler {...props} />, document.body);
+
     LineStore.getLine(function (line) {
       handler.setProps({line: line});
     });
@@ -21,6 +25,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
     TaskboardStore.getCurrentTaskboard(function (taskboard, id) {
       handler.setProps({taskboard: taskboard, taskboardId: id});
     });
-    UserStore.getAll(users => handler.setProps({users: users}));
+    UserStore.getAll((users) => {
+      handler.setProps({users: users});
+    });
+    UserStore.activateCache();
   });
 });

@@ -3,7 +3,7 @@ var React = require('react'),
 
 var App = React.createClass({
   render: function () {
-    return <div>
+    return <div className="container-fluid main-app">
       <nav className="navbar navbar-inverse navbar-fixed-top">
         <div className="container-fluid">
           <div className="navbar-header">
@@ -24,7 +24,6 @@ var App = React.createClass({
           </div>
         </div>
       </nav>
-
       <RouteHandler {...this.props} />
     </div>
   }

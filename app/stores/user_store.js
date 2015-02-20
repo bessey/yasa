@@ -36,10 +36,15 @@ var UserStore = {
   },
   find(id) {
     return usersCache[id] || {name: 'Unknown'};
+  },
+  activateCache() {
+    this.getAll((users) => usersCache = users)
+  },
+  // Useful for populating client's cache on page load
+  warmCache(preloadedUsers) {
+    usersCache = preloadedUsers;
   }
 };
-
-UserStore.getAll((users) => usersCache = users);
 
 Dispatcher.register(function (action) {
   switch(action.actionType) {

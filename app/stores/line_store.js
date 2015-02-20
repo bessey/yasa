@@ -7,7 +7,7 @@ var firebase = new Firebase(`${Config.fbBaseRef}/line`);
 
 var LineStore = {
   getLine: function (callback) {
-    firebase.on('value', function (data) {
+    return firebase.on('value', function (data) {
       callback(data.val());
     });
   }
