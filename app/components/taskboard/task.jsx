@@ -83,8 +83,10 @@ var Task = React.createClass({
   _newTask() {
     return this.props.userClass === 'new-task';
   },
-  _save() {
-    event.preventDefault();
+  _save(event) {
+    if(event){
+      event.preventDefault();
+    }
     var form = this.refs.form;
     if (form.getValidation().isFailure)  {
       return; form.makeDirty();
