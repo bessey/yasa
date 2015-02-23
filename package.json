@@ -56,7 +56,7 @@
     "node-sass": "2.0.1",
     "react": "git://github.com/zpao/react#a692ee85cfe1a8de1199b9de4e3d66907f3905bc",
     "react-dnd": "^0.6.2",
-    "react-forms": "file:../react-forms",
+    "react-forms": "git://github.com/bessey/react-forms",
     "react-router": "^0.11.6",
     "react-tools": "^0.12.2"
   }
