@@ -85,22 +85,27 @@ $row-height: 10em;
     margin-bottom: 3px;
   }
 
-  .move-buttons {
-    @extend .btn-group;
+  .task-buttons {
     display: none;
     position: absolute;
     bottom: 5px;
     right: 5px;
   }
+
+  .move-buttons {
+    @extend .btn-group;
+  }
   .move-back {
-    @extend .btn-danger;
   }
   .move-forward {
-    @extend .btn-success;
+    @extend .btn-primary;
+  }
+  .delete {
+    @extend .btn-danger;
   }
 
   &:hover {
-    .move-buttons {
+    .task-buttons {
       display: block;
     }
   }

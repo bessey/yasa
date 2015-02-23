@@ -20,6 +20,11 @@ function updateTask(taskboardId, storyId, id, task) {
   tasksRef.child(id).update(task);
 }
 
+function deleteTask(taskboardId, storyId, id) {
+  var tasksRef = firebase.child(`${taskboardId}/${storyId}/tasks/`);
+  tasksRef.child(id).remove();
+}
+
 var TaskboardStore = {
   getCurrentTaskboard(callback) {
     firebase.orderByPriority().limitToLast(1).on('value', (data) => {
@@ -40,6 +45,9 @@ Dispatcher.register(function (action) {
       break;
     case TaskConstants.TASK_UPDATE:
       updateTask(action.taskboardId, action.storyId, action.id, action.task);
+      break;
+    case TaskConstants.TASK_DELETE:
+      deleteTask(action.taskboardId, action.storyId, action.id);
       break;
     default:
   }

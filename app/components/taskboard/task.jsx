@@ -54,9 +54,13 @@ var Task = React.createClass({
   },
   _renderMoveButtons() {
     if(!this._newTask()) {
-      return <span className="move-buttons">
-        <button className="move-back" onClick={this._moveBackward}>«</button>
-        <button className="move-forward" onClick={this._moveForward}>»</button>
+      return <span className="task-buttons">
+        <span className="move-buttons">
+          <button className="move-back" onClick={this._moveBackward}>«</button>
+          <button className="move-forward" onClick={this._moveForward}>»</button>
+        </span>
+        &nbsp;
+        <button className="delete" onClick={this._deleteTask}>×</button>
       </span>
     }
   },
@@ -117,6 +121,10 @@ var Task = React.createClass({
   },
   _resetForm() {
     this.refs.form.setValue({});
+  },
+  _deleteTask() {
+    var { taskboardId, storyId, id } = this.props;
+    TaskActions.deleteTask(taskboardId, storyId, id);
   },
   _moveForward(event) {
     event.preventDefault();

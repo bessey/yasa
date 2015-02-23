@@ -25,6 +25,14 @@ var TaskActions = {
       id:     id,
       task:  task
     });
+  },
+  deleteTask(taskboardId, storyId, id) {
+    Dispatcher.dispatch({
+      actionType: TaskConstants.TASK_DELETE,
+      taskboardId: taskboardId,
+      storyId: storyId,
+      id:     id
+    });
   }
 };
 
