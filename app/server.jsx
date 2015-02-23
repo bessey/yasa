@@ -1,7 +1,7 @@
 var React = require('react'),
   Router  = require('react-router'),
   routes  = require('./routes'),
-  Html    = require('./components/Html'),
+  Html    = require('./components/html'),
   StoryStore = require('./stores/story_store'),
   LineStore = require('./stores/line_store'),
   UserStore = require('./stores/user_store'),
