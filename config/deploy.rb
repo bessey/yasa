@@ -14,7 +14,10 @@ set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 # Default value for :linked_files is []
 # set :linked_files, %w{config/database.yml}
 
-set :linked_dirs, %w{node_modules}
+set :bower_roles, :app
+set :bower_flags, '--allow-root --quiet --config.interactive=false'
+
+set :linked_dirs, %w{node_modules bower_components}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
