@@ -104,6 +104,21 @@ $row-height: 10em;
       display: block;
     }
   }
+
+  // Validation
+  .rf-Message {
+    position: absolute;
+    left: 95%;
+    top: 1px;
+    padding: 3px;
+    background-color: rgba(0, 0, 0, 0.61);;
+    color: white;
+    border-radius: 3px;
+    min-width: 80%;
+    text-align: center;
+    z-index: 400;
+
+  }
 }
 
 // USER LEGEND
