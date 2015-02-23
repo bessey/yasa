@@ -28,16 +28,18 @@ var Task = React.createClass({
     };
   },
   render() {
-    var task = this.props.task, userClass = this.props.userClass;
-    return <div className={`task ${userClass}`}>
+    var task = this.props.task, userClass = this.props.userClass, editingClass;
+    this.state.editing ? editingClass = "editing" : editingClass = "";
+    return <div className={`task ${userClass} ${editingClass}`}>
       {this._renderViewOrEdit()}
     </div>
   },
   _renderViewOrEdit() {
     if(this.state.editing) {
-      return <form onSubmit={this._save} onBlur={this._blurSave}>
+      return <form onSubmit={this._save} >
         <Form schema={this._schema()} ref="form" component="div"/>
-        <button className="save-button" type="submit">Save</button>
+        <button className="save-button" type="submit">Save</button>&nbsp;
+        <button className="cancel-button" onClick={this._toggleEditing}>Cancel</button>
       </form>
     } else {
       if(this._newTask()) {
@@ -103,20 +105,6 @@ var Task = React.createClass({
     } else {
       TaskActions.updateTask(taskboardId, storyId, id, task);
       this._toggleEditing();
-    }
-  },
-  _blurSave(e) {
-    if(e.relatedTarget === null) {
-      this._save();
-    } else {
-      // Confirm we blurred to outside of the form
-      var node = e.relatedTarget;
-      while (node != null) {
-        if (node == e.target) {
-          this._save();
-        }
-        node = node.parentNode;
-      }
     }
   },
   _resetForm() {

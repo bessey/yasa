@@ -58,8 +58,13 @@ $row-height: 10em;
   border: 2px solid;
   position: relative;
 
+  &.editing {
+    z-index: 200;
+  }
+
   .save-button {
-    display: none;
+    @extend .btn;
+    @extend .btn-success;
   }
 
   button {
