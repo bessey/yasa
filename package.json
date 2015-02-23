@@ -54,7 +54,7 @@
     "morgan": "^1.5.1",
     "node-jsx": "^0.12.4",
     "node-sass": "2.0.1",
-    "react": "git://github.com/zpao/react#a692ee85cfe1a8de1199b9de4e3d66907f3905bc",
+    "react": "git://github.com/zpao/react#d40be68d2c559fee87aa3bf0cbbe63d949c6cfbd",
     "react-dnd": "^0.6.2",
     "react-forms": "git://github.com/bessey/react-forms",
     "react-router": "^0.11.6",
