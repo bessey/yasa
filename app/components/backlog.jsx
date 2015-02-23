@@ -1,5 +1,5 @@
 let React = require('react'),
-  StoryList = require('./story_list'),
+  StoryList = require('./backlog/story_list'),
   StoryEditor = require('./story_editor'),
   StoryActions = require('../actions/story_actions'),
   LineActions = require('../actions/line_actions'),

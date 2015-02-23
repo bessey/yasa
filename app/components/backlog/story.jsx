@@ -1,11 +1,11 @@
 var React = require('react'),
   DragDropMixin = require('react-dnd').DragDropMixin,
   PropTypes = React.PropTypes,
-  StoryActions = require('../actions/story_actions'),
-  ItemTypes = require('../constants/item_types'),
-  SpecButton = require('./spec_button'),
-  UserStore = require('../stores/user_store'),
-  EditStoryButton = require('./edit_story_button');
+  StoryActions = require('../../actions/story_actions'),
+  ItemTypes = require('../../constants/item_types'),
+  SpecButton = require('../spec_button'),
+  UserStore = require('../../stores/user_store'),
+  EditStoryButton = require('../edit_story_button');
 
 module.exports = React.createClass({
   displayName: 'Story',

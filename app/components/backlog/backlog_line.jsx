@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 var React = require('react'),
-  UserStore = require('../stores/user_store');
+  UserStore = require('../../stores/user_store');
 
 var BacklogLine = React.createClass({
   displayName: 'BacklogLine',
