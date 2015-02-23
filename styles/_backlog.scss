@@ -35,4 +35,33 @@
     @extend .btn-default;
     @extend .btn-xs;
   }
+  .delete-story-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-xs;
+  }
+}
+
+
+.story-list {
+  @extend .table;
+
+  .tech {
+    min-width: 5em;
+    max-width: 20%;
+  }
+  .manager {
+    min-width: 5em;
+    max-width: 20%;
+  }
+  .epic {
+    min-width: 5em;
+    max-width: 20%;
+  }
+  .points {
+    width: 5em;
+  }
+  .actions {
+    width: 11em;
+  }
 }

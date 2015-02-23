@@ -6,25 +6,25 @@ module.exports = React.createClass({
   displayName: 'StoryList',
   render: function () {
     var stories = this._buildStoryList();
-    return <table className="table">
+    return <table className="story-list">
       <thead>
         <tr>
-          <th>
+          <th className="tech">
             Tech
           </th>
-          <th>
+          <th className="manager">
             PM
           </th>
-          <th>
+          <th className="epic">
             Epic
           </th>
           <th>
             Story
           </th>
-          <th>
+          <th className="points">
             Points
           </th>
-          <th>
+          <th className="actions">
           </th>
         </tr>
       </thead>

@@ -5,7 +5,8 @@ var React = require('react'),
   ItemTypes = require('../../constants/item_types'),
   SpecButton = require('../spec_button'),
   UserStore = require('../../stores/user_store'),
-  EditStoryButton = require('../edit_story_button');
+  EditStoryButton = require('../edit_story_button'),
+  DeleteStoryButton = require('../delete_story_button');
 
 module.exports = React.createClass({
   displayName: 'Story',
@@ -41,6 +42,8 @@ module.exports = React.createClass({
           <SpecButton spec={story.spec} />
           &nbsp;
           <EditStoryButton id={this.props.id} story={this.props.story} />
+          &nbsp;
+          <DeleteStoryButton id={this.props.id} />
         </td>
       </tr>
     );
