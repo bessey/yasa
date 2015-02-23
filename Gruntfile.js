@@ -6,6 +6,9 @@ module.exports = function(grunt) {
     broccoli: {
       dev: {
         dest: 'dist',
+      },
+      prod: {
+        dest: 'dist',
       }
     },
     watch: {
@@ -46,6 +49,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('serve', ['broccoli:dev:build', 'express:dist', 'watch:broccoli']);
   grunt.registerTask('test',  ['karma:unit:start', 'watch:karma']);
+  grunt.registerTask('build', ['broccoli:prod:build']);
 
   grunt.registerTask('default', ['serve']);
 };
