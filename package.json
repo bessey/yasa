@@ -25,6 +25,7 @@
     "broccoli-browserify": "^0.1.0",
     "broccoli-browserify-cache": "^1.1.0",
     "broccoli-concat": "0.0.12",
+    "broccoli-env": "0.0.1",
     "broccoli-es6-concatenator": "^0.1.11",
     "broccoli-es6-transpiler": "^1.0.1",
     "broccoli-merge-trees": "^0.2.1",

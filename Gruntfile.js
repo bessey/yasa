@@ -5,10 +5,12 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     broccoli: {
       dev: {
-        dest: 'dist',
+        env: 'development',
+        dest: 'dist'
       },
       prod: {
-        dest: 'dist',
+        env: 'production',
+        dest: 'dist'
       }
     },
     watch: {
