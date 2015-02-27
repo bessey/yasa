@@ -19,14 +19,16 @@ set :bower_flags, '--allow-root --quiet --config.interactive=false'
 set :linked_dirs, %w{node_modules bower_components dist}
 
 # Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {
+  'BROCCOLI_ENV' => 'production'
+}
 
 
 namespace :deploy do
   desc 'Build application'
   task :build do
     on roles(:app) do
-      execute "BROCCOLI_ENV=production cd #{release_path} && grunt build"
+      execute "cd #{release_path} && grunt build"
     end
   end
   after :updated, :build
