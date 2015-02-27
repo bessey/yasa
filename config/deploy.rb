@@ -32,23 +32,22 @@ namespace :deploy do
   end
   after :updated, :build
 
+  namespace :nginx do
+    task :configure do
+      on roles(:app) do
+        execute "cp -f #{release_path}/config/templates/nginx.conf /etc/nginx/"
+      end
+    end
+  end
+  after :updated, 'nginx:configure'
+
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      # Your restart mechanism here, for example:
-      # execute :touch, release_path.join('tmp/restart.txt')
+      execute :stop,  'yasa'
+      execute :start, 'yasa'
     end
   end
-
   after :publishing, :restart
-
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
 
 end

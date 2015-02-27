@@ -1,6 +1,3 @@
-var express = require('express')
-var app = express()
-
 var debug        = require('debug')('app');
 var express      = require('express');
 var path         = require('path');
@@ -23,10 +20,18 @@ app.use(function (err, req, res, next) {
   res.send('<pre>' + err.stack + '</pre>');
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4200);
 
-app.listen(app.get('port'), function () {
+var server = app.listen(app.get('port'), function () {
   debug('Express ' + app.get('env') + ' server listening on port ' + this.address().port);
 });
+
+var main = function(){
+    // main code
+}
+
+if (require.main === module) {
+    main();
+}
 
 module.exports = app;
