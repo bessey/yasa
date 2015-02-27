@@ -146,7 +146,10 @@ var Task = React.createClass({
     }
     TaskActions.updateTask(taskboardId, storyId, id, {state: newState});
   },
-  _toggleEditing() {
+  _toggleEditing(event) {
+    if(event) {
+      event.preventDefault();
+    }
     this.setState({editing: !this.state.editing}, () => {
       if(this.state.editing) {
         jQuery(this.refs.form.getDOMNode()).find('textarea').focus();
