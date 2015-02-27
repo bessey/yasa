@@ -4,9 +4,8 @@ lock '3.2.1'
 set :application, 'yasa'
 set :repo_url, 'git@github.com:bessey/yasa.git'
 set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-
-# Default deploy_to directory is /var/www/my_app
-# set :deploy_to, '/var/www/my_app'
+set :tmp_dir, '/home/deploy/.tmp/'
+set :deploy_to, '/var/www/yasa'
 
 # Default value for :log_level is :debug
 # set :log_level, :debug
