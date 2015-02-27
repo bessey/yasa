@@ -17,7 +17,7 @@ set :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :bower_roles, :app
 set :bower_flags, '--allow-root --quiet --config.interactive=false'
 
-set :linked_dirs, %w{node_modules bower_components}
+set :linked_dirs, %w{node_modules bower_components dist}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -35,7 +35,7 @@ namespace :deploy do
   namespace :nginx do
     task :configure do
       on roles(:app) do
-        execute "cp -f #{release_path}/config/templates/nginx.conf /etc/nginx/"
+        execute "sudo cp -f #{release_path}/config/templates/nginx.conf /etc/nginx/"
       end
     end
   end
@@ -44,8 +44,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute :stop,  'yasa'
-      execute :start, 'yasa'
+      execute 'sudo restart yasa'
     end
   end
   after :publishing, :restart
