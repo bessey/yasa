@@ -26,7 +26,7 @@ namespace :deploy do
   desc 'Build application'
   task :build do
     on roles(:app) do
-      execute "cd #{release_path} && grunt build"
+      execute "BROCCOLI_ENV=production cd #{release_path} && grunt build"
     end
   end
   after :updated, :build

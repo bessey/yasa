@@ -5,7 +5,7 @@ var compileSass = require('broccoli-sass');
 var filterReact = require('broccoli-react');
 var es6transpiler = require('broccoli-es6-transpiler');
 var replace = require('broccoli-replace');
-var env = require('broccoli-env').getEnv() || 'development';
+var env = require('broccoli-env').getEnv();
 
 // CLIENT SIDE
 
@@ -82,7 +82,7 @@ appJs = replace(appJs, {
   patterns: [
     {
       match: 'YASA_ENVIRONMENT',
-      replacement: 'development'
+      replacement: env
     }
   ]
 });
@@ -103,7 +103,7 @@ var serverJs = replace(appAndDependencies, {
   patterns: [
     {
       match: 'YASA_ENVIRONMENT',
-      replacement: 'development'
+      replacement: env
     }
   ]
 });
