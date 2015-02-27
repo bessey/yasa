@@ -45,7 +45,8 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
-      execute 'sudo restart yasa'
+      execute 'sudo stop yasa'
+      execute 'sudo start yasa'
     end
   end
   after :publishing, :restart
