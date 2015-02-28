@@ -15,9 +15,7 @@ let Select = React.createClass({
   },
   _renderOptions(options) {
     let optionElements = [];
-    if(!this.props.required) {
-      optionElements.push(<option key="none-selected" value={null}>-- Select --</option>);
-    }
+    optionElements.push(<option key="none-selected" value={null}>-- Select --</option>);
     for(let key in options) {
       let selected = "false";
       if(key === selected) {
