@@ -4,11 +4,13 @@ var logger        = require('morgan');
 var express       = require('express');
 var serverRender  = require('./dist/js/server');
 var api           = require('./dist/js/api');
+var authorizer    = require('./dist/js/authorizer');
 var app           = express();
 
 
 app.use(logger(app.get('env') === 'production' ? 'combined' : 'dev'));
 
+app.use(authorizer);
 app.use(express.static(__dirname + '/dist'));
 app.use('/api/v1', api);
 app.get('/', serverRender);
