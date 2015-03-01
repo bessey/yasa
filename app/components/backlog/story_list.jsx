@@ -1,37 +1,36 @@
-var React = require('react'),
-  Story = require('./story'),
-  BacklogLine = require('./backlog_line');
+var React       = require('react'),
+  Story         = require('./story'),
+  BacklogLine   = require('./line'),
+  LazyRender    = require('react-lazy-render');
 
 module.exports = React.createClass({
   displayName: 'StoryList',
   render: function () {
     var stories = this._buildStoryList();
-    return <table className="story-list">
-      <thead>
-        <tr>
-          <th className="tech">
-            Tech
-          </th>
-          <th className="manager">
-            PM
-          </th>
-          <th className="epic">
-            Epic
-          </th>
-          <th>
-            Story
-          </th>
-          <th className="points">
-            Points
-          </th>
-          <th className="actions">
-          </th>
-        </tr>
-      </thead>
-      <tbody>
+    return <div className="story-list">
+      <div className="story-row header">
+        <div className="tech">
+          Tech
+        </div>
+        <div className="manager">
+          PM
+        </div>
+        <div className="epic">
+          Epic
+        </div>
+        <div className="story">
+          Story
+        </div>
+        <div className="points">
+          Points
+        </div>
+        <div className="actions">
+        </div>
+      </div>
+      <LazyRender className="lazy-renderer" maxHeight={window.innerHeight - 200}>
         {stories}
-      </tbody>
-    </table>;
+      </LazyRender>
+    </div>;
   },
   _buildStoryList: function () {
     var stories = [], pointsAbove = 0, linePushed = false, pointsByTech = {};

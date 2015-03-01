@@ -1,3 +1,18 @@
+$row-padding: 11px;
+$line-height: 18px;
+// $row-height: 2 * $row-padding + $line-height; = 40px
+
+@mixin story-row() {
+  padding: $row-padding 0;
+  height: $line-height;
+  box-sizing: content-box;
+  border-bottom: 1px solid #ddd;
+}
+
+.lazy-renderer {
+  overflow-y: none;
+}
+
 .backlog {
   .the-line {
     background-color: #F2D7AD;
@@ -42,26 +57,44 @@
   }
 }
 
-
 .story-list {
-  @extend .table;
-
+  .story-row {
+    @extend .row;
+    @include story-row();
+    overflow-y: hidden;
+    &.header {
+      font-weight: bold;
+    }
+  }
   .tech {
-    min-width: 5em;
-    max-width: 20%;
+    @include make-xs-column(1);
   }
   .manager {
-    min-width: 5em;
-    max-width: 20%;
+    @include make-xs-column(1);
   }
   .epic {
-    min-width: 5em;
-    max-width: 20%;
+    @include make-xs-column(1);
   }
   .points {
-    width: 5em;
+    @include make-xs-column(1);
+  }
+  .story {
+    @include make-xs-column(6);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
   .actions {
-    width: 11em;
+    @include make-xs-column(2);
   }
+}
+
+.the-line {
+  @extend .row;
+  @include story-row();
+  overflow-y: hidden;
+}
+
+.lazy-renderer {
+  overflow-x: hidden;
 }

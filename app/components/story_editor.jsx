@@ -95,7 +95,6 @@ var StoryEditor = React.createClass({
       techId:     Scalar({
         name: 'techId',
         label: 'Tech',
-        required: true,
         type: 'string',
         defaultValue: this.state.story.techId,
         input: <Select options={this.props.users} />

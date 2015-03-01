@@ -20,7 +20,7 @@ class UserStore extends RestfulStore {
     return null;
   }
   static find(id) {
-    return usersCache[id] || {name: 'Unknown'};
+    return usersCache[id] || {};
   }
   static activateCache() {
     this.getAll((users) => usersCache = users)
