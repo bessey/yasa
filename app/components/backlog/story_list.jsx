@@ -9,6 +9,9 @@ module.exports = React.createClass({
     var stories = this._buildStoryList();
     return <div className="story-list">
       <div className="story-row header">
+        <div className="number">
+          #
+        </div>
         <div className="tech">
           Tech
         </div>
@@ -33,7 +36,11 @@ module.exports = React.createClass({
     </div>;
   },
   _buildStoryList: function () {
-    var stories = [], pointsAbove = 0, linePushed = false, pointsByTech = {};
+    let stories       = [],
+        pointsAbove   = 0,
+        linePushed    = false,
+        pointsByTech  = {},
+        rowCount      = 1;
     for(let key in this.props.stories) {
       var story = this.props.stories[key], pointsToAdd = Number(story.points);
       if(!linePushed) {
@@ -45,7 +52,8 @@ module.exports = React.createClass({
           this._incrementByTech(pointsByTech, story.techId, pointsToAdd);
         }
       }
-      stories.push(<Story id={key} key={key} story={story} />);
+      stories.push(<Story id={key} key={key} story={story} number={rowCount} />);
+      rowCount++;
     }
     if(!linePushed) {
       stories.push(this._buildLine(pointsAbove, pointsByTech));

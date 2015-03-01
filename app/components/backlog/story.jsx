@@ -6,25 +6,30 @@ var React = require('react'),
   SpecButton = require('../spec_button'),
   UserStore = require('../../stores/user_store'),
   EditStoryButton = require('../edit_story_button'),
-  DeleteStoryButton = require('../delete_story_button');
+  DeleteStoryButton = require('../delete_story_button'),
+  HoverExpander = require('../shared/hover_expander');
 
 module.exports = React.createClass({
   displayName: 'Story',
   mixins: [DragDropMixin],
   propTypes: {
-    id: PropTypes.any.isRequired
+    id: PropTypes.any.isRequired,
+    number: PropTypes.number.isRequired
   },
   render: function () {
     var story = this.props.story;
     var { isDragging } = this.getDragState(ItemTypes.STORY_ITEM);
     return (<div
-        className="story-row-container"
         id={this.props.id}
         {...this.dragSourceFor(ItemTypes.STORY_ITEM)}
         {...this.dropTargetFor(ItemTypes.STORY_ITEM)}
-        style={{ opacity: isDragging ? 0.6 : 1.0, height: 29 }}
+        className={`story-row-container ${isDragging ? 'dragging' : 'not-dragging'}` }
+        style={{ height: 29 }}
       >
-        <div className="story-row">
+        <div className="story-row hover-expander">
+          <div className="number">
+            { this.props.number }
+          </div>
           <div className="tech">
             { this._getUserName(story.techId) }
           </div>
@@ -35,7 +40,7 @@ module.exports = React.createClass({
             { story.epic }
           </div>
           <div className="story">
-            { story.story }
+            <HoverExpander text={ story.story} />
           </div>
           <div className="points">
             { story.points }
