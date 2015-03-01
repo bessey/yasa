@@ -14,19 +14,19 @@ class StoryStore extends RestfulStore {
   }
 
   static getSorted(callback) {
-    ref.orderByPriority().on('value', function (data) {
+    this.ref.orderByPriority().on('value', (data) => {
       callback(data.val());
     });
   }
   static recalculateHighestPriority() {
-    ref.orderByPriority().limitToFirst(1).on("value", function (values) {
-      values.forEach(function (value) {
+    this.ref.orderByPriority().limitToFirst(1).on("value", (values) => {
+      values.forEach((value) => {
         highestPriority = (value.getPriority() || highestPriority) - 1e+2;
       });
     })
   }
   static swap(id, afterId) {
-    ref.once("value", function (data) {
+    this.ref.once("value", (data) => {
       var priority = data.child(id).getPriority();
       var afterPriority = data.child(afterId).getPriority();
       if(priority === afterPriority) {
