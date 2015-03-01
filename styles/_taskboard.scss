@@ -179,9 +179,16 @@ $row-height: 10em;
     background-color: $color;
   }
   .blue {
-    $color: #66B5FF;
+    $color: #6685FF;
+    color: white;
     border-color: darken($color, 30%);
     background-color: $color;
+  }
+  .black {
+    $color: #333;
+    color: #eee;
+    border-color: lighten($color, 30%);
+    background-color : $color;
   }
 }
 
