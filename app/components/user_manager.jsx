@@ -37,6 +37,12 @@ var UserManager = React.createClass({
         <div className="taskboard-sample pink">
           Pink
         </div>
+        <div className="taskboard-sample white">
+          White
+        </div>
+        <div className="taskboard-sample black">
+          Black
+        </div>
       </div>
       {userEditors}
     </div>);

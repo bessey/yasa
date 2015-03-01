@@ -138,64 +138,62 @@ $row-height: 10em;
   font-weight: bold;
 }
 
+@mixin dark-task($color) {
+  color: lighten($color, 90%);
+  border-color: lighten($color, 10%);
+  background-color: $color;
+}
+@mixin light-task($color) {
+  color: darken($color, 60%);
+  border-color: darken($color, 10%);
+  background-color: $color;
+}
 
 // TASKBOARD COLOURS
 .taskboard, .taskboard-colors {
   .new-task {
-    $color: #FFF;
-    color: darken($color, 10%);
-    border-color: darken($color, 10%);
-    background-color: $color;
+    @include light-task(#FFF);
   }
   .pink {
-    $color: #FF66B5;
-    border-color: darken($color, 30%);
-    background-color: $color;
+    @include light-task(#FF66B5);
   }
   .orange {
-    $color: #FFB066;
-    border-color: darken($color, 30%);
-    background-color: $color;
+    @include light-task(#FFB066);
   }
   .yellow {
-    $color: #FFFC66;
-    border-color: darken($color, 30%);
-    background-color: $color;
+    @include light-task(#FFFC66);
   }
   .aqua {
-    $color: #66FFFC;
-    border-color: darken($color, 30%);
-    background-color: $color;
+    @include light-task(#66FFFC);
   }
   .purple {
-    $color: #B066FF;
-    color: white;
-    border-color: darken($color, 30%);
-    background-color: $color;
+    @include dark-task(#B066FF);
   }
   .mint {
-    $color: #29FF90;
-    border-color: darken($color, 30%);
-    background-color: $color;
+    @include light-task(#29FF90);
   }
   .blue {
-    $color: #6685FF;
-    color: white;
-    border-color: darken($color, 30%);
-    background-color: $color;
+    @include dark-task(#6685FF);
   }
   .black {
-    $color: #333;
-    color: #eee;
-    border-color: lighten($color, 30%);
-    background-color : $color;
+    @include dark-task(#333);
+  }
+  .white {
+    @include light-task(#fff);
   }
 }
 
 .taskboard-colors {
   @extend .row;
+  padding-bottom: 10px;
 }
 .taskboard-sample {
   @include make-xs-column(2);
   @include make-md-column(1);
+  border: 2px solid;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
 }
