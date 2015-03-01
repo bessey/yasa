@@ -26,13 +26,13 @@ class BacklogImporter {
   saveData(data) {
     let [header, ...data] = data, priority = 1e+5;
     data.forEach((row) => {
-      let tech = delete row.tech;
-      let manager = delete row.manager;
+      let tech = row.tech; delete row.tech;
+      let manager = row.manager; delete row.manager;
       if(tech) {
-        row.techId = UserStore.findByName(tech);
+        row.techId = UserStore.findByName(tech).key;
       }
       if(manager) {
-        row.managerId = UserStore.findByName(manager);
+        row.managerId = UserStore.findByName(manager).key;
       }
       // Ensure they sort correctly after import
       row['.priority'] = (priority += 1e+2);

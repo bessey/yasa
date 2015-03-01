@@ -17,7 +17,7 @@ class UserStore extends RestfulStore {
         return Object.assign(usersCache[key], {key: key});
       }
     }
-    return null;
+    return {};
   }
   static find(id) {
     return usersCache[id] || {};
