@@ -10,7 +10,9 @@ var app           = express();
 
 app.use(logger(app.get('env') === 'production' ? 'combined' : 'dev'));
 
-app.use(authorizer);
+if(app.settings.env == 'production') {
+  app.use(authorizer);
+}
 app.use(express.static(__dirname + '/dist'));
 app.use('/api/v1', api);
 app.get('/', serverRender);
@@ -25,7 +27,7 @@ app.use(function (err, req, res, next) {
 app.set('port', process.env.PORT || 4200);
 
 var server = app.listen(app.get('port'), function () {
-  debug('Express ' + app.get('env') + ' server listening on port ' + this.address().port);
+  debug('Express ' + app.get('env') + ' server listening on port ' + this.address().port + ' in ' + app.settings.env + ' mode');
 });
 
 module.exports = app;
