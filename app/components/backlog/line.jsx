@@ -6,12 +6,14 @@ var BacklogLine = React.createClass({
   render: function () {
     var pointsByTechList = this._pointsByTechList(this.props.pointsByTech);
     return (
-      <div className="the-line">
-        <div className="col-xs-10">
-          {pointsByTechList}
-        </div>
-        <div className="col-xs-2">
-          Planned: {this.props.pointsAbove} points
+      <div className="story-row-container" style={{height: 29}}>
+        <div className="the-line">
+          <div className="col-xs-10">
+            {pointsByTechList}
+          </div>
+          <div className="col-xs-2">
+            Planned: {this.props.pointsAbove} points
+          </div>
         </div>
       </div>
     );

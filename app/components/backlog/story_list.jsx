@@ -27,7 +27,7 @@ module.exports = React.createClass({
         <div className="actions">
         </div>
       </div>
-      <LazyRender className="lazy-renderer" maxHeight={window.innerHeight - 200}>
+      <LazyRender className="lazy-renderer" style={{minHeight: window.innerHeight - 200}} maxHeight={window.innerHeight - 200} itemPadding={5}>
         {stories}
       </LazyRender>
     </div>;

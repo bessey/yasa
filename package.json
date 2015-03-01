@@ -59,7 +59,7 @@
     "react": "git://github.com/zpao/react#d40be68d2c559fee87aa3bf0cbbe63d949c6cfbd",
     "react-dnd": "^0.6.2",
     "react-forms": "git://github.com/bessey/react-forms",
-    "react-lazy-render": "^0.1.2",
+    "react-lazy-render": "^0.2.1",
     "react-router": "^0.12.4",
     "react-tools": "^0.12.2"
   }

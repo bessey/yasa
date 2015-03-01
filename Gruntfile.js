@@ -17,7 +17,6 @@ module.exports = function(grunt) {
       dev: {
         script: 'app.js',
         options: {
-          args: ['dev'],
           nodeArgs: ['--debug'],
           watch: 'dist/',
           delay: 500

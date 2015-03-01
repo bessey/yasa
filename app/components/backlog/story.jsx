@@ -18,33 +18,35 @@ module.exports = React.createClass({
     var story = this.props.story;
     var { isDragging } = this.getDragState(ItemTypes.STORY_ITEM);
     return (<div
-        className="story-row"
+        className="story-row-container"
         id={this.props.id}
         {...this.dragSourceFor(ItemTypes.STORY_ITEM)}
         {...this.dropTargetFor(ItemTypes.STORY_ITEM)}
-        style={{ opacity: isDragging ? 0.6 : 1.0 }}
+        style={{ opacity: isDragging ? 0.6 : 1.0, height: 29 }}
       >
-        <div className="tech">
-          { this._getUserName(story.techId) }
-        </div>
-        <div className="manager">
-          { this._getUserName(story.managerId) }
-        </div>
-        <div className="epic">
-          { story.epic }
-        </div>
-        <div className="story">
-          { story.story }
-        </div>
-        <div className="points">
-          { story.points }
-        </div>
-        <div className="actions">
-          <SpecButton spec={story.spec} />
-          &nbsp;
-          <EditStoryButton id={this.props.id} story={this.props.story} />
-          &nbsp;
-          <DeleteStoryButton id={this.props.id} />
+        <div className="story-row">
+          <div className="tech">
+            { this._getUserName(story.techId) }
+          </div>
+          <div className="manager">
+            { this._getUserName(story.managerId) }
+          </div>
+          <div className="epic">
+            { story.epic }
+          </div>
+          <div className="story">
+            { story.story }
+          </div>
+          <div className="points">
+            { story.points }
+          </div>
+          <div className="actions">
+            <SpecButton spec={story.spec} />
+            &nbsp;
+            <EditStoryButton id={this.props.id} story={this.props.story} />
+            &nbsp;
+            <DeleteStoryButton id={this.props.id} />
+          </div>
         </div>
       </div>
     );
