@@ -1,33 +1,30 @@
 var Dispatcher = require('../dispatcher'),
     TaskConstants = require('../constants/task_constants'),
     TaskActions = require('../actions/task_actions'),
+    RestfulStore = require('./restful_store'),
     Firebase = require("firebase"),
     Config = require("../config");
 
-var firebase = new Firebase(`${Config.fbBaseRef}/taskboards/`);
+var ref = new Firebase(`${Config.fbBaseRef}/taskboards/`);
 
-function createTaskboard(tasks) {
-  firebase.push(tasks);
-}
-
-function createTask(taskboardId, storyId, task) {
-  var tasksRef = firebase.child(`${taskboardId}/${storyId}/tasks/`);
-  tasksRef.push(task);
-}
-
-function updateTask(taskboardId, storyId, id, task) {
-  var tasksRef = firebase.child(`${taskboardId}/${storyId}/tasks/`);
-  tasksRef.child(id).update(task);
-}
-
-function deleteTask(taskboardId, storyId, id) {
-  var tasksRef = firebase.child(`${taskboardId}/${storyId}/tasks/`);
-  tasksRef.child(id).remove();
-}
-
-var TaskboardStore = {
-  getCurrentTaskboard(callback) {
-    firebase.orderByPriority().limitToLast(1).on('value', (data) => {
+class TaskboardStore extends RestfulStore {
+  static get ref() {
+    return ref;
+  }
+  static tasksRef(taskboardId, storyId) {
+    return this.ref.child(`${taskboardId}/${storyId}/tasks/`);
+  }
+  static createTask(taskboardId, storyId, task) {
+    this.tasksRef(taskboardId, storyId).push(task);
+  }
+  static updateTask(taskboardId, storyId, id, task) {
+    this.tasksRef(taskboardId, storyId).child(id).update(task);
+  }
+  static deleteTask(taskboardId, storyId, id) {
+    this.tasksRef(taskboardId, storyId).child(id).remove();
+  }
+  static getCurrentTaskboard(callback) {
+    this.ref.orderByPriority().limitToLast(1).on('value', (data) => {
       var id = Object.keys(data.val())[0]
       var firstChild = data.val()[id];
       callback(firstChild, id);
@@ -38,16 +35,16 @@ var TaskboardStore = {
 Dispatcher.register(function (action) {
   switch(action.actionType) {
     case TaskConstants.TASKBOARD_CREATE:
-      createTaskboard(action.tasks);
+      TaskboardStore.create(action.tasks);
       break;
     case TaskConstants.TASK_CREATE:
-      createTask(action.taskboardId, action.storyId, action.task);
+      TaskboardStore.createTask(action.taskboardId, action.storyId, action.task);
       break;
     case TaskConstants.TASK_UPDATE:
-      updateTask(action.taskboardId, action.storyId, action.id, action.task);
+      TaskboardStore.updateTask(action.taskboardId, action.storyId, action.id, action.task);
       break;
     case TaskConstants.TASK_DELETE:
-      deleteTask(action.taskboardId, action.storyId, action.id);
+      TaskboardStore.deleteTask(action.taskboardId, action.storyId, action.id);
       break;
     default:
   }
