@@ -55,11 +55,29 @@ var Task = React.createClass({
     }
   },
   _renderMoveButtons() {
+    let buttons = [], newState = '';
+    let backButton = <button key="fb" className="move-back" onClick={this._moveBackward}>«</button>;
+    let forwardButton = <button key="bb" className="move-forward" onClick={this._moveForward}>»</button>
+    switch(this.props.task.state) {
+      case 'pending':
+        buttons.push(forwardButton);
+        newState = 'in-progress';
+        break;
+      case 'in-progress':
+        buttons.push(backButton);
+        buttons.push(forwardButton);
+        newState = 'complete';
+        break;
+      case 'complete':
+        buttons.push(backButton);
+        newState = 'complete';
+        break;
+    }
+
     if(!this._newTask()) {
       return <span className="task-buttons">
         <span className="move-buttons">
-          <button className="move-back" onClick={this._moveBackward}>«</button>
-          <button className="move-forward" onClick={this._moveForward}>»</button>
+          { buttons }
         </span>
         &nbsp;
         <button className="delete" onClick={this._deleteTask}>×</button>
@@ -104,8 +122,8 @@ var Task = React.createClass({
       this._resetForm();
     } else {
       TaskActions.updateTask(taskboardId, storyId, id, task);
-      this._toggleEditing();
     }
+    this._toggleEditing();
   },
   _resetForm() {
     this.refs.form.setValue({});
