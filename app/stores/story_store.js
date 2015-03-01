@@ -36,10 +36,13 @@ class StoryStore extends RestfulStore {
       this.ref.child(afterId).setPriority(priority);
     });
   }
-  static create(params) {
+  static create(params, assignPriority = true) {
     this._removeEmpty(params);
-    var story = Object.assign({".priority": highestPriority}, params);
-    return super.create(story);
+    if(assignPriority) {
+      console.log("assigning priority");
+      params = params[".priority"] = highestPriority;
+    }
+    return super.create(params);
   }
   static update(id, params) {
     this._removeEmpty(params);

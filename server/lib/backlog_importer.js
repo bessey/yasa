@@ -24,9 +24,8 @@ class BacklogImporter {
     return true;
   }
   saveData(data) {
-    let [header, ...data] = data;
+    let [header, ...data] = data, priority = 1e+5;
     data.forEach((row) => {
-      console.log(row);
       let tech = delete row.tech;
       let manager = delete row.manager;
       if(tech) {
@@ -35,7 +34,9 @@ class BacklogImporter {
       if(manager) {
         row.managerId = UserStore.findByName(manager);
       }
-      StoryStore.create(row);
+      // Ensure they sort correctly after import
+      row['.priority'] = (priority += 1e+2);
+      StoryStore.create(row, false);
     });
   }
 }
