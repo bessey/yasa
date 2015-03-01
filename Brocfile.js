@@ -44,39 +44,20 @@ var bootstrap = pickFiles('./bower_components/bootstrap-sass-official', {
   destDir: 'bootstrap'
 })
 
-// var testsTree = pickFiles('spec', {
-//   srcDir: '/',
-//   files: ['*.js', '**/*.js'],
-//   destDir: 'js/spec'
-// });
+var testsTree = pickFiles('spec', {
+  srcDir: '/',
+  files: ['*.js', '**/*.js'],
+  destDir: 'js/spec'
+});
 
 var devSourceTrees = [
   appAndServer,
   styles,
-  bootstrap
+  bootstrap,
+  testsTree
 ]
 
-// var testSourceTrees = [
-//   app,
-//   styles,
-//   bower,
-//   testsTree,
-//   'bower_components/bootstrap-sass-official/assets/stylesheets'
-// ]
-
 var allDependencies = mergeTrees(devSourceTrees, { overwrite: true })
-
-// module.exports = appAndDependencies
-
-// var testAppAndDependencies = mergeTrees(testSourceTrees, { overwrite: true })
-
-// var testJs = browserify(testAppAndDependencies, {
-//   entries: [
-//     './js/test_application.js',
-//     './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
-//   ],
-//   outputFile: '/js/test_application.js'
-// });
 
 var allDependencies = replace(allDependencies, {
   files: [
@@ -88,6 +69,14 @@ var allDependencies = replace(allDependencies, {
       replacement: env
     }
   ]
+});
+
+var testJs = browserify(allDependencies, {
+  entries: [
+    './js/test_application.js',
+    './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+  ],
+  outputFile: '/js/test_application.js'
 });
 
 var clientJs = browserify(allDependencies, {
