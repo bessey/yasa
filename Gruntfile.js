@@ -17,10 +17,6 @@ module.exports = function(grunt) {
       karma: {
         files: ['dist/**/*'],
         tasks: ['karma:unit:run']
-      },
-      broccoli: {
-        files: ['app/**/*.js', 'app/**/*.jsx', 'spec/**/*_spec.js'],
-        tasks: ['broccoli:dev:watch']
       }
     },
     karma: {
@@ -29,27 +25,15 @@ module.exports = function(grunt) {
         background: true,
         singleRun: false
       }
-    },
-    express: {
-      dist: {
-        options: {
-          port: 4200,
-          hostname: '*',
-          bases: './dist',
-          server: './dist/js/app',
-          showStack: true
-        }
-      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-broccoli');
-  grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-express');
+  grunt.loadNpmTasks('grunt-nodemon');
 
-  grunt.registerTask('serve', ['broccoli:dev:build', 'express:dist', 'watch:broccoli']);
+  grunt.registerTask('assets', ['broccoli:dev:watch']);
   grunt.registerTask('test',  ['karma:unit:start', 'watch:karma']);
   grunt.registerTask('build', ['broccoli:prod:build']);
 

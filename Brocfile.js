@@ -8,30 +8,41 @@ var replace = require('broccoli-replace');
 var env = require('broccoli-env').getEnv();
 
 // CLIENT SIDE
+var finalExport;
 
-var app = pickFiles('app', {
+var app = pickFiles('./app', {
   srcDir: '/',
-  destDir: 'js'
+  files: ['**/*.js', '**/*.jsx'],
+  destDir: '/js'
 })
-app = filterReact(app);
-app = es6transpiler(app, {
+var server = pickFiles('./server', {
+  srcDir: '/',
+  files: ['**/*.js'],
+  destDir: '/js'
+})
+
+var appAndServer = mergeTrees([app, server]);
+
+appAndServer = filterReact(appAndServer);
+appAndServer = es6transpiler(appAndServer, {
   disallowDuplicated: false,
   includePolyfills: true,
   globals: {
     "jQuery": false,
+    "$": false,
     "__REACT_DEVTOOLS_GLOBAL_HOOK__": false
   }
 });
 
-
-var styles = pickFiles('styles', {
+var styles = pickFiles('./styles', {
   srcDir: '/',
-  destDir: 'css'
+  files: ['**/*.scss'],
+  destDir: '/css'
 })
 
-var bower = pickFiles('bower_components', {
+var bootstrap = pickFiles('./bower_components/bootstrap-sass-official', {
   srcDir: '/',
-  destDir: 'vendor'
+  destDir: 'bootstrap'
 })
 
 // var testsTree = pickFiles('spec', {
@@ -41,10 +52,9 @@ var bower = pickFiles('bower_components', {
 // });
 
 var devSourceTrees = [
-  app,
+  appAndServer,
   styles,
-  bower,
-  'bower_components/bootstrap-sass-official/assets/stylesheets'
+  bootstrap
 ]
 
 // var testSourceTrees = [
@@ -55,7 +65,9 @@ var devSourceTrees = [
 //   'bower_components/bootstrap-sass-official/assets/stylesheets'
 // ]
 
-var appAndDependencies = mergeTrees(devSourceTrees, { overwrite: true })
+var allDependencies = mergeTrees(devSourceTrees, { overwrite: true })
+
+// module.exports = appAndDependencies
 
 // var testAppAndDependencies = mergeTrees(testSourceTrees, { overwrite: true })
 
@@ -67,46 +79,35 @@ var appAndDependencies = mergeTrees(devSourceTrees, { overwrite: true })
 //   outputFile: '/js/test_application.js'
 // });
 
-var appJs = browserify(appAndDependencies, {
+var allDependencies = replace(allDependencies, {
+  files: [
+    '**/*.js'
+  ],
+  patterns: [
+    {
+      match: 'YASA_ENVIRONMENT',
+      replacement: env
+    }
+  ]
+});
+
+var clientJs = browserify(allDependencies, {
   entries: [
     './js/client.js',
-    './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+    './bootstrap/assets/javascripts/bootstrap.js'
   ],
   outputFile: '/js/application.js'
 });
 
-appJs = replace(appJs, {
-  files: [
-    '**/*.js'
-  ],
-  patterns: [
-    {
-      match: 'YASA_ENVIRONMENT',
-      replacement: env
-    }
-  ]
-});
+var serverJs = allDependencies;
 
 var appCss = compileSass(devSourceTrees, 'css/application.scss', '/css/application.css', {});
 
-var publicFiles = pickFiles('public', {
+var publicFiles = pickFiles('./public', {
   srcDir: '/',
-  destDir: ''
+  destDir: '/'
 })
 
-// SERVER SIDE
-
-var serverJs = replace(appAndDependencies, {
-  files: [
-    '**/*.js'
-  ],
-  patterns: [
-    {
-      match: 'YASA_ENVIRONMENT',
-      replacement: env
-    }
-  ]
-});
-
-
-module.exports = mergeTrees([appJs, serverJs, appCss, publicFiles])
+var finalExport = mergeTrees([clientJs, appCss, serverJs, publicFiles]);
+// TODO: Don't have the server JS out in public
+module.exports = finalExport

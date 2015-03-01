@@ -4,7 +4,9 @@ let React = require('react'),
   StoryActions = require('../actions/story_actions'),
   LineActions = require('../actions/line_actions'),
   TaskActions = require('../actions/task_actions'),
-  LineUtils = require('../lib/line_utils');
+  LineUtils = require('../lib/line_utils'),
+  Router = require('react-router'),
+  { Route, RouteHandler, Link } = Router;
 
 let Backlog = React.createClass({
   displayName: 'Backlog',
@@ -26,6 +28,9 @@ let Backlog = React.createClass({
               data-target="#add-story-dialogue">
               Add a Story
             </button>
+            <Link to="import-backlog">
+              CSV Import
+            </Link>
           </div>
           <div className="points-goal">
             Goal for next sprint: <input type="number" value={this.state.pointsGoal} onChange={this._updateGoal} />

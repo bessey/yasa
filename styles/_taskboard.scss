@@ -62,16 +62,6 @@ $row-height: 10em;
     z-index: 200;
   }
 
-  .save-button {
-    @extend .btn;
-    @extend .btn-success;
-  }
-
-  button {
-    @extend .btn;
-    @extend .btn-default;
-  }
-
   .description, .create-placeholder{
     min-height: 100px;
     width: 100%;
@@ -96,9 +86,12 @@ $row-height: 10em;
     bottom: 5px;
     right: 5px;
   }
-
   .move-buttons {
     @extend .btn-group;
+  }
+  .save-button {
+    @extend .btn;
+    @extend .btn-success;
   }
   .move-back {
   }
