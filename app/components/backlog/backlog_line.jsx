@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react'),
   UserStore = require('../../stores/user_store');
 

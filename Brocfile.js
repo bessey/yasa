@@ -3,7 +3,7 @@ var mergeTrees = require('broccoli-merge-trees');
 var browserify = require('broccoli-browserify-cache');
 var compileSass = require('broccoli-sass');
 var filterReact = require('broccoli-react');
-var es6transpiler = require('broccoli-es6-transpiler');
+var esTranspiler = require('broccoli-babel-transpiler');
 var replace = require('broccoli-replace');
 var env = require('broccoli-env').getEnv();
 
@@ -24,14 +24,13 @@ var server = pickFiles('./server', {
 var appAndServer = mergeTrees([app, server]);
 
 appAndServer = filterReact(appAndServer);
-appAndServer = es6transpiler(appAndServer, {
-  disallowDuplicated: false,
-  includePolyfills: true,
-  globals: {
-    "jQuery": false,
-    "$": false,
-    "__REACT_DEVTOOLS_GLOBAL_HOOK__": false
-  }
+appAndServer = esTranspiler(appAndServer, {
+  sourceMap: true,
+  // globals: {
+  //   "jQuery": false,
+  //   "$": false,
+  //   "__REACT_DEVTOOLS_GLOBAL_HOOK__": false
+  // }
 });
 
 var styles = pickFiles('./styles', {

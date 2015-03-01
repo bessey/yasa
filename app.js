@@ -15,8 +15,8 @@ app.get('/', serverRender);
 
 // error pages
 app.use(function (err, req, res, next) {
+  console.error(err.stack);
   res.status(500);
-  // TODO: simple page for errors not in dev environment
   res.send('<pre>' + err.stack + '</pre>');
 });
 
