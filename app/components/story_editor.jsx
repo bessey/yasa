@@ -126,7 +126,6 @@ var StoryEditor = React.createClass({
     event.preventDefault();
     var form = this.refs.form,
       values = form.getValue().toJSON();
-    debugger;
     if (form.getValidation().isFailure)  {
       // force rendering all validation errors
       form.makeDirty();

@@ -25,8 +25,7 @@ var TaskList = React.createClass({
           {story.epic}
         </div>
         <div className="story-buttons">
-          <SpecButton spec={story.spec} /> &nbsp;
-          <EditStoryButton id={this.props.storyId} story={story} />
+          <SpecButton spec={story.spec} />
         </div>
       </div>
       <div className="taskboard-sections">
