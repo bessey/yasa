@@ -84,7 +84,8 @@ var StoryEditor = React.createClass({
         label: 'Story Title',
         required: true,
         type: 'string',
-        defaultValue: this.state.story.story
+        defaultValue: this.state.story.story,
+        input: <textarea />
       }),
       spec:     Scalar({
         name: 'spec',
@@ -125,6 +126,7 @@ var StoryEditor = React.createClass({
     event.preventDefault();
     var form = this.refs.form,
       values = form.getValue().toJSON();
+    debugger;
     if (form.getValidation().isFailure)  {
       // force rendering all validation errors
       form.makeDirty();
@@ -133,6 +135,7 @@ var StoryEditor = React.createClass({
         StoryActions.updateStory(this.state.id, values);
       } else {
         StoryActions.createStory(values);
+        this.replaceState(this.getInitialState());
       }
       jQuery('#add-story-dialogue').modal('hide');
       this._resetForm();

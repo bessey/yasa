@@ -15,10 +15,15 @@ var TaskList = React.createClass({
     var pendingTasks = [], inProgressTasks = [], completeTasks = [];
     return (<div className="task-list">
       <div className={this._storyClasses(users, story)}>
-        {story.story}
-        <br/>
-        {story.points}
-        <br/>
+        <div className="story">
+          {story.story}
+        </div>
+        <div className="points">
+          {story.points}
+        </div>
+        <div className="epic">
+          {story.epic}
+        </div>
         <div className="story-buttons">
           <SpecButton spec={story.spec} /> &nbsp;
           <EditStoryButton id={this.props.storyId} story={story} />

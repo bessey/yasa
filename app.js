@@ -10,7 +10,7 @@ var app           = express();
 
 app.use(logger(app.get('env') === 'production' ? 'combined' : 'dev'));
 
-if(app.settings.env == 'production') {
+if(app.get('env') == 'production') {
   app.use(authorizer);
 }
 app.use(express.static(__dirname + '/dist'));

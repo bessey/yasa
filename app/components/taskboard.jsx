@@ -18,9 +18,6 @@ var Taskboard = React.createClass({
     }
     return (<div className='taskboard'>
       <div className='header'>
-        <div className='title'>
-          <h1>Taskboard</h1>
-        </div>
         <UserLegend users={users} />
       </div>
       <div className="task-list">

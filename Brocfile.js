@@ -21,18 +21,6 @@ var server = pickFiles('./server', {
   destDir: '/js'
 })
 
-var appAndServer = mergeTrees([app, server]);
-
-appAndServer = filterReact(appAndServer);
-appAndServer = esTranspiler(appAndServer, {
-  sourceMap: true,
-  // globals: {
-  //   "jQuery": false,
-  //   "$": false,
-  //   "__REACT_DEVTOOLS_GLOBAL_HOOK__": false
-  // }
-});
-
 var styles = pickFiles('./styles', {
   srcDir: '/',
   files: ['**/*.scss'],
@@ -44,22 +32,27 @@ var bootstrap = pickFiles('./bower_components/bootstrap-sass-official', {
   destDir: 'bootstrap'
 })
 
-var testsTree = pickFiles('spec', {
+var tests = pickFiles('spec', {
   srcDir: '/',
   files: ['*.js', '**/*.js'],
-  destDir: 'js/spec'
+  destDir: '/js/spec'
 });
 
 var devSourceTrees = [
-  appAndServer,
+  app,
+  server,
   styles,
   bootstrap,
-  testsTree
+  tests
 ]
 
 var allDependencies = mergeTrees(devSourceTrees, { overwrite: true })
+allDependencies = filterReact(allDependencies);
+allDependencies = esTranspiler(allDependencies, {
+  sourceMap: true
+});
 
-var allDependencies = replace(allDependencies, {
+var devDependencies = replace(allDependencies, {
   files: [
     '**/*.js'
   ],
@@ -71,15 +64,27 @@ var allDependencies = replace(allDependencies, {
   ]
 });
 
-var testJs = browserify(allDependencies, {
+var testDependencies = replace(allDependencies, {
+  files: [
+    '**/*.js'
+  ],
+  patterns: [
+    {
+      match: 'YASA_ENVIRONMENT',
+      replacement: 'test'
+    }
+  ]
+});
+
+var testJs = browserify(testDependencies, {
   entries: [
-    './js/test_application.js',
-    './vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
+    './js/spec/test_application.js',
+    './bootstrap/assets/javascripts/bootstrap.js'
   ],
   outputFile: '/js/test_application.js'
 });
 
-var clientJs = browserify(allDependencies, {
+var clientJs = browserify(devDependencies, {
   entries: [
     './js/client.js',
     './bootstrap/assets/javascripts/bootstrap.js'
@@ -87,7 +92,7 @@ var clientJs = browserify(allDependencies, {
   outputFile: '/js/application.js'
 });
 
-var serverJs = allDependencies;
+var serverJs = devDependencies;
 
 var appCss = compileSass(devSourceTrees, 'css/application.scss', '/css/application.css', {});
 
@@ -96,6 +101,6 @@ var publicFiles = pickFiles('./public', {
   destDir: '/'
 })
 
-var finalExport = mergeTrees([clientJs, appCss, serverJs, publicFiles]);
+var finalExport = mergeTrees([clientJs, appCss, serverJs, testJs, publicFiles]);
 // TODO: Don't have the server JS out in public
 module.exports = finalExport

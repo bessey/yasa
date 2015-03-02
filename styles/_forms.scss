@@ -13,3 +13,7 @@ button {
   @extend .btn;
   @extend .btn-default;
 }
+
+textarea {
+  height: 6em;
+}

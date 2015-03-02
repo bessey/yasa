@@ -18,7 +18,6 @@ let Backlog = React.createClass({
   render() {
     return (
       <div className="backlog">
-        <h1>Backlog</h1>
         <div className="row">
           <div className="add-story">
             <button
@@ -28,15 +27,15 @@ let Backlog = React.createClass({
               data-target="#add-story-dialogue">
               Add a Story
             </button>
-            <Link to="import-backlog">
-              CSV Import
-            </Link>
           </div>
           <div className="points-goal">
             Goal for next sprint: <input type="number" value={this.state.pointsGoal} onChange={this._updateGoal} />
             points
           </div>
           <div className="create-taskboard">
+            <Link to="import-backlog">
+              CSV Import
+            </Link>&nbsp;
             <button className="btn-success" onClick={this._createTaskboard}>Create Taskboard</button>
           </div>
         </div>

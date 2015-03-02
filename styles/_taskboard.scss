@@ -36,8 +36,22 @@ $row-height: 10em;
   @include make-xs-column(2);
 }
 .taskboard-story {
-  height: $row-height;
+  @extend .row;
+  min-height: $row-height;
   border: 1px solid;
+  padding-bottom: 40px;
+  .story {
+    @include make-xs-column(12);
+    padding-bottom: 10px;
+  }
+  .points {
+    @include make-xs-column(4);
+    font-weight: bold;
+  }
+  .epic {
+    @include make-xs-column(8);
+    font-weight: bold;
+  }
 }
 
 .taskboard-section-title, .taskboard-story-title {

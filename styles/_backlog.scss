@@ -15,6 +15,7 @@ $line-height: 18px;
 }
 
 .backlog {
+  padding-top: 10px;
   .the-line {
     background-color: #F2D7AD;
   }
@@ -97,4 +98,5 @@ $line-height: 18px;
 
 .lazy-renderer {
   overflow-x: hidden;
+  min-height: 800px;
 }
