@@ -1,6 +1,7 @@
-var React = require('react'),
+var React     = require('react'),
   UserActions = require('../actions/user_actions'),
-  UserStore = require('../stores/user_store');
+  UserStore   = require('../stores/user_store'),
+  Select      = require('./forms/select');
 
 var ReactForms = require('react-forms'),
   Form = ReactForms.Form;
@@ -8,7 +9,8 @@ var ReactForms = require('react-forms'),
 var UserEditor = React.createClass({
   displayName: 'UserEditor',
   propTypes: {
-    user: React.PropTypes.any.isRequired
+    user:   React.PropTypes.any.isRequired,
+    colors: React.PropTypes.object.isRequired
   },
   getDefaultProps() {
     return {
@@ -51,7 +53,8 @@ var UserEditor = React.createClass({
         label: 'Color',
         name: 'color',
         required: true,
-        defaultValue: this.props.user.color
+        defaultValue: this.props.user.color,
+        input: <Select options={this.props.colors} />
       })
     });
   },

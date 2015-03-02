@@ -48,7 +48,20 @@ var UserManager = React.createClass({
     </div>);
   },
   _buildUserEditor(key = 'new-user', user = undefined) {
-    return <UserEditor key={key} id={key} user={user} />
+    return <UserEditor key={key} id={key} user={user} colors={this._colors()} />
+  },
+  _colors() {
+    return {
+      yellow: "Yellow",
+      orange: "Orange",
+      mint: "Mint",
+      aqua: "Aqua",
+      blue: "Blue",
+      purple: "Purple",
+      pink: "Pink",
+      white: "White",
+      black: "Black"
+    }
   }
 });
 
