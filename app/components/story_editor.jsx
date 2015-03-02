@@ -18,6 +18,7 @@ var StoryEditor = React.createClass({
   },
   getInitialState() {
     return {
+      key: "new-0",
       story: {}
     };
   },
@@ -25,7 +26,9 @@ var StoryEditor = React.createClass({
     dispatcherId = Dispatcher.register((action) => {
       switch(action.actionType) {
         case StoryConstants.OPEN_EDITOR:
-          this.setState({id: action.id, story: action.story});
+          let id  = action.id;
+          let key = id || `new-${Math.floor(Math.random() * (10000 - 100))}`;
+          this.setState({key: key, id: action.id, story: action.story});
           break;
         case StoryConstants.CLOSE_EDITOR:
           break;
@@ -63,7 +66,7 @@ var StoryEditor = React.createClass({
             <h2 className="modal-title">{title}</h2>
           </div>
           <form onSubmit={this._save} className="modal-body">
-            <Form className="col-xs-12" key={this.state.id} schema={schema} ref="form" component="div"/>
+            <Form className="col-xs-12" key={this.state.key} schema={schema} ref="form" component="div"/>
             <div className="form-group">
               <button type="submit" className="btn btn-primary">{submitText}</button>
               &nbsp;
@@ -126,7 +129,7 @@ var StoryEditor = React.createClass({
     event.preventDefault();
     var form = this.refs.form,
       values = form.getValue().toJSON();
-    if (form.getValidation().isFailure)  {
+    if (form.getValidation().isFailure) {
       // force rendering all validation errors
       form.makeDirty();
     } else {
@@ -137,11 +140,7 @@ var StoryEditor = React.createClass({
         this.replaceState(this.getInitialState());
       }
       jQuery('#add-story-dialogue').modal('hide');
-      this._resetForm();
     }
-  },
-  _resetForm() {
-    this.refs.form.setValue({});
   },
   _editingStory() {
     return !!this.state.id;
