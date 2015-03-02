@@ -17,7 +17,7 @@ let Backlog = React.createClass({
   },
   getInitialState() {
     return {
-      pointsGoal: 0
+      pointsGoal: this.props.line.pointsGoal
     };
   },
   render() {
@@ -51,9 +51,7 @@ let Backlog = React.createClass({
   },
   componentWillReceiveProps(newProps) {
     let pointsGoal = newProps.line.pointsGoal;
-    if(pointsGoal) {
-      this.setState({pointsGoal: pointsGoal});
-    }
+    this.setState({pointsGoal: pointsGoal});
   },
   _addNewStory() {
     StoryActions.openEditor();
