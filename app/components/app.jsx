@@ -1,5 +1,5 @@
 var React = require('react'),
-  { RouteHandler } = require('react-router');
+  { RouteHandler, Link } = require('react-router');
 
 var App = React.createClass({
   render: function () {
@@ -13,13 +13,21 @@ var App = React.createClass({
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">Yasa</a>
+            <Link to="taskboard" className="navbar-brand">
+              Yasa
+            </Link>
           </div>
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
-              <li><a href="#/taskboard">Taskboard</a></li>
-              <li><a href="#/backlog">Backlog</a></li>
-              <li><a href="#/users">Users</a></li>
+              <li>
+                <Link to="taskboard">Taskboard</Link>
+              </li>
+              <li>
+                <Link to="backlog">Backlog</Link>
+              </li>
+              <li>
+                <Link to="users">Users</Link>
+              </li>
             </ul>
           </div>
         </div>

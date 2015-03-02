@@ -10,12 +10,11 @@ var React = require('react'),
 
 var routes = (<Route path="/" handler={App}>
     <Route name="backlog" handler={Backlog} />
-    <Route name="import-backlog
-      " path="/backlog/import" handler={BacklogImporter} />
+    <Route name="import-backlog" path="/backlog/import" handler={BacklogImporter} />
     <Route name="taskboard" handler={Taskboard} />
     <Route name="users" handler={UserManager} />
     <DefaultRoute handler={Taskboard} />
   </Route>);
-  
+
 
 module.exports = routes;
