@@ -40,6 +40,8 @@ namespace :deploy do
       end
     end
   end
+  after :updated, 'yasa:configure'
+  
   namespace :nginx do
     task :configure do
       on roles(:app) do
