@@ -30,7 +30,7 @@ module.exports = React.createClass({
         <div className="actions">
         </div>
       </div>
-      <LazyRender className="lazy-renderer" style={{minHeight: window.innerHeight - 200}} maxHeight={window.innerHeight - 200} itemPadding={5}>
+      <LazyRender className="lazy-renderer" style={{minHeight: this._windowHeight()}} maxHeight={this._windowHeight()} itemPadding={5}>
         {stories}
       </LazyRender>
     </div>;
@@ -69,5 +69,12 @@ module.exports = React.createClass({
   _incrementByTech: function (pointsByTech, tech, pointsToAdd) {
     var currentPoints = pointsByTech[tech] || 0;
     pointsByTech[tech] = currentPoints + pointsToAdd;
+  },
+  _windowHeight() {
+    if(typeof(window) === 'undefined') {
+      return 1500; // Conservative large value
+    } else {
+      return window.innerHeight - 200;
+    }
   }
 });
