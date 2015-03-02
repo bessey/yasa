@@ -12,8 +12,8 @@ var Html = React.createClass({
           <title>Yasa</title>
           <link href="/css/application.css" rel="stylesheet" />
           <script dangerouslySetInnerHTML={{__html: this._renderJson() }}></script>
-          <script async="true" type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-          <script async="true" src="/js/application.js"></script>
+          <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+          <script src="/js/application.js"></script>
         </head>
         <body dangerouslySetInnerHTML={{__html: this.props.markup}}>
         </body>

@@ -9,7 +9,7 @@ var React = require('react'),
   TaskboardStore = require('./stores/taskboard_store');
 
 document.addEventListener("DOMContentLoaded", function(event) {
-  Router.run(Routes, function (Handler) {
+  Router.run(Routes, Router.HistoryLocation, function (Handler) {
     let props = window.DATA;
 
     UserStore.warmCache(props.users);
