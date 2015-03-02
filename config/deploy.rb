@@ -33,6 +33,13 @@ namespace :deploy do
   end
   after :updated, :build
 
+  namespace :yasa do
+    task :configure do
+      on roles(:app) do
+        execute "sudo cp -f #{release_path}/config/templates/yasa.conf /etc/init/"
+      end
+    end
+  end
   namespace :nginx do
     task :configure do
       on roles(:app) do
