@@ -17,10 +17,7 @@ var Taskboard = React.createClass({
       tasklists.push(<TaskList taskboardId={this.props.taskboardId} key={key} storyId={key} story={taskboard[key]} users={users} />);
     }
     return (<div className='taskboard'>
-      <div className='header'>
-        <UserLegend users={users} />
-      </div>
-      <div className="task-list">
+      <div className="task-list header">
         <div className="taskboard-story-title">
           Story
         </div>
@@ -36,8 +33,11 @@ var Taskboard = React.createClass({
           </div>
         </div>
       </div>
-      {tasklists}
+      <div className='contents'>
+        {tasklists}
+      </div>
       <StoryEditor users={this.props.users} />
+      <UserLegend users={users} />
     </div>);
   }
 });

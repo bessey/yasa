@@ -10,8 +10,9 @@ var Task = React.createClass({
   displayName: 'Task',
   propTypes: {
     users: React.PropTypes.object.isRequired,
-    taskboardId: React.PropTypes.any.isRequired,
-    storyId: React.PropTypes.any.isRequired
+    taskboardId: React.PropTypes.string.isRequired,
+    storyId: React.PropTypes.string.isRequired,
+    task: React.PropTypes.object
   },
   getDefaultProps() {
     return {

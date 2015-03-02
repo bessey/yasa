@@ -1,9 +1,6 @@
 $row-height: 10em;
 
 .taskboard {
-  .header {
-    @extend .row;
-  }
   .title {
     @include make-xs-column(4);
     @include make-md-column(3);
@@ -24,6 +21,9 @@ $row-height: 10em;
     bottom: 5px;
     right: 5px;
   }
+  .contents {
+    margin-top: 44px;
+  }
 }
 
 .task-list {
@@ -31,6 +31,16 @@ $row-height: 10em;
   margin-bottom: 1em;
   padding-bottom: 1em;
   border-bottom: 1px solid #ccc;
+  &.header {
+    padding: 5px 0;
+    font-size: 1.1em;
+    width: 100%;
+    position: fixed;
+    top: 52px;
+    background-color: white;
+    z-index: 500;
+    margin: 0 -20px 0 -20px;
+  }
 }
 .taskboard-story, .taskboard-story-title {
   @include make-xs-column(2);
@@ -142,9 +152,15 @@ $row-height: 10em;
 .user-legend {
   @include make-xs-column(8);
   @include make-md-column(9);
-  padding-top: 18px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  border: 0px solid white;
+  border-width: 3px 0 0 3px;
+  z-index: 500;
 }
 .legend-member {
+  @extend .pull-right;
   @include make-xs-column(2);
   @include make-md-column(1);
   padding: 10px 5px;
