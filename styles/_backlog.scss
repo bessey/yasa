@@ -3,7 +3,8 @@ $line-height: 18px;
 // $row-height: 2 * $row-padding + $line-height; = 40px
 
 @mixin story-row() {
-  padding: $row-padding 0;
+  padding-top: $row-padding;
+  padding-bottom: $row-padding;
   height: $line-height;
   box-sizing: content-box;
   border-bottom: 1px solid #ddd;
@@ -59,13 +60,20 @@ $line-height: 18px;
   }
 }
 
+.story-row {
+  @extend .row;
+  @include story-row();
+  &.header {
+    font-weight: bold;
+  }
+}
+
 .story-list {
-  .story-row {
-    @extend .row;
-    @include story-row();
-    &.header {
-      font-weight: bold;
-    }
+  .story-row-container:hover {
+    background-color: $highlight-color;
+  }
+  .points {
+    overflow-y: hidden;
   }
   .number {
     @include make-xs-column(1);
@@ -87,6 +95,7 @@ $line-height: 18px;
   }
   .actions {
     @include make-xs-column(2);
+    margin-top: -2px;
   }
 }
 
