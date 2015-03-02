@@ -15,14 +15,14 @@ if(app.get('env') == 'production') {
 }
 app.use(express.static(__dirname + '/dist'));
 app.use('/api/v1', api);
-app.get('/', serverRender);
-
-// error pages
 app.use(function (err, req, res, next) {
   console.error(err.stack);
   res.status(500);
   res.send('<pre>' + err.stack + '</pre>');
 });
+
+// Everything else goes to the server
+app.get('*', serverRender);
 
 app.set('port', process.env.PORT || 4200);
 
