@@ -10,6 +10,11 @@ let React = require('react'),
 
 let Backlog = React.createClass({
   displayName: 'Backlog',
+  propTypes: {
+    stories:  React.PropTypes.object.isRequired,
+    users:    React.PropTypes.object.isRequired,
+    line:     React.PropTypes.object.isRequired
+  },
   getInitialState() {
     return {
       pointsGoal: 0

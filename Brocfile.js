@@ -64,26 +64,6 @@ var devDependencies = replace(allDependencies, {
   ]
 });
 
-var testDependencies = replace(allDependencies, {
-  files: [
-    '**/*.js'
-  ],
-  patterns: [
-    {
-      match: 'YASA_ENVIRONMENT',
-      replacement: 'test'
-    }
-  ]
-});
-
-var testJs = browserify(testDependencies, {
-  entries: [
-    './js/spec/test_application.js',
-    './bootstrap/assets/javascripts/bootstrap.js'
-  ],
-  outputFile: '/js/test_application.js'
-});
-
 var clientJs = browserify(devDependencies, {
   entries: [
     './js/client.js',
@@ -101,6 +81,6 @@ var publicFiles = pickFiles('./public', {
   destDir: '/'
 })
 
-var finalExport = mergeTrees([clientJs, appCss, serverJs, testJs, publicFiles]);
+var finalExport = mergeTrees([clientJs, appCss, serverJs, publicFiles]);
 // TODO: Don't have the server JS out in public
 module.exports = finalExport

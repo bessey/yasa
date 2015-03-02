@@ -1,4 +1,4 @@
-var assert = require("assert");
+require('./spec_helper');
 
 describe('Array', function(){
   describe('#indexOf()', function(){

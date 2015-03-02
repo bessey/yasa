@@ -24,28 +24,38 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      karma: {
-        files: ['dist/js/test_application.js'],
-        tasks: ['karma:unit:run']
+      mocha: {
+        files: ['dist/js/application.js'],
+        tasks: ['mochaTest']
       }
     },
-    karma: {
-      unit: {
-        configFile: 'karma.conf.js',
-        background: true,
-        singleRun: false
-      }
+    mochaTest: {
+      options: {
+        reporter: 'spec',
+        clearRequireCache: true
+      },
+      src: ['dist/js/spec/**/*.js']
+    }
+  });
+
+  // On watch events, if the changed file is a test file then configure mochaTest to only
+  // run the tests from that file. Otherwise run all the tests
+  var defaultTestSrc = grunt.config('mochaTest.src');
+  grunt.event.on('watch', function(action, filepath) {
+    grunt.config('mochaTest.test.src', defaultTestSrc);
+    if (filepath.match('dist/js/spec/')) {
+      grunt.config('mochaTest.test.src', filepath);
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-broccoli');
-  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('serve', ['nodemon:dev']);
   grunt.registerTask('assets', ['broccoli:dev:watch']);
-  grunt.registerTask('test',  ['karma:unit:start', 'watch:karma']);
+  grunt.registerTask('test',  ['mochaTest']);
   grunt.registerTask('build', ['broccoli:prod:build']);
 
   grunt.registerTask('default', ['serve']);

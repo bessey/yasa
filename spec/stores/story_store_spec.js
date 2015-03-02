@@ -1,3 +1,4 @@
+require('../spec_helper');
 let StoryStore = require('../../stores/story_store');
 
 describe('StoryStore', () => {
