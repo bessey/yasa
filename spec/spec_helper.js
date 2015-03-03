@@ -20,8 +20,10 @@ module.exports = {
       userAgent: 'node.js'
     };
 
+    let chai = require('chai');
     global["jQuery"] = require('jquery');
-    global["assert"] = require("assert");
+    global["expect"] = chai.expect;
+
   },
   TestWrapper(WrappedClass, props) {
     return React.createClass({

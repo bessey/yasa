@@ -8,9 +8,9 @@ describe('StoryStore', () => {
         story: "test story",
         techId: "1234"
       });
-      assert.equal(story.story, "test story");
-      assert.equal(story.techId, "1234");
-      assert.ok(story[".priority"], "priority not set in store");
+      expect(story.story).to.equal("test story");
+      expect(story.techId).to.equal("1234");
+      expect(story[".priority"]).to.not.be.empty;
     })
   })
 })
