@@ -1,6 +1,6 @@
 let Helper  = require('./spec_helper.js'),
     React   = require('react/addons'),
-    Backlog = require('../components/backlog');
+    Backlog = require('../app/components/backlog');
 
 Helper.jsdom();
 

@@ -1,8 +1,8 @@
-var Dispatcher = require('../dispatcher'),
+var Dispatcher     = require('../dispatcher'),
     StoryConstants = require('../constants/story_constants'),
-    Firebase = require("firebase"),
-    RestfulStore = require('./restful_store'),
-    Config = require("../config");
+    Firebase       = require("firebase"),
+    RestfulStore   = require('./restful_store'),
+    Config         = require("../../config/environment");
 
 // Initialise our sorting number to something huge (we work our way towards zero over time)
 var highestPriority = 1e+15;

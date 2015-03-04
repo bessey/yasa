@@ -1,9 +1,9 @@
-var Dispatcher = require('../dispatcher'),
+var Dispatcher    = require('../dispatcher'),
     TaskConstants = require('../constants/task_constants'),
-    TaskActions = require('../actions/task_actions'),
-    RestfulStore = require('./restful_store'),
-    Firebase = require("firebase"),
-    Config = require("../config");
+    TaskActions   = require('../actions/task_actions'),
+    RestfulStore  = require('./restful_store'),
+    Firebase      = require("firebase"),
+    Config        = require("../../config/environment");
 
 var ref = new Firebase(`${Config.fbBaseRef}/taskboards/`);
 

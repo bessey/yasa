@@ -1,11 +1,11 @@
-var React = require('react'),
-  Router  = require('react-router'),
-  routes  = require('./routes'),
-  Html    = require('./components/html'),
-  StoryStore = require('./stores/story_store'),
-  LineStore = require('./stores/line_store'),
-  UserStore = require('./stores/user_store'),
-  TaskboardStore = require('./stores/taskboard_store');
+var React        = require('react'),
+  Router         = require('react-router'),
+  routes         = require('../routes'),
+  Html           = require('../components/html'),
+  StoryStore     = require('../stores/story_store'),
+  LineStore      = require('../stores/line_store'),
+  UserStore      = require('../stores/user_store'),
+  TaskboardStore = require('../stores/taskboard_store');
 
 let dependencies = {}
 
@@ -24,7 +24,7 @@ UserStore.getAll(users => {
 });
 UserStore.activateCache();
 
-module.exports = function (req, res, next) {
+module.exports = function (req, res) {
   Router.run(routes, req.url, function (Handler, state) {
 
     let dependencyClone = JSON.parse(JSON.stringify(dependencies))

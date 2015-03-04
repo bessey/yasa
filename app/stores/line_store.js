@@ -1,7 +1,7 @@
-var Dispatcher = require('../dispatcher'),
+var Dispatcher    = require('../dispatcher'),
     LineConstants = require('../constants/line_constants'),
-    Firebase = require("firebase"),
-    Config = require("../config");
+    Firebase      = require("firebase"),
+    Config        = require("../../config/environment");
 
 var firebase = new Firebase(`${Config.fbBaseRef}/line`);
 

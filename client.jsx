@@ -1,12 +1,11 @@
-require('es6-shim');
-var React = require('react'),
-  Router = require('react-router'),
-  Firebase = require('firebase'),
-  Routes = require('./routes'),
-  StoryStore = require('./stores/story_store'),
-  LineStore = require('./stores/line_store'),
-  UserStore = require('./stores/user_store'),
-  TaskboardStore = require('./stores/taskboard_store');
+var React        = require('react'),
+  Router         = require('react-router'),
+  Firebase       = require('firebase'),
+  Routes         = require('./app/routes'),
+  StoryStore     = require('./app/stores/story_store'),
+  LineStore      = require('./app/stores/line_store'),
+  UserStore      = require('./app/stores/user_store'),
+  TaskboardStore = require('./app/stores/taskboard_store');
 
 document.addEventListener("DOMContentLoaded", function(event) {
   Router.run(Routes, Router.HistoryLocation, function (Handler) {

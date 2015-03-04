@@ -1,7 +1,7 @@
 let bodyParser      = require('body-parser'),
     multer          = require('multer'),
     fs              = require('fs'),
-    BacklogImporter = require('./lib/backlog_importer'),
+    BacklogImporter = require('../lib/backlog_importer'),
     app             = require('express')();
 
 app.use(bodyParser.json());

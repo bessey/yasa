@@ -1,7 +1,7 @@
 class Config {
   static get environment() {
     // Replaced at compile time with the actual environment
-    return "@@YASA_ENVIRONMENT";
+    return "YASA_ENVIRONMENT";
   }
 
   static get fbBaseRef() {

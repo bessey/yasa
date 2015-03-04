@@ -1,0 +1,37 @@
+
+
+APP LAYOUT
+
+app/
+  actions/
+  components/
+  constants/
+  lib/
+  middleware/
+    api.js
+    server_renderer.js
+  modules/
+  stores/
+  dispatcher.js
+  routes.jsx
+config/
+  config.js     // all preprocess happens in here
+styles/
+spec/
+app.js
+client.jsx
+
+
+PIPELINE
+
+Gulp
+  - JSXify        /
+  - Babel         /
+  - Sass          /styles
+
+  // ENV Specific
+  - Copy          /               > /dist/ENV/
+  - Browserify    client.js       > /dist/ENV/public/js/application.js
+  - Copy          /styles/        > /dist/ENV/public/css/
+  - Nodemon                         /dist/ENV/app.js
+  - Mocha-Caspa                     /dist/ENV/spec/**/*_spec.js

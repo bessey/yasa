@@ -1,6 +1,6 @@
 let Helper  = require('./spec_helper.js'),
     React   = require('react/addons'),
-    Taskboard = require('../components/taskboard');
+    Taskboard = require('../app/components/taskboard');
 
 Helper.jsdom();
 
