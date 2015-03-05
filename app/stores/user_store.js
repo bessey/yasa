@@ -1,10 +1,9 @@
 var Dispatcher    = require('../dispatcher'),
     UserConstants = require('../constants/user_constants'),
     Firebase      = require("firebase"),
-    RestfulStore  = require('./restful_store'),
-    Config        = require("../../config/environment");
+    RestfulStore  = require('./restful_store');
 
-var ref = new Firebase(`${Config.fbBaseRef}/users`);
+var ref = new Firebase(`${global.config.fbBaseRef}/users`);
 var usersCache = {};
 
 class UserStore extends RestfulStore {

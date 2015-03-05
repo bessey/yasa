@@ -1,12 +1,11 @@
 var Dispatcher     = require('../dispatcher'),
     StoryConstants = require('../constants/story_constants'),
     Firebase       = require("firebase"),
-    RestfulStore   = require('./restful_store'),
-    Config         = require("../../config/environment");
+    RestfulStore   = require('./restful_store');
 
 // Initialise our sorting number to something huge (we work our way towards zero over time)
 var highestPriority = 1e+15;
-var ref = new Firebase(`${Config.fbBaseRef}/stories`)
+var ref = new Firebase(`${global.config.fbBaseRef}/stories`)
 
 class StoryStore extends RestfulStore {
   static get ref() {

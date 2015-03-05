@@ -2,10 +2,9 @@ var Dispatcher    = require('../dispatcher'),
     TaskConstants = require('../constants/task_constants'),
     TaskActions   = require('../actions/task_actions'),
     RestfulStore  = require('./restful_store'),
-    Firebase      = require("firebase"),
-    Config        = require("../../config/environment");
+    Firebase      = require("firebase");
 
-var ref = new Firebase(`${Config.fbBaseRef}/taskboards/`);
+var ref = new Firebase(`${global.config.fbBaseRef}/taskboards/`);
 
 class TaskboardStore extends RestfulStore {
   static get ref() {

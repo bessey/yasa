@@ -1,3 +1,5 @@
+require('./config/YASA_ENVIRONMENT');
+
 var React        = require('react'),
   Router         = require('react-router'),
   Firebase       = require('firebase'),
@@ -6,6 +8,8 @@ var React        = require('react'),
   LineStore      = require('./app/stores/line_store'),
   UserStore      = require('./app/stores/user_store'),
   TaskboardStore = require('./app/stores/taskboard_store');
+
+require('bootstrap');
 
 document.addEventListener("DOMContentLoaded", function(event) {
   Router.run(Routes, Router.HistoryLocation, function (Handler) {

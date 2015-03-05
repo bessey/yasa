@@ -1,12 +1,14 @@
-class Config {
+module.exports = class BaseEnvironment {
   static get environment() {
     // Replaced at compile time with the actual environment
-    return "YASA_ENVIRONMENT";
+    return "test";
   }
 
   static get fbBaseRef() {
-    return `https://fiery-torch-5025.firebaseio.com/${this.environment}`;
+    return `${this.fbDomain}/${this.environment}`;
+  }
+
+  static get fbDomain() {
+    return `https://fiery-torch-5025.firebaseio.com`;
   }
 }
-
-module.exports = Config;

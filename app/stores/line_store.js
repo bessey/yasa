@@ -1,9 +1,8 @@
 var Dispatcher    = require('../dispatcher'),
     LineConstants = require('../constants/line_constants'),
-    Firebase      = require("firebase"),
-    Config        = require("../../config/environment");
+    Firebase      = require("firebase");
 
-var firebase = new Firebase(`${Config.fbBaseRef}/line`);
+var firebase = new Firebase(`${global.config.fbBaseRef}/line`);
 
 var LineStore = {
   getLine: function (callback) {

@@ -1,18 +1,21 @@
-let debug      = require('debug')('app'),
-  path         = require('path'),
-  logger       = require('morgan'),
-  express      = require('express'),
-  serverRender = require('./app/middleware/renderer'),
-  api          = require('./app/middleware/api'),
-  authorizer   = require('./app/middleware/authorizer'),
-  app          = express();
+let express    = require('express'),
+  app          = express(),
+  env          = app.get('env');
+require("./config/" + env);
 
 require("harmonize")();
 require("es6-shim");
 
-app.use(logger(app.get('env') === 'production' ? 'combined' : 'dev'));
+let debug      = require('debug')('app'),
+  path         = require('path'),
+  logger       = require('morgan'),
+  serverRender = require('./app/middleware/renderer'),
+  api          = require('./app/middleware/api'),
+  authorizer   = require('./app/middleware/authorizer');
 
-if(app.get('env') == 'production') {
+app.use(logger(env === 'production' ? 'combined' : 'dev'));
+
+if(env == 'production') {
   app.use(authorizer);
 }
 app.use(express.static(__dirname + '/public'));
@@ -29,7 +32,7 @@ app.get('*', serverRender);
 app.set('port', process.env.PORT || 4200);
 
 let server = app.listen(app.get('port'), function () {
-  debug('Express ' + app.get('env') + ' server listening on port ' + this.address().port + ' in ' + app.settings.env + ' mode');
+  debug('Express ' + env + ' server listening on port ' + this.address().port);
 });
 
 module.exports = app;

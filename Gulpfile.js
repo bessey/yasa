@@ -12,15 +12,14 @@ var gulp       = require('gulp'),
     watchify   = require('watchify'),
     browserify = require('browserify'),
     nodemon    = require('gulp-nodemon'),
-    replace    = require('gulp-replace');
+    replace    = require('gulp-replace'),
+    mocha      = require('gulp-mocha');
 
 
 var config = {
      sassPath: './resources/sass',
      bowerDir: './bower_components' 
 }
-
-var bundler = watchify(browserify('./dist/client.js', watchify.args));
 
 gulp.task('bower', function() { 
   return bower()
@@ -41,25 +40,29 @@ gulp.task('styles', function () {
 
 gulp.task('server-js', function () {
   return gulp.src(['**/*.{js,jsx}', '!{node_modules,dist,bower_components}/**'])
-    .pipe(watch(['app/**/*.{js.jsx}', 'config/**/*.js', '*.js']))
-    .pipe(replace(/YASA_ENVIRONMENT/, 'development'))
+    .pipe(watch(['app/**/*.{js.jsx}', 'config/**/*.js', '*.js'], {ignoreInitial: false}))
     .pipe(react({}))
     .pipe(babel())
+    .pipe(replace(/YASA_ENVIRONMENT/, 'development'))
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('client-js', ['server-js'], function () {
+var bundler = watchify(browserify('./dist/client.js', watchify.args));
+bundler.on('update', bundle); // on any dep update, runs the bundler
+bundler.on('log', gutil.log); // output build logs to terminal
+
+function bundle () {
   return bundler.bundle()
     // log errors if they happen
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('application.js'))
-    // optional, remove if you dont want sourcemaps
-    .pipe(buffer())
-    .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-    .pipe(sourcemaps.write('./')) // writes .map file
-    //
-    .pipe(gulp.dest('./dist/public/js/'));
-});
+    // .pipe(buffer())
+    // .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
+    // .pipe(sourcemaps.write('./')) // writes .map file
+    .pipe(gulp.dest('./dist/public/js'));
+}
+
+gulp.task('client-js', bundle);
 
 gulp.task('serve', function () {
   return nodemon({
@@ -69,12 +72,22 @@ gulp.task('serve', function () {
   })
 })
 
-gulp.task('clean', function(cb) {
-    del(['dist/*'], cb)
+gulp.task('test', ['server-js'], function () {
+  return gulp.src('dist/spec/**/*_spec.js', {read: false})
+    // .pipe(watch('dist/spec/**/*_spec.js'))
+    .pipe(mocha({reporter: 'nyan'}));
 });
 
-gulp.task('default', ['bower', 'clean'], function() {
-    gulp.start('styles');
-    gulp.start('server-js');
-    gulp.start('client-js');
+gulp.task('clean', function(cb) {
+  del(['dist/*'], cb)
+});
+
+gulp.task('server', ['bower'], function() {
+  gulp.start('styles');
+  gulp.start('server-js');
+});
+
+gulp.task('client', function () {
+  gulp.start('client-js');
+  gulp.start('serve');
 });
