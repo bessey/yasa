@@ -4,6 +4,7 @@ let Helper  = require('./spec_helper.js'),
 
 Helper.jsdom();
 
+
 describe('Backlog', () => {
   it('renders without raising errors', () => {
     var TestWrapper = Helper.TestWrapper(Backlog, {stories: {}, line: {}, users: {}});

@@ -40,7 +40,7 @@ gulp.task('styles', function () {
 
 gulp.task('server-js', function () {
   return gulp.src(['**/*.{js,jsx}', '!{node_modules,dist,bower_components}/**'])
-    .pipe(watch(['app/**/*.{js.jsx}', 'config/**/*.js', '*.js'], {ignoreInitial: false}))
+    .pipe(watch(['app/**/*.{js.jsx}', 'config/**/*.js', 'spec/**/*.js', '*.js']))
     .pipe(react({}))
     .pipe(babel())
     .pipe(replace(/YASA_ENVIRONMENT/, 'development'))
@@ -56,9 +56,9 @@ function bundle () {
     // log errors if they happen
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('application.js'))
-    // .pipe(buffer())
-    // .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
-    // .pipe(sourcemaps.write('./')) // writes .map file
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
+    .pipe(sourcemaps.write('./')) // writes .map file
     .pipe(gulp.dest('./dist/public/js'));
 }
 
@@ -72,10 +72,13 @@ gulp.task('serve', function () {
   })
 })
 
-gulp.task('test', ['server-js'], function () {
+gulp.task('test', function () {
+  require('./dist/config/test');
   return gulp.src('dist/spec/**/*_spec.js', {read: false})
-    // .pipe(watch('dist/spec/**/*_spec.js'))
-    .pipe(mocha({reporter: 'nyan'}));
+    .pipe(mocha({reporter: 'nyan'}))
+    .once('end', function () {
+      process.exit();
+    });
 });
 
 gulp.task('clean', function(cb) {
