@@ -20,13 +20,13 @@ var App = React.createClass({
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav">
               <li>
-                <Link to="taskboard">Taskboard</Link>
+                <Link id="navbar-taskboard" to="taskboard">Taskboard</Link>
               </li>
               <li>
-                <Link to="backlog">Backlog</Link>
+                <Link id="navbar-backlog" to="backlog">Backlog</Link>
               </li>
               <li>
-                <Link to="users">Users</Link>
+                <Link id="navbar-users" to="users">Users</Link>
               </li>
             </ul>
           </div>

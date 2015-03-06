@@ -18,7 +18,7 @@ app.use(logger(env === 'production' ? 'combined' : 'dev'));
 if(env == 'production') {
   app.use(authorizer);
 }
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/dist' + '/public'));
 app.use('/api/v1', api);
 app.use(function (err, req, res, next) {
   console.error(err.stack);

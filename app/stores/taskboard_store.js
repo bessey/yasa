@@ -24,8 +24,12 @@ class TaskboardStore extends RestfulStore {
   }
   static getCurrentTaskboard(callback) {
     this.ref.orderByPriority().limitToLast(1).on('value', (data) => {
-      var id = Object.keys(data.val())[0]
-      var firstChild = data.val()[id];
+      let values = data.val()
+      if(!values) {
+        return callback({}, null);
+      }
+      let id = Object.keys(values)[0]
+      let firstChild = data.val()[id];
       callback(firstChild, id);
     });
   }

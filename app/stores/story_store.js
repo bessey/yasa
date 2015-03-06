@@ -14,7 +14,7 @@ class StoryStore extends RestfulStore {
 
   static getSorted(callback) {
     this.ref.orderByPriority().on('value', (data) => {
-      callback(data.val());
+      callback(data.val() || {});
     });
   }
   static recalculateHighestPriority() {

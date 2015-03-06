@@ -2,7 +2,14 @@ class RestfulStore {
   static get ref() { throw "RestfulStore.ref() must be overridden" };
   static getAll(callback) {
     return this.ref.on('value', function (data) {
-      callback(data.val());
+      try {
+        let val = data.val() || {}
+        callback(val);
+      } catch(err) {
+        let e = new Error(err)
+        console.warn(e);
+        console.warn(e.stack);
+      }
     });
   }
   static create(params, callback) {

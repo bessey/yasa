@@ -2,7 +2,6 @@ var gulp       = require('gulp'),
     del        = require('del'),
     sass       = require('gulp-sass'),
     bower      = require('gulp-bower'),
-    watch      = require('gulp-watch'),
     react      = require('gulp-react'),
     babel      = require('gulp-babel');
     gutil      = require('gulp-util'),
@@ -13,13 +12,19 @@ var gulp       = require('gulp'),
     browserify = require('browserify'),
     nodemon    = require('gulp-nodemon'),
     replace    = require('gulp-replace'),
-    mocha      = require('gulp-mocha');
+    mocha      = require('gulp-mocha'),
+    cache      = require('gulp-cached'),
+    plumber    = require('gulp-plumber'),
+    remember   = require('gulp-remember'),
+    sequence   = require('gulp-sequence');
 
 
 var config = {
      sassPath: './resources/sass',
      bowerDir: './bower_components' 
 }
+
+var sourceJsGlob = ['./app/**/*.{js,jsx}', './spec/**/*.{js,jsx}', 'app.js', 'client.jsx', './config/**/*.{js,jsx}'];
 
 gulp.task('bower', function() { 
   return bower()
@@ -28,7 +33,7 @@ gulp.task('bower', function() { 
 
 gulp.task('styles', function () {
   return gulp.src('styles/application.scss')
-    .pipe(watch('styles/**/*.scss'))
+    .on('error', gutil.log.bind(gutil, 'Sass Error'))
     .pipe(sass({
       includePaths: [
         config.bowerDir + '/bootstrap-sass-official/assets/stylesheets/',
@@ -39,8 +44,8 @@ gulp.task('styles', function () {
 });
 
 gulp.task('server-js', function () {
-  return gulp.src(['**/*.{js,jsx}', '!{node_modules,dist,bower_components}/**'])
-    .pipe(watch(['app/**/*.{js.jsx}', 'config/**/*.js', 'spec/**/*.js', '*.js']))
+  return gulp.src(sourceJsGlob, {cwdbase: true})
+    .pipe(plumber())
     .pipe(react({}))
     .pipe(babel())
     .pipe(replace(/YASA_ENVIRONMENT/, 'development'))
@@ -72,25 +77,31 @@ gulp.task('serve', function () {
   })
 })
 
-gulp.task('test', function () {
+gulp.task('test-once', function () {
   require('./dist/config/test');
   return gulp.src('dist/spec/**/*_spec.js', {read: false})
-    .pipe(mocha({reporter: 'nyan'}))
-    .once('end', function () {
-      process.exit();
-    });
+    .on('error', gutil.log.bind(gutil, 'Mocha Error'))
+    .pipe(mocha({reporter: 'nyan'}));
 });
 
 gulp.task('clean', function(cb) {
   del(['dist/*'], cb)
 });
 
-gulp.task('server', ['bower'], function() {
-  gulp.start('styles');
-  gulp.start('server-js');
-});
-
 gulp.task('client', function () {
   gulp.start('client-js');
   gulp.start('serve');
 });
+
+gulp.task('watch', function () {
+  gulp.watch(['styles/**/*.scss'], ['styles']);
+  gulp.watch(sourceJsGlob, ['server-js']);
+  gulp.start('client-js');
+});
+
+
+gulp.task('test', function () {
+  gulp.start('test-once');
+  gulp.watch(sourceJsGlob, ['test-once']);
+});
+gulp.task('default', sequence('server-js', 'styles', 'serve'));

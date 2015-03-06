@@ -2,33 +2,15 @@ var React        = require('react'),
   Router         = require('react-router'),
   routes         = require('../routes'),
   Html           = require('../components/html'),
-  StoryStore     = require('../stores/story_store'),
-  LineStore      = require('../stores/line_store'),
-  UserStore      = require('../stores/user_store'),
-  TaskboardStore = require('../stores/taskboard_store');
+  DataManager    = require('../lib/router_data_manager');
 
-let dependencies = {}
-
-LineStore.getLine(function (line) {
-  dependencies.line = line;
-});
-StoryStore.getSorted(function (stories) {
-  dependencies.stories = stories;
-});
-TaskboardStore.getCurrentTaskboard(function (taskboard, id) {
-  dependencies.taskboard = taskboard;
-  dependencies.taskboardId = id;
-});
-UserStore.getAll(users => {
-  dependencies.users = users;
-});
-UserStore.activateCache();
+let data = DataManager.handleData();
 
 module.exports = function (req, res) {
   Router.run(routes, req.url, function (Handler, state) {
 
-    let dependencyClone = JSON.parse(JSON.stringify(dependencies))
-    var markup = React.renderToString(<Handler {...dependencyClone} />);
+    let dependencyClone = JSON.parse(JSON.stringify(data))
+    var markup = React.renderToString(<Handler {... data} />);
     var html   = React.renderToStaticMarkup(<Html markup={markup} dependencies={dependencyClone} />);
 
     res.send('<!DOCTYPE html>' + html);
