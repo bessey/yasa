@@ -7,4 +7,3 @@ class Environment extends BaseEnvironment {
 }
 
 global["config"] = Environment;
-module.exports = Environment;

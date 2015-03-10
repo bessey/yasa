@@ -1,6 +1,5 @@
 var React = require('react'),
   StoryList = require('./backlog/story_list'),
-  StoryStore = require('../stores/story_store'),
   StoryActions = require('../actions/story_actions'),
   StoryConstants = require('../constants/story_constants'),
   Dispatcher = require('../dispatcher');

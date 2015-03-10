@@ -1,24 +1,24 @@
 var gulp       = require('gulp'),
-    del        = require('del'),
-    sass       = require('gulp-sass'),
+    babel      = require('gulp-babel'),
     bower      = require('gulp-bower'),
-    react      = require('gulp-react'),
-    babel      = require('gulp-babel');
-    gutil      = require('gulp-util'),
-    sourcemaps = require('gulp-sourcemaps'),
-    source     = require('vinyl-source-stream'),
-    buffer     = require('vinyl-buffer'),
-    watchify   = require('watchify'),
     browserify = require('browserify'),
-    nodemon    = require('gulp-nodemon'),
-    replace    = require('gulp-replace'),
-    mocha      = require('gulp-mocha'),
+    buffer     = require('vinyl-buffer'),
     cache      = require('gulp-cached'),
+    del        = require('del'),
+    gutil      = require('gulp-util'),
+    jest       = require('gulp-jest'),
+    nodemon    = require('gulp-nodemon'),
     plumber    = require('gulp-plumber'),
+    react      = require('gulp-react'),
     remember   = require('gulp-remember'),
-    sequence   = require('gulp-sequence');
+    replace    = require('gulp-replace'),
+    sass       = require('gulp-sass'),
+    sequence   = require('gulp-sequence')
+    source     = require('vinyl-source-stream'),
+    sourcemaps = require('gulp-sourcemaps'),
+    watchify   = require('watchify');
 
-
+require("harmonize")();
 var config = {
      sassPath: './resources/sass',
      bowerDir: './bower_components' 
@@ -77,11 +77,21 @@ gulp.task('serve', function () {
   })
 })
 
-gulp.task('test-once', function () {
+gulp.task('test', function () {
   require('./dist/config/test');
-  return gulp.src('dist/spec/**/*_spec.js', {read: false})
-    .on('error', gutil.log.bind(gutil, 'Mocha Error'))
-    .pipe(mocha({reporter: 'nyan'}));
+  return gulp.src('./dist/').pipe(jest({
+      setupEnvScriptFile: './config/test.js',
+      unmockedModulePathPatterns: [
+        "node_modules/react",
+        "node_modules/react_forms"
+      ],
+      testPathIgnorePatterns: [
+        "node_modules",
+        "bower_components",
+        "spec/support"
+      ],
+      moduleFileExtensions: ["js"]
+  }));
 });
 
 gulp.task('clean', function(cb) {
@@ -99,9 +109,4 @@ gulp.task('watch', function () {
   gulp.start('client-js');
 });
 
-
-gulp.task('test', function () {
-  gulp.start('test-once');
-  gulp.watch(sourceJsGlob, ['test-once']);
-});
 gulp.task('default', sequence('server-js', 'styles', 'serve'));
