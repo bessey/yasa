@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+var broccoli = require('broccoli');
+var Watcher = require('broccoli/lib/watcher');
+var middleware = require('broccoli/lib/middleware');
+var http = require('http');
+var connect = require('connect');
+
+var tree = broccoli.loadBrocfile();
+var builder = new broccoli.Builder(tree);
+
+function serve (builder, options) {
+  options = options || {}
+
+  console.log('Serving on http://' + options.host + ':' + options.port + '\n')
+
+  var watcher = options.watcher
+
+  var app = connect().use(middleware(watcher))
+
+  var server = http.createServer(app)
+
+  // We register these so the 'exit' handler removing temp dirs is called
+  function cleanupAndExit() {
+    builder.cleanup().catch(function(err) {
+      console.error('Cleanup error:')
+      console.error(err && err.stack ? err.stack : err)
+    }).finally(function() {
+      process.exit(1)
+    })
+  }
+
+  process.on('SIGINT', cleanupAndExit)
+  process.on('SIGTERM', cleanupAndExit)
+
+  watcher.on('change', function(results) {
+    console.log('Built - ' + Math.round(results.totalTime / 1e6) + ' ms @ ' + new Date().toString())
+  })
+
+  watcher.on('error', function(err) {
+    console.log('Built with error:')
+    // Should also show file and line/col if present; see cli.js
+    if (err.file) {
+      console.log('File: ' + err.file)
+    }
+    console.log(err.stack)
+    console.log('')
+  })
+
+  server.listen(parseInt(options.port, 10), options.host)
+}
+
+serve(builder, {
+  watcher: new Watcher(builder, {verbose: true}),
+  host: 'localhost',
+  port: '4200'
+});

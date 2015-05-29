@@ -1,0 +1,27 @@
+{
+  "name": "yasa2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "serve": "",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "alt": "^0.16.6",
+    "broccoli": "^0.16.3",
+    "broccoli-babel-transpiler": "^5.0.0",
+    "broccoli-fast-browserify": "^0.2.7",
+    "broccoli-jshint": "^0.5.6",
+    "broccoli-merge-trees": "^0.2.1",
+    "broccoli-react": "^0.7.1",
+    "connect": "^3.3.5",
+    "koa": "^0.21.0",
+    "koa-websocket": "^0.1.2",
+    "newforms": "^0.12.1",
+    "react": "^0.13.3",
+    "rethinkdb": "^2.0.0-1"
+  }
+}
