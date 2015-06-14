@@ -1,0 +1,19 @@
+.rf-Field {
+  @extend .form-group;
+}
+
+.rf-Form, form.form-inline {
+  display: inline-block;
+}
+input[type="text"], input[type="number"], input[type="email"], textarea, select {
+  @extend .form-control;
+}
+
+button {
+  @extend .btn;
+  @extend .btn-default;
+}
+
+textarea {
+  height: 6em;
+}

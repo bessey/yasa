@@ -1,0 +1,29 @@
+.hover-expander {
+  &.hover-container, .hover-container {
+    position: relative;
+  }
+  .contents {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    z-index: 40;
+  }
+}
+
+// FIXME this shouldn't be tied to not-dragging
+.not-dragging .hover-expander {
+  &:hover .contents {
+    cursor: default;
+    z-index: 50;
+    overflow: normal;
+    position: absolute;
+    white-space: normal;
+    background-color: $highlight-color;
+    padding: 5px 15px 10px 15px;
+    top: -6px;
+    left: -16px;
+    width: 100%;
+    box-sizing: content-box;
+    border-radius: 0 0 10px 10px;
+  }
+}

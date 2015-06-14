@@ -1,0 +1,229 @@
+$row-height: 10em;
+
+.taskboard {
+  .title {
+    @include make-xs-column(4);
+    @include make-md-column(3);
+  }
+  .open-spec-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-sm;
+  }
+  .edit-story-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-sm;
+  }
+  .story-buttons {
+    @extend .btn-group;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  .contents {
+    margin-top: 44px;
+  }
+}
+
+.task-list {
+  @extend .row;
+  margin-bottom: 1em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #ccc;
+  &.header {
+    padding: 5px 0;
+    font-size: 1.1em;
+    width: 100%;
+    position: fixed;
+    top: 51px;
+    background-color: white;
+    z-index: 500;
+    margin: 0 -20px 0 -20px;
+  }
+}
+.taskboard-story, .taskboard-story-title {
+  @include make-xs-column(2);
+}
+.taskboard-story {
+  @extend .row;
+  min-height: $row-height;
+  border: 1px solid;
+  padding-bottom: 40px;
+  .story {
+    @include make-xs-column(12);
+    padding-bottom: 10px;
+  }
+  .points {
+    @include make-xs-column(4);
+    font-weight: bold;
+  }
+  .epic {
+    @include make-xs-column(8);
+    font-weight: bold;
+  }
+}
+
+.taskboard-section-title, .taskboard-story-title {
+  font-weight: bold;
+}
+
+.taskboard-sections {
+  @include make-xs-column(10, 0);
+}
+
+.taskboard-section, .taskboard-section-title {
+  @include make-xs-column(4);
+}
+
+.task {
+  @include make-xs-column(6);
+  height: $row-height;
+  border: 2px solid;
+  position: relative;
+
+  &.editing {
+    z-index: 200;
+  }
+
+  .description, .create-placeholder{
+    min-height: 100px;
+    width: 100%;
+    cursor: pointer;
+  }
+  .create-placeholder {
+    font-size: 5.8em;
+    text-align: center;
+  }
+  textarea {
+    height: 90px;
+    resize: none;
+  }
+
+  .form-group{
+    margin-bottom: 3px;
+  }
+
+  .task-buttons {
+    display: none;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  .move-buttons {
+    @extend .btn-group;
+  }
+  .save-button {
+    @extend .btn;
+    @extend .btn-success;
+  }
+  .move-back {
+  }
+  .move-forward {
+    @extend .btn-primary;
+  }
+  .delete {
+    @extend .btn-danger;
+  }
+
+  &:hover {
+    .task-buttons {
+      display: block;
+    }
+  }
+
+  // Validation
+  .rf-Message {
+    position: absolute;
+    left: 95%;
+    top: 1px;
+    padding: 3px;
+    background-color: rgba(0, 0, 0, 0.61);;
+    color: white;
+    border-radius: 3px;
+    min-width: 80%;
+    text-align: center;
+    z-index: 400;
+
+  }
+}
+
+// USER LEGEND
+.user-legend {
+  @include make-xs-column(8);
+  @include make-md-column(9);
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  // border: 0px solid white;
+  // border-width: 3px 0 0 3px;
+  z-index: 500;
+}
+.legend-member {
+  @extend .pull-right;
+  @include make-xs-column(2);
+  @include make-md-column(1);
+  padding: 10px 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+@mixin dark-task($color) {
+  color: lighten($color, 90%);
+  border-color: lighten($color, 10%);
+  background-color: $color;
+}
+@mixin light-task($color) {
+  color: darken($color, 60%);
+  border-color: darken($color, 10%);
+  background-color: $color;
+}
+
+// TASKBOARD COLOURS
+.taskboard, .taskboard-colors {
+  .new-task {
+    @include light-task(#FFF);
+  }
+  .pink {
+    @include light-task(#FF66B5);
+  }
+  .orange {
+    @include light-task(#FFB066);
+  }
+  .yellow {
+    @include light-task(#FFFC66);
+  }
+  .aqua {
+    @include light-task(#66FFFC);
+  }
+  .purple {
+    @include dark-task(#B066FF);
+  }
+  .mint {
+    @include light-task(#29FF90);
+  }
+  .blue {
+    @include dark-task(#6685FF);
+  }
+  .black {
+    @include dark-task(#333);
+  }
+  .white {
+    @include light-task(#fff);
+  }
+}
+
+.taskboard-colors {
+  @extend .row;
+  padding-bottom: 10px;
+}
+.taskboard-sample {
+  @include make-xs-column(2);
+  @include make-md-column(1);
+  border: 2px solid;
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+}

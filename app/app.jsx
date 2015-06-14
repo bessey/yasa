@@ -6,7 +6,7 @@ let Body = require('./components/body');
 
 let routes = <Route handler={Body}>
   <DefaultRoute handler={Backlog}/>
-  <Route path="/backlog" handler={Backlog} />
+  <Route name="backlog" path="/backlog" handler={Backlog} />
 </Route>;
 
 ReactRouter.run(routes, HashLocation, (Root) => {
