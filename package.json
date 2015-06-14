@@ -22,13 +22,12 @@
     "broccoli-react": "^0.7.1",
     "broccoli-sass": "^0.6.6",
     "connect": "^3.3.5",
-    "koa": "^0.21.0",
-    "koa-websocket": "^0.1.2",
+    "express": "^4.12.4",
     "newforms": "^0.12.1",
     "node-sass": "^3.2.0",
     "react": "^0.13.3",
     "react-router": "^0.13.3",
-    "rethinkdb": "^2.0.0-1",
+    "rethinkdbdash": "^2.0.11",
     "tiny-lr": "^0.1.6"
   }
 }
