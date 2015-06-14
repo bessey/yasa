@@ -9,6 +9,7 @@
   },
   "author": "",
   "license": "ISC",
+  "jshintConfig": ".jshintrc",
   "devDependencies": {
     "alt": "^0.16.6",
     "broccoli": "^0.16.3",
@@ -23,6 +24,7 @@
     "koa-websocket": "^0.1.2",
     "newforms": "^0.12.1",
     "react": "^0.13.3",
+    "react-router": "^0.13.3",
     "rethinkdb": "^2.0.0-1",
     "tiny-lr": "^0.1.6"
   }

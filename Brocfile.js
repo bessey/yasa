@@ -8,19 +8,19 @@ var injectLivereload = require('broccoli-inject-livereload');
 var tree = "app";
 
 tree = filterReact(tree);
-var hintTree = jshintTree(tree, {
-  jshintrcRoot: '.'
-});
+var hintTree = jshintTree(tree);
+tree = mergeTrees([tree, hintTree]);
 tree = esTranspiler(tree);
 tree = fastBrowserify(tree, {
   bundles: {
-    'application.js': {
+    'js/application.js': {
       entryPoints: ['app.js']
     }
   }
 });
 
 var publicDir = "public";
-publicDir = injectLivereload(publicDir);
+// publicDir = injectLivereload(publicDir);
+tree = mergeTrees([tree, publicDir]);
 
-module.exports = mergeTrees([tree, hintTree, publicDir]);
+module.exports = tree;
