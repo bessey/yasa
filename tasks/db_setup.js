@@ -22,11 +22,17 @@ r.dbList().run().then(function (dbs) {
   var team = new Models.Team({
     createdAt: new Date()
   });
+  var user = new Models.User({
+    username: 'matt'
+  });
   var story = new Models.Story({
-    title: "As a developer, I have a seeded database"
+    title: "As a developer, I have a seeded database",
   });
   team.stories = [story];
-  team.saveAll();
+  team.users = [user];
+  return team.saveAll();
+}).then(function (result) {
+  console.log(result);
   return Models.Team.indexCreate('createdAt').run();
 }).catch(function (error) {
   console.warn(error);
