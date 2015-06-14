@@ -6,4 +6,4 @@ module.exports = class Backlog extends React.Component {
       <p>Test</p>
     </div>;
   }
-}
+};

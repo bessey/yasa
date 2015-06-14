@@ -1,0 +1,18 @@
+{
+  "name": "yasa2",
+  "version": "0.0.0",
+  "authors": [
+    "Matt Bessey <mbessey@caring.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap-sass": "~3.3.4"
+  }
+}
