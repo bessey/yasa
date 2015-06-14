@@ -20,11 +20,11 @@ function serve (app, builder, options) {
   app.use(middleware(watcher));
   app.listen(parseInt(options.port, 10), options.host);
 
-  var lrPort = 35729;
-
-  var lrServer = tinylr().listen(lrPort, function() {
-    console.log('LiveReload Listening on %s ...', lrPort);
-  });
+  // var lrPort = 35729;
+  //
+  // var lrServer = tinylr().listen(lrPort, function() {
+  //   console.log('LiveReload Listening on %s ...', lrPort);
+  // });
 
   // We register these so the 'exit' handler removing temp dirs is called
   function cleanupAndExit() {

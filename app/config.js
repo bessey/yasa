@@ -1,3 +1,4 @@
 module.exports = {
-  "apiUrl": "/api"
+  "apiUrl": "/api",
+  "socketUrl": "http://localhost:4200"
 };
