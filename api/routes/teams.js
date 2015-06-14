@@ -9,7 +9,7 @@ function respond404 (req, res, next) {
 }
 
 app.route('/api/teams/me').get(function (req, res, next) {
-  Team.orderBy({index: 'createdAt'}).limit(1).run().then(function (result) {
+  Team.orderBy({index: 'createdAt'}).limit(1).getJoin().then(function (result) {
     if(result[0] == null) {
       return respond404(req, res, next);
     }

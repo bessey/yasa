@@ -19,9 +19,14 @@ r.dbList().run().then(function (dbs) {
   console.log("Created new DB")
   Models = require('../api/models');
   console.log("Created all tables");
-  Models.Team.insert({
+  var team = new Models.Team({
     createdAt: new Date()
-  }).run();
+  });
+  var story = new Models.Story({
+    title: "As a developer, I have a seeded database"
+  });
+  team.stories = [story];
+  team.saveAll();
   return Models.Team.indexCreate('createdAt').run();
 }).catch(function (error) {
   console.warn(error);
