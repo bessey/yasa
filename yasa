@@ -5,9 +5,11 @@ var Watcher = require('broccoli/lib/watcher');
 var middleware = require('broccoli/lib/middleware');
 var http = require('http');
 var connect = require('connect');
+var tinylr = require('tiny-lr');
 
 var tree = broccoli.loadBrocfile();
 var builder = new broccoli.Builder(tree);
+var watcher = new Watcher(builder, {verbose: true});
 
 function serve (builder, options) {
   options = options || {}
@@ -15,16 +17,20 @@ function serve (builder, options) {
   console.log('Serving on http://' + options.host + ':' + options.port + '\n')
 
   var watcher = options.watcher
-
   var app = connect().use(middleware(watcher))
-
   var server = http.createServer(app)
+  var lrPort = 35729;
+
+  var lrServer = tinylr().listen(lrPort, function() {
+    console.log('LiveReload Listening on %s ...', lrPort);
+  })
 
   // We register these so the 'exit' handler removing temp dirs is called
   function cleanupAndExit() {
     builder.cleanup().catch(function(err) {
       console.error('Cleanup error:')
       console.error(err && err.stack ? err.stack : err)
+      lrServer.close();
     }).finally(function() {
       process.exit(1)
     })
@@ -51,7 +57,7 @@ function serve (builder, options) {
 }
 
 serve(builder, {
-  watcher: new Watcher(builder, {verbose: true}),
+  watcher: watcher,
   host: 'localhost',
   port: '4200'
 });

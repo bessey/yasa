@@ -3,6 +3,7 @@ var jshintTree = require('broccoli-jshint');
 var esTranspiler = require('broccoli-babel-transpiler');
 var fastBrowserify = require('broccoli-fast-browserify');
 var mergeTrees = require('broccoli-merge-trees');
+var injectLivereload = require('broccoli-inject-livereload');
 
 var tree = "app";
 
@@ -19,4 +20,7 @@ tree = fastBrowserify(tree, {
   }
 });
 
-module.exports = mergeTrees([tree, hintTree]);
+var publicDir = "public";
+publicDir = injectLivereload(publicDir);
+
+module.exports = mergeTrees([tree, hintTree, publicDir]);
