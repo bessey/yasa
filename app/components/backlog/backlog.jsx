@@ -1,7 +1,9 @@
 let React = require('react');
-let StoryStore = require('../stores/story_store');
 let connectToStores = require('alt/utils/connectToStores');
-let StoryActions = require('../actions/story_actions');
+let {RouteHandler, Link} = require('react-router');
+
+let StoryStore = require('../../stores/story_store');
+let StoryActions = require('../../actions/story_actions');
 
 class Backlog extends React.Component {
   static getStores(props) {
@@ -16,15 +18,10 @@ class Backlog extends React.Component {
   }
 
   render() {
-    var stories = this.props.stories.map((story) => {
-      return <div key={story.id}>
-        {story.title}
-      </div>;
-    });
     return <div className="backlog">
         <div className="row">
           <h2>Backlog</h2>
-          {stories}
+          <RouteHandler {...this.props} />
         </div>
       </div>;
   }
