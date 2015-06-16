@@ -25,6 +25,8 @@
     "broccoli-sass": "^0.6.6",
     "connect": "^3.3.5",
     "express": "^4.12.4",
+    "formsy-react": "^0.14.1",
+    "formsy-react-components": "^0.3.0",
     "newforms": "^0.12.1",
     "node-sass": "^3.2.0",
     "react": "^0.13.3",
