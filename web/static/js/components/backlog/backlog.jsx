@@ -1,9 +1,9 @@
 import React from 'react';
-let connectToStores = require('alt/utils/connectToStores');
-let {RouteHandler, Link} = require('react-router');
+import connectToStores from 'alt/utils/connectToStores';
+import {RouteHandler, Link} from 'react-router';
 
-let StoryStore = require('../../stores/story_store');
-let StoryActions = require('../../actions/story_actions');
+import StoryStore from '../../stores/story_store';
+import StoryActions from '../../actions/story_actions';
 
 class Backlog extends React.Component {
   static getStores(props) {

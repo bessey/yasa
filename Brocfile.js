@@ -4,7 +4,7 @@ const esTranspiler = require('broccoli-babel-transpiler');
 const mergeTrees = require('broccoli-merge-trees');
 const compileSass = require('broccoli-sass');
 const concat = require('broccoli-concat');
-const optimizeRequireJs = require('broccoli-requirejs');
+const fastBrowserify = require('broccoli-fast-browserify');
 
 const jsSourceDir = "web/static/js"
 const cssSourceDir = "web/static/css"
@@ -16,34 +16,21 @@ let tree = jsSourceDir;
 tree = esTranspiler(tree, {
   filterExtensions:['js', 'jsx'],
   moduleIds: true,
-  modules: 'amd'
+  modules: 'common'
 });
 // const hintTree = jshintTree(tree);
 // tree = mergeTrees([tree, hintTree], {overwrite: true});
 
-let libraryTree = 'bower_components';
-tree = mergeTrees([tree, libraryTree]);
-
-tree = optimizeRequireJs(tree, {
-  verbose: true,
-  requirejs: {
-    name: 'app',
-    out: './js/app.js',
-    bundles: {
-
-    }
-    paths: {
-      "react": 'react/react.min',
-      "react-router": 'react-router/build/umd/ReactRouter.min',
-      "formsy-react": 'formsy-react/release/formsy-react.min',
-      "alt": 'alt/dist/alt'
+tree = fastBrowserify(tree, {
+  bundles: {
+    'js/application.js': {
+      entryPoints: ['app.js']
     }
   }
 });
 
 let vendorTree = concat('bower_components', {
   inputFiles: [
-    'requirejs/require.js',
     'jquery/dist/jquery.min.js',
     'bootstrap-sass/assets/javascripts/bootstrap.min.js'
   ],

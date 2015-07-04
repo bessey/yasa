@@ -1,9 +1,9 @@
 import React from 'react';
 import {Link} from 'react-router';
 import {Form} from 'formsy-react';
-// import {Input, Textarea} from 'formsy-react-components';
-import exposeRouter from 'components/utils/expose_router';
-import StoryActions from 'actions/story_actions';
+import {Input, Textarea} from 'formsy-react-components';
+import exposeRouter from '../../components/utils/expose_router';
+import StoryActions from '../../actions/story_actions';
 
 class StoryEditor extends React.Component {
   constructor() {

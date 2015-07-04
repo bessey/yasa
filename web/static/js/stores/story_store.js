@@ -1,5 +1,5 @@
-import alt from  'yasa_alt';
-import StoryActions from 'actions/story_actions';
+import alt from  '../yasa_alt';
+import StoryActions from '../actions/story_actions';
 
 class StoryStore {
   constructor() {

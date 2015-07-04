@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactRouter from 'react-router';
 
-import Body from 'components/body';
+import Body from './components/body';
 
-import Backlog from 'components/backlog/backlog';
-import StoryEditor from 'components/backlog/story_editor';
-import StoryList from 'components/backlog/story_list';
+import Backlog from './components/backlog/backlog';
+import StoryEditor from './components/backlog/story_editor';
+import StoryList from './components/backlog/story_list';
 
-import TeamFetcher from 'utils/team_fetcher';
-import alt from 'yasa_alt';
+import TeamFetcher from './utils/team_fetcher';
+import alt from './yasa_alt';
 
 let {HashLocation, Route, RouteHandler, DefaultRoute} = ReactRouter;
 

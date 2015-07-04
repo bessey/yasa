@@ -14,11 +14,6 @@
   ],
   "devDependencies": {
     "bootstrap-sass": "~3.3.4",
-    "jquery": "~2.1.4",
-    "react": "~0.13.3",
-    "requirejs": "~2.1.18",
-    "react-router": "~0.13.3",
-    "formsy-react": "~0.14.1",
-    "alt": "~0.16.10"
+    "jquery": "~2.1.4"
   }
 }

@@ -1,7 +1,5 @@
 import config from '../config';
-// import io from 'socket.io-client';
-
-let io = null;
+import io from 'socket.io-client';
 
 export default class TeamFetcher {
   static fetch() {
