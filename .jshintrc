@@ -1,0 +1,7 @@
+{
+  "predef": [
+    "require",
+    "module"
+  ],
+  "proto": true
+}

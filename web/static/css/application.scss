@@ -1,0 +1,16 @@
+@import "bootstrap";
+@import "colors";
+@import "typography";
+@import "header";
+@import "backlog";
+@import "taskboard";
+@import "shared";
+@import "forms";
+
+body {
+  padding-top: 50px;
+}
+
+.main-app {
+  padding: 0 20px;
+}

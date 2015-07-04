@@ -1,0 +1,111 @@
+$row-padding: 5px;
+$line-height: 18px;
+// $row-height: 2 * $row-padding + $line-height; = 40px
+
+@mixin story-row() {
+  padding-top: $row-padding;
+  padding-bottom: $row-padding;
+  height: $line-height;
+  box-sizing: content-box;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.lazy-renderer {
+  overflow-y: none;
+}
+
+.backlog {
+  padding-top: 10px;
+  .the-line {
+    background-color: #F2D7AD;
+  }
+
+  .tech-with-points {
+    padding: 0px 20px;
+  }
+
+  .add-story {
+    @include make-xs-column(4);
+  }
+
+  .points-goal {
+    @include make-xs-column(5);
+    input {
+      display: inline-block;
+      width: 6em;
+      margin: 0 10px;
+    }
+  }
+
+
+  .create-taskboard {
+    @include make-xs-column(3);
+  }
+
+  .open-spec-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-xs;
+  }
+  .edit-story-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-xs;
+  }
+  .delete-story-button {
+    @extend .btn;
+    @extend .btn-default;
+    @extend .btn-xs;
+  }
+}
+
+.story-row {
+  @extend .row;
+  @include story-row();
+  &.header {
+    font-weight: bold;
+  }
+}
+
+.story-list {
+  .story-row-container:hover {
+    background-color: $highlight-color;
+  }
+  .points {
+    overflow-y: hidden;
+  }
+  .number {
+    @include make-xs-column(1);
+  }
+  .tech {
+    @include make-xs-column(1);
+  }
+  .manager {
+    @include make-xs-column(1);
+  }
+  .epic {
+    @include make-xs-column(1);
+  }
+  .points {
+    @include make-xs-column(1);
+  }
+  .story {
+    @include make-xs-column(5);
+  }
+  .actions {
+    @include make-xs-column(2);
+    margin-top: -2px;
+  }
+}
+
+.the-line {
+  @extend .row;
+  @include story-row();
+  overflow-y: hidden;
+}
+
+.lazy-renderer {
+  overflow-x: hidden;
+  min-height: 800px;
+}
