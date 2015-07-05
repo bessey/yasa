@@ -8,12 +8,18 @@ import StoryEditor from './components/backlog/story_editor';
 import StoryList from './components/backlog/story_list';
 
 import TeamFetcher from './utils/team_fetcher';
+import StoryFetcher from './utils/team_fetcher';
+
 import alt from './alt';
 
-let {HashLocation, Route, RouteHandler, DefaultRoute} = ReactRouter;
+let {HashLocation, Route, DefaultRoute} = ReactRouter;
+let {Socket} = Phoenix;
 
+let socket = new Socket("ws://localhost:4000/ws");
+socket.connect();
 
-TeamFetcher.subscribe();
+let teamFetcher = new TeamFetcher(socket).subscribe();
+// let storyFetcher = new StoryFetcher(socket).subscribe();
 
 let routes = <Route handler={Body}>
   <DefaultRoute handler={Backlog}/>

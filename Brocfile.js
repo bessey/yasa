@@ -36,6 +36,7 @@ let vendorTree = concat('bower_components', {
   ],
   outputFile: '/js/vendor.js'
 });
+
 tree = mergeTrees([tree, vendorTree]);
 
 // CSS

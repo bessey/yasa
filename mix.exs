@@ -17,7 +17,7 @@ defmodule YasaPhoenix.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {YasaPhoenix, []},
-     applications: [:phoenix, :phoenix_html, :cowboy, :logger]]
+     applications: [:phoenix, :phoenix_html, :cowboy, :logger, :hackney]]
   end
 
   # Specifies which paths to compile per environment
@@ -32,6 +32,7 @@ defmodule YasaPhoenix.Mixfile do
      {:phoenix_html, "~> 1.1"},
      {:rethinkdb, github: "hamiltop/rethinkdb-elixir"},
      {:phoenix_live_reload, "~> 0.4", only: :dev},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:hackney, "~> 1.1.0"}]
   end
 end

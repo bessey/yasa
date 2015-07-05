@@ -11,9 +11,9 @@ class StoryActions {
   fetchStories() {
     this.dispatch();
 
-    TeamFetcher.fetch().then((team) => {
-      this.actions.updateStories(team.stories);
-    });
+    // TeamFetcher.subscribe().then((team) => {
+    //   this.actions.updateStories(team.stories);
+    // });
   }
 }
 

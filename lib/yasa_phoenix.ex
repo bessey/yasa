@@ -11,7 +11,7 @@ defmodule YasaPhoenix do
       supervisor(YasaPhoenix.Endpoint, []),
       # Here you could define other workers and supervisors as children
       # worker(YasaPhoenix.Worker, [arg1, arg2, arg3]),
-      worker(YasaPhoenix.Repo, [])
+      worker(YasaPhoenix.Connection, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
