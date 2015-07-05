@@ -46,6 +46,6 @@ tree = mergeTrees([tree, styleTree]);
 
 // STATIC
 var publicDir = publicSourceDir;
-// tree = mergeTrees([tree, publicDir]);
+tree = mergeTrees([tree, publicDir]);
 
 module.exports = tree;

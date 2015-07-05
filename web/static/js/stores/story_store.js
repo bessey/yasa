@@ -1,4 +1,4 @@
-import alt from  '../yasa_alt';
+import alt from  '../alt';
 import StoryActions from '../actions/story_actions';
 
 class StoryStore {

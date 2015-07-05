@@ -1,4 +1,4 @@
-import alt from 'alt';
+import alt from '../alt';
 import TeamFetcher from '../utils/team_fetcher';
 
 class StoryActions {
