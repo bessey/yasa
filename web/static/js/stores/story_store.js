@@ -6,13 +6,8 @@ class StoryStore {
     this.stories = [];
     this.bindListeners({
       handleCreateStory:    StoryActions.CREATE_STORY,
-      handleUpdateStories:  StoryActions.UPDATE_STORIES,
-      handleFetchStories:   StoryActions.FETCH_STORIES
+      handleUpdateStories:  StoryActions.UPDATE_STORIES
     });
-  }
-
-  handleFetchStories() {
-    this.stories = [];
   }
 
   handleUpdateStories(stories) {

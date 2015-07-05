@@ -8,13 +8,6 @@ class StoryActions {
   createStory(story) {
     this.dispatch(story);
   }
-  fetchStories() {
-    this.dispatch();
-
-    // TeamFetcher.subscribe().then((team) => {
-    //   this.actions.updateStories(team.stories);
-    // });
-  }
 }
 
 export default alt.createActions(StoryActions);

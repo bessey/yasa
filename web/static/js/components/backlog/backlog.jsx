@@ -13,10 +13,6 @@ class Backlog extends React.Component {
     return StoryStore.getState();
   }
 
-  componentDidMount () {
-    StoryActions.fetchStories();
-  }
-
   render() {
     return <div className="backlog">
         <div className="row">

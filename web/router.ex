@@ -28,5 +28,6 @@ defmodule YasaPhoenix.Router do
 
   socket "/ws", YasaPhoenix do
     channel "teams:*", TeamChannel
+    channel "stories:*", StoryChannel
   end
 end
